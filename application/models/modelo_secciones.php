@@ -1,8 +1,8 @@
 <?php
 /*
-	Modelo Barrios
+	Modelo Secciones
 */
-class Modelo_barrios extends CI_Model {
+class Modelo_secciones extends CI_Model {
     function __construct() {
         // Call the Model constructor
         parent::__construct();
@@ -10,32 +10,32 @@ class Modelo_barrios extends CI_Model {
 		$this -> load -> database();
     }
 
-    function add_barrio ($nombre) {
-        // Funcion para añadir un barrio
+    function add_seccion ($nombre) {
+        // Funcion para añadir una seccion
       // Aqui hay que poner las variables que se le pasan y que es cada una
       // Recuerda, en el modelo, comprobar que los datos que te meten
       // en los parametros estan correctos, por seguridad
-        // $nombre --> Nombre del barrio que se va a añadir
-        $sql = "INSERT INTO barrios (nombre) VALUES ('" . $nombre . "')";
+        // $nombre --> Nombre de la seccion que se va a añadir
+        $sql = "INSERT INTO secciones (nombre) VALUES ('" . $nombre . "')";
         $resultado = $this -> db -> query($sql);
     }
 
-    function update_barrio ($idbarrios, $nombre) {
-        // Funcion para modificar un barrio
-        // $idbarrios --> Identificador del barrio que se va a actualizar
-        // $nombre    --> Nombre del barrio que se va a actualizar
-        $sql = "UPDATE barrios SET nombre='" . $nombre . "' WHERE idbarrios='" . $idbarrios."'";
+    function update_seccion ($idsecciones, $nombre) {
+        // Funcion para modificar la seccion
+        // $idsecciones --> Identificador de la seccion que se va a actualizar
+        // $nombre      --> Nombre de la seccion que se va a actualizar
+        $sql = "UPDATE secciones SET nombre='" . $nombre . "' WHERE idsecciones='" . $idsecciones."'";
         $resultado = $this -> db -> query($sql);
     }
 
-    function del_barrio ($idbarrios) {
-        // Funcion para eliminar un barrio
-        // $idbarrios  --> Identificador del barrio que se va a eliminar
+    function del_seccion ($idsecciones) {
+        // Funcion para eliminar una seccion
+        // $idsecciones  --> Identificador de la seccion que se va a eliminar
         // Primero borramos las actividades y por lo tanto, primero las imagenes y los documentos de las actividades       
         
         // Borramos las imagenes
 //OJO ???  // No la borramos del HD por si acaso
-        $sql = "SELECT idactividades FROM actividades WHERE idbarrio='" . $idbarrios."'";
+        $sql = "SELECT idactividades FROM actividades WHERE idseccion='" . $idsecciones."'";
         $resultado = $this -> db -> query($sql);
         foreach ($resutado->result() as $row) {
             $sql_borra_imagen = "DELETE FROM imagenes WHERE idactividad ='" . $row->idactividades."'";
@@ -44,8 +44,8 @@ class Modelo_barrios extends CI_Model {
         
         // Borramos los documentos
  //OJO ???  // No la borramos del HD por si acaso
-        $sql = "SELECT idactividades FROM actividades WHERE idbarrio='" . $idbarrios."'";
-        $resultado = $this -> db -> query($sql);
+        $sql = "SELECT idactividades FROM actividades WHERE idseccion='" . $idsecciones."'";
+        $resultado = $this->db->query($sql);
         foreach ($resutado->result() as $row) {
             $sql_borra_documento = "DELETE FROM documentos WHERE idactividad ='" . $row->idactividades."'";
             $resultado_borrado = $this -> db -> query($sql_borra_documento);
@@ -53,11 +53,11 @@ class Modelo_barrios extends CI_Model {
         
 
         // Ahora borramos las actividades
-        $sql = "DELETE FROM actividades WHERE idbarrio='" . $idbarrios."'";
+        $sql = "DELETE FROM actividades WHERE idseccion='" . $idsecciones."'";
         $resultado = $this -> db -> query($sql);
 
-        // Y por ultimo el barrio
-        $sql = "DELETE FROM barrios WHERE idbarrios='" . $idbarrios."'";
+        // Y por ultimo la seccion
+        $sql = "DELETE FROM secciones WHERE idsecciones='" . $idsecciones."'";
         $resultado = $this -> db -> query($sql);
     }
   }
