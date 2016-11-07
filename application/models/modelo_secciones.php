@@ -44,6 +44,7 @@ class Modelo_secciones extends CI_Model {
         
         // Borramos los documentos
  //OJO ???  // No la borramos del HD por si acaso
+	    // Lo que he dicho siempre, de esto se encarga el controlador
         $sql = "SELECT idactividades FROM actividades WHERE idseccion='" . $idsecciones."'";
         $resultado = $this->db->query($sql);
         foreach ($resutado->result() as $row) {
