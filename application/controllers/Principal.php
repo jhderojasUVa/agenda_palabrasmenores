@@ -74,6 +74,9 @@ class Principal extends CI_Controller {
                         "idacl" => "1"
 
 		);
+
+		$datos = array();
+
 		/* Se lo inyectamos a los modelos */
 		// Recuerda pasar las variables necesarias en cada caso ;)
 		// Tambien recuerda para cada prueba, comentar los controladores que no vayas a usar
@@ -82,7 +85,7 @@ class Principal extends CI_Controller {
 		$this -> modelo_usuarios -> add_usuario($usuarios['login'], $usuarios['password'], $usuarios['nombre'], $usuarios['idacl']);
 		$this -> modelo_usuarios -> del_usuario($usuarios['login']);
 
-                $this -> modelo_secciones -> add_seccion($seccion['seccion']);
+    $this -> modelo_secciones -> add_seccion($seccion['seccion']);
 		$this -> modelo_secciones -> del_seccion();
 
 		$this -> modelo_barrios -> add_barrio($barrio['barrio']);
