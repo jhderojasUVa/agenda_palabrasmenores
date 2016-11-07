@@ -91,6 +91,14 @@ class Principal extends CI_Controller {
 
 		$this -> modelo_actividades -> add_actividad($actividad['campanya'], $actividad['actividad'], $actividad['descripcion'], $actividad['organiza'], $actividad['lugar'], $actividad['idbarrio'], $actividad['idseccion'], $actividad['fecha'], $actividad['usuario']);
 		$this -> modelo_actividades -> del_actividad();
+
+		// Como logear los errores
+		// Para hacer log de los errores o de lo que quieras hay dos formas o via
+		// echo ("Lo que sea escribo y le paso las variables var1=".$var1." var2=".$var2);
+		// O usamos el logeado de codeigniter
+		// log_message("error","texto del error var1=".$var1." var2=".$var2);
+		// Esto dejara rastro en los logs que estan en la carpeta /logs no mostrandose en pantalla
+
 		/* Llamamos a una vista llamada principal */
 		$this->load->view('principal', $datos);
 	}
