@@ -56,11 +56,13 @@ class Modelo_actividades extends CI_Model {
         // $idactividades --> Identificador de la actividad que se va a eliminar
         // Primero borramos las imagenes
 //OJO?? // ATENCION: NO LAS BORRAMOS DEL HD
+	    // Se borra desde el controlador, aqui se viene "borrado"
         $sql="DELETE FROM imagenes WHERE idactividad='".$idactividades."'";
         $resultado = $this -> db -> query($sql);
         
         // Luego borramos los documentos
 //OJO?? // ATENCION: NO LOS BORRAMOS DEL HD
+	    // Se borra desde el controlador
         $sql="DELETE FROM documentos WHERE idactividad='".$idactividades."'";
         $resultado = $this -> db -> query($sql);
         
