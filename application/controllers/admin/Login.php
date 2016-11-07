@@ -23,16 +23,40 @@ class Login extends CI_Controller {
    public function index() {
      // Controlador de entrada
 
+	   $registrado = 0;
+	   $fallo = 0;
+	   $pa_la_vista = array();
      // Comprobamos si ha recibido algo por POST o si tiene algo en la session de usuario
+	   $usuario = $this -> POST["usuario"];
+	   $password = $this -> POST["password"];
+	   
+	   if ($this -> session -> idusuario) {
+		   // Comprobarlo con la sesion
+	   	$registrado = 1;
+		$usuario = $this -> session -> nombre;
+	   } elseif ($usuario !="" && $password !="") {
+		   // Comprobamos los datos del post contra el modelo de usuarios
+		   // Este modelo ha de llamar a la libreria de las sesiones y almacenar el nombre del usuario
+		   // y de paso devolver 1 si esta ok y 0 si no
+	   	$registrado = $this -> model -> modelo_usuario -> checkusuario($contrasenya, $pasword);
+		   $fallo = 1;
+	   } 
+	   
+	   if ($fallo !=0) {
+	   	// el tio ha puesto mal algo
+		   $pa_la_vista({
+		   	"error" => "Usuario o contraseña mal"
+		   });
+	   }
 
-     // Comprobamos los datos del post contra el modelo de usuarios
+     
 
      // Si es correcto
-
+	// fallo = 0 & registrado = 1
      // Si no es correcto
-
+	// fallo = 1
       // Recordar recoger los errores y se los enviamos a la vista tambien
-     $this -> load -> view ("admin/index");
+     $this -> load -> view ("admin/index", $pa_la_vista);
    }
 
    public function ver_mis_datos() {
