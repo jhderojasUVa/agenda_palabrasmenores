@@ -15,6 +15,8 @@ class Principal extends CI_Controller {
 		 $this -> load -> model("modelo_barrios");
 		 $this -> load -> model("modelo_imagenes");
 		 $this -> load -> model("modelo_documentos");
+                 $this -> load -> model("modelo_usuarios");
+                 $this -> load -> model("modelo_secciones");
 	 }
 
 	public function index()
@@ -27,6 +29,7 @@ class Principal extends CI_Controller {
 			"organiza" => "Un centro civico cualquiera",
 			"lugar" => "Teatro Calderon, Valladolid",
 			"idbarrio" => "1",
+                        "idseccion" => "1",
 			"fecha" => "2017-12-11",
 			"usuario" => "ignacio"
 		);
@@ -35,7 +38,7 @@ class Principal extends CI_Controller {
 		);
 		$documentos = array(
 			"idactividad" => "1",
-			"documento" => "/docs/fichero.pdf",
+			"rutadocumento" => "/docs/fichero.pdf",
 			"descripcion" => "Un fichero dummy, que esto nos va a traer mucha tela divertida"
 		);
 		$imagen = array(
@@ -43,29 +46,37 @@ class Principal extends CI_Controller {
 			"rutaimagen" => "/img/imagen.gif",
 			"descripcion" => "Otro fichero dummy, en este caso una imagen"
 		);
+                $seccion = array(
+			"seccion" => "cultura"
+		);
 		$usuarios = array(
 			"login" => "ignacio",
 			"password" => "oicangi",
-			"nombre" => "El señor ignacio"
+			"nombre" => "El señor ignacio",
+                        "idacl" => "1"
+                    
 		);
 		/* Se lo inyectamos a los modelos */
 		// Recuerda pasar las variables necesarias en cada caso ;)
 		// Tambien recuerda para cada prueba, comentar los controladores que no vayas a usar
 		// Como ves no te he puesto las de modificar, ya que son practicamente como un INSERT
 
-		$this -> modelo_usuarios -> add_usuario();
-		$this -> modelo_usuario -> del_usuario();
+		$this -> modelo_usuarios -> add_usuario($usuarios['login'], $usuarios['password'], $usuarios['nombre'], $usuarios['idacl']);
+		$this -> modelo_usuarios -> del_usuario($usuarios['login']);
+                
+                $this -> modelo_secciones -> add_seccion($seccion['seccion']);
+		$this -> modelo_secciones -> del_seccion();
 
-		$this -> modelo_barrios -> add_barrio();
+		$this -> modelo_barrios -> add_barrio($barrio['barrio']);
 		$this -> modelo_barrios -> del_barrio();
 
-		$this -> modelo_imagenes -> add_imagen();
+		$this -> modelo_imagenes -> add_imagen($imagen['idactividad'], $imagen['rutaimagen'],$imagen['descripcion']);
 		$this -> modelo_imagenes -> del_imagen();
 
-		$this -> modelo_documentos -> add_documento();
+		$this -> modelo_documentos -> add_documento($documentos['idactividad'], $documentos['rutadocumento'], $documentos['descripcion']);
 		$this -> modelo_documentos -> del_documento();
 
-		$this -> modelo_actividades -> add_actividad();
+		$this -> modelo_actividades -> add_actividad($actividad['campanya'], $actividad['actividad'], $actividad['descripcion'], $actividad['organiza'], $actividad['lugar'], $actividad['idbarrio'], $actividad['idseccion'], $actividad['fecha'], $actividad['usuario']);
 		$this -> modelo_actividades -> del_actividad();
 		/* Llamamos a una vista llamada principal */
 		$this->load->view('principal', $datos);
