@@ -15,12 +15,25 @@ class Principal extends CI_Controller {
 		 $this -> load -> model("modelo_barrios");
 		 $this -> load -> model("modelo_imagenes");
 		 $this -> load -> model("modelo_documentos");
-                 $this -> load -> model("modelo_usuarios");
-                 $this -> load -> model("modelo_secciones");
+     $this -> load -> model("modelo_usuarios");
+     $this -> load -> model("modelo_secciones");
+
+		 // Cargamos las librerias
+		 $this -> load -> library("session");
+		 $this -> load -> library("libreria_fechas");
+		 $this -> load -> library("libreria_sesiones");
 	 }
 
-	public function index()
-	{
+	public function index() {
+		// Metemos aqui los modelos en lo que miro porque esta esto malditos
+		// Cargamos los modelos
+		$this -> load -> model("modelo_actividades");
+		$this -> load -> model("modelo_barrios");
+		$this -> load -> model("modelo_imagenes");
+		$this -> load -> model("modelo_documentos");
+		$this -> load -> model("modelo_usuarios");
+		$this -> load -> model("modelo_secciones");
+
 		/* Cargamos en unos array los datos falsos */
 		$actividad = array(
 			"campanya" => "Seminci 2016",
@@ -54,7 +67,7 @@ class Principal extends CI_Controller {
 			"password" => "oicangi",
 			"nombre" => "El señor ignacio",
                         "idacl" => "1"
-                    
+
 		);
 		/* Se lo inyectamos a los modelos */
 		// Recuerda pasar las variables necesarias en cada caso ;)
@@ -63,7 +76,7 @@ class Principal extends CI_Controller {
 
 		$this -> modelo_usuarios -> add_usuario($usuarios['login'], $usuarios['password'], $usuarios['nombre'], $usuarios['idacl']);
 		$this -> modelo_usuarios -> del_usuario($usuarios['login']);
-                
+
                 $this -> modelo_secciones -> add_seccion($seccion['seccion']);
 		$this -> modelo_secciones -> del_seccion();
 

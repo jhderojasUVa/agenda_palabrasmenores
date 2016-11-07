@@ -1,5 +1,7 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
+  <title>Entrada al gestor</title>
 </head>
 <body>
 <?
