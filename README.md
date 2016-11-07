@@ -27,20 +27,20 @@ Es decir se pretende realizar una gradeful upgrade comenzando desde una gestion 
 2.1 Hitos
 =========
 
-Hito 1: Defininir el sistema tanto XXXXX como informaticamente
-Hito 2: Creacion de la base de datos
-Hito 3: Creacion de los modelos
-Hito 4: Creacion de los controladores de gestion de usuario
-Hito 5: Creacion de las vistas de gestion de usuairo
-Hito 6: Creacion de los controladores de introduccion de datos
-Hito 7: Creacion de las vistas de introduccionde datos
-Hito 8: Creacion de los controladores de explotacion de datos
-Hito 9: Creacion de las vistas de explotacion de datos
-Hito 10: Baterias de pruebas con usuarios reales
-Hito 11: Paso de modelos a REST
-Hito 12: En las vistas paso a comprobaciones JS
-Hito 13: Paso a framework JS
-Hito 14: Test finales
+Hito 1: Defininir el sistema tanto XXXXX como informaticamente<br/>
+Hito 2: Creacion de la base de datos<br/>
+Hito 3: Creacion de los modelos<br/>
+Hito 4: Creacion de los controladores de gestion de usuario<br/>
+Hito 5: Creacion de las vistas de gestion de usuairo<br/>
+Hito 6: Creacion de los controladores de introduccion de datos<br/>
+Hito 7: Creacion de las vistas de introduccionde datos<br/>
+Hito 8: Creacion de los controladores de explotacion de datos<br/>
+Hito 9: Creacion de las vistas de explotacion de datos<br/>
+Hito 10: Baterias de pruebas con usuarios reales<br/>
+Hito 11: Paso de modelos a REST<br/>
+Hito 12: En las vistas paso a comprobaciones JS<br/>
+Hito 13: Paso a framework JS<br/>
+Hito 14: Test finales<br/>
 
 La creacion de los hitos 4 y 5, 6 y 7, 8 y 9 van juntas.
 
