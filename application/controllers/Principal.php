@@ -11,12 +11,15 @@ class Principal extends CI_Controller {
 		 parent::__construct();
 
 		 // Cargamos los modelos
+		 /* Comentamos porque esta en el autoload
+
 		 $this -> load -> model("modelo_actividades");
 		 $this -> load -> model("modelo_barrios");
 		 $this -> load -> model("modelo_imagenes");
 		 $this -> load -> model("modelo_documentos");
      $this -> load -> model("modelo_usuarios");
      $this -> load -> model("modelo_secciones");
+		 */
 
 		 // Cargamos las librerias
 		 $this -> load -> library("session");
@@ -27,12 +30,14 @@ class Principal extends CI_Controller {
 	public function index() {
 		// Metemos aqui los modelos en lo que miro porque esta esto malditos
 		// Cargamos los modelos
+		/* Comentamos porque estan en el autoload
 		$this -> load -> model("modelo_actividades");
 		$this -> load -> model("modelo_barrios");
 		$this -> load -> model("modelo_imagenes");
 		$this -> load -> model("modelo_documentos");
 		$this -> load -> model("modelo_usuarios");
 		$this -> load -> model("modelo_secciones");
+		*/
 
 		/* Cargamos en unos array los datos falsos */
 		$actividad = array(
