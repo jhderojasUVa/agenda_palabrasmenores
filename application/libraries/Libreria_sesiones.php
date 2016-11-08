@@ -48,8 +48,8 @@ class Libreria_sesiones {
           // devuelve true si ha ido todo bien o false sino
 
           if ($this ->session -> registrado == TRUE) {
-            $this -> session -> registrado = FALSE;
-            $this -> session -> idusuario = NULL;
+            $this -> session -> unset_userdata("registrado");
+            $this -> session -> unset_userdata("idusuario");
             return true;
           } else {
             // Woops algo ha ido mal
