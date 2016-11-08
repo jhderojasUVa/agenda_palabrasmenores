@@ -11,17 +11,6 @@ class Libreria_sesiones {
                 $this->CI =& get_instance();
         }
 
-        public function foo()
-        {
-                $this->CI->load->helper('url');
-                redirect();
-        }
-
-        public function bar()
-        {
-                echo $this->CI->config->item('base_url');
-        }
-
         public function comprobar_session() {
           // Funcion que comprueba si esta registrado o no
           // devuevle 0 si no y 1 si esta, vamos true o false
@@ -32,13 +21,17 @@ class Libreria_sesiones {
           }
         }
 
-        public function registrar($estado) {
+        public function registrar($estado, $idusuario) {
           // Funcion que mete si esta registrado o no en las sesiones
           // si le meten true o false y devuelve true si todo ok o false si no
+
+          // $estado = true o false segun le registremos o se registre
+          // $idusuario = si lo registramos hay que meter el login, obviamente
 
           if ($estado == TRUE) {
             // Le registramos
             $this -> session -> registrado = TRUE;
+            $this -> session -> idusuario = $idusuario;
             return true;
           } elseif ($estado == FALSE) {
             // No esta registrado
@@ -56,6 +49,7 @@ class Libreria_sesiones {
 
           if ($this ->session -> registrado == TRUE) {
             $this -> session -> registrado = FALSE;
+            $this -> session -> idusuario = NULL;
             return true;
           } else {
             // Woops algo ha ido mal
@@ -66,17 +60,23 @@ class Libreria_sesiones {
         public function devuelve_datos_session() {
           // Funcion que devuelve un array de los datos de la sesion
           $cositas = array(
+            "idsesion" => $this -> session -> login,
             "registrado" => $this -> session -> registrado,
             "login" => $this -> session -> login,
             "nombre" => $this -> session -> nombre
-            // nunca metemos el password
+            // nunca metemos el password luego ¿para que devolverlo?
           )
 
           return $cositas;
         }
 
-        public funcion mete_datos_sesion($registrado, $login, $nombre) {
+        public funcion mete_datos_sesion($idsesion, $registrado, $login, $nombre) {
           // Funcion que mete los datos en la session
+          // $idsesion = el identificador que es el login
+          // $registrado = TRUE o FALSE, autoexplicativo
+          // $login = Pues el login del usuario
+          // $nombre = el nombre real del pollopera
+          $this -> session -> idlogin = $login;
           $this -> session -> registrado = $registrado;
           $this -> session -> login = $login;
           $this -> session -> nombre = $nombre;
