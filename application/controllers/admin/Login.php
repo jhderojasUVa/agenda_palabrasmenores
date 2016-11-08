@@ -14,10 +14,12 @@ class Login extends CI_Controller {
 		 parent::__construct();
 
 		 // Cargamos los modelos
+		 /* No hace falta puesto que lo hemos puesto en el autoload
 		 $this -> load -> model("modelo_actividades");
 		 $this -> load -> model("modelo_barrios");
 		 $this -> load -> model("modelo_imagenes");
 		 $this -> load -> model("modelo_documentos");
+		 */
 	 }
 
    public function index() {
@@ -29,7 +31,7 @@ class Login extends CI_Controller {
      // Comprobamos si ha recibido algo por POST o si tiene algo en la session de usuario
 	   $usuario = $this -> POST["usuario"];
 	   $password = $this -> POST["password"];
-	   
+
 	   if ($this -> session -> idusuario) {
 		   // Comprobarlo con la sesion
 	   	$registrado = 1;
@@ -40,8 +42,8 @@ class Login extends CI_Controller {
 		   // y de paso devolver 1 si esta ok y 0 si no
 	   	$registrado = $this -> model -> modelo_usuario -> checkusuario($contrasenya, $pasword);
 		   $fallo = 1;
-	   } 
-	   
+	   }
+
 	   if ($fallo !=0) {
 	   	// el tio ha puesto mal algo
 		   $pa_la_vista({
@@ -49,10 +51,14 @@ class Login extends CI_Controller {
 		   });
 	   }
 
-     
+
 
      // Si es correcto
 	// fallo = 0 & registrado = 1
+		if ($registrado==1 && $fallo ==0) {
+			// En principio no deberiamos hacer nada, salvo redirigirle al sitio correcto
+			// $this -> load -> view("admin/principal");
+		}
      // Si no es correcto
 	// fallo = 1
       // Recordar recoger los errores y se los enviamos a la vista tambien
