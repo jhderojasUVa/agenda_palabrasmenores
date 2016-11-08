@@ -1,3 +1,5 @@
+<?
+
 class Libreria_fechas {
 
         protected $CI;
