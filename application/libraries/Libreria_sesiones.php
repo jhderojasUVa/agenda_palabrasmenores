@@ -63,23 +63,28 @@ class Libreria_sesiones {
             "idsesion" => $this -> session -> login,
             "registrado" => $this -> session -> registrado,
             "login" => $this -> session -> login,
-            "nombre" => $this -> session -> nombre
+            "nombre" => $this -> session -> nombre,
+            "acl" => $this -> session -> acl;
             // nunca metemos el password luego ¿para que devolverlo?
           )
 
           return $cositas;
         }
 
-        public funcion mete_datos_sesion($idsesion, $registrado, $login, $nombre) {
+        public funcion mete_datos_sesion($idsesion, $registrado, $login, $nombre, $acl) {
           // Funcion que mete los datos en la session
           // $idsesion = el identificador que es el login
           // $registrado = TRUE o FALSE, autoexplicativo
           // $login = Pues el login del usuario
           // $nombre = el nombre real del pollopera
+
+          // La idea de esta funcion es que tras comprobar y registrarlo
+          // la llamamos y metemos los datos del usuario completos
           $this -> session -> idlogin = $login;
           $this -> session -> registrado = $registrado;
           $this -> session -> login = $login;
           $this -> session -> nombre = $nombre;
+          $this -> session -> acl = $acl;
 
           return true;
         }
