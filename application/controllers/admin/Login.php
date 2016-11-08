@@ -32,6 +32,9 @@ class Login extends CI_Controller {
 	   $usuario = $this -> POST["usuario"];
 	   $password = $this -> POST["password"];
 
+		 // Para saber mas sobre como se usan las sessiones
+		 // http://www.codeigniter.com/user_guide/libraries/sessions.html
+
 	   if ($this -> session -> idusuario) {
 		   // Comprobarlo con la sesion
 	   	$registrado = 1;
