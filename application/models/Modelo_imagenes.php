@@ -19,18 +19,18 @@ class Modelo_imagenes extends CI_Model {
         // $rutaimagen  --> Ruta donde esta la imagen
         // $descripcion --> Descripcion de la imagen
 
-	// la imagen no se añade aqui, sino que lo hace el controlador
-	// Para mas informacion https://www.codeigniter.com/userguide3/libraries/file_uploading.html
-        
+      	// la imagen no se añade aqui, sino que lo hace el controlador
+      	// Para mas informacion https://www.codeigniter.com/userguide3/libraries/file_uploading.html
+
         $sql = "INSERT INTO imagenes (idactividad, rutaimagen, descripcion) VALUES ('" . $idactividad . "', '" . $rutaimagen . "', '" . $descripcion . "')";
         $resultado = $this -> db -> query($sql);
         // Recuperamos el ID de la imagen
         $sql="SELECT idimagenes FROM imagenes WHERE idactividad='".$idactividad."' AND rutaimagen='".$rutaimagen."'";
-	$resultado = $this -> db -> query($sql);
-	foreach ($resultado->result() as $row) {
-            $idimagenes = $row -> idimagenes;         
-	}       
-	return $idimagenes;
+      	$resultado = $this -> db -> query($sql);
+      	foreach ($resultado->result() as $row) {
+                  $idimagenes = $row -> idimagenes;
+      	}
+      	return $idimagenes;
     }
 
     public function update_imagen ($idimagenes, $idactividad, $rutaimagen, $descripcion) {
@@ -39,10 +39,10 @@ class Modelo_imagenes extends CI_Model {
         // $idactividad --> ID de la actividad a la que pertenece la imagen
         // $rutaimagen  --> Ruta donde esta la imagen
         // $descripcion --> Descripcion de la imagen
-         
-	// la imagen no se actualiza aqui, sino que lo hace el controlador
-	// Para mas informacion https://www.codeigniter.com/userguide3/libraries/file_uploading.html
-        
+
+    	// la imagen no se actualiza aqui, sino que lo hace el controlador
+    	// Para mas informacion https://www.codeigniter.com/userguide3/libraries/file_uploading.html
+
         $sql = "UPDATE imagenes SET idactividad='" . $idactividad . "', rutaimagen='". $rutaimagen."', descripcion='". $descripcion."' WHERE idimagenes='" . $idimagenes."'";
         $resultado = $this -> db -> query($sql);
     }
@@ -51,9 +51,9 @@ class Modelo_imagenes extends CI_Model {
         // Funcion para eliminar imagen de una actividad
         // $idimagenes  --> Identificador de la imagen que se va a eliminar
 
-	// la imagen aqui, sino que lo hace el controlador, aqui se viene con la imagen borrada ;)
-	// Para mas informacion https://www.codeigniter.com/userguide3/libraries/file_uploading.html
-        
+      	// la imagen aqui, sino que lo hace el controlador, aqui se viene con la imagen borrada ;)
+      	// Para mas informacion https://www.codeigniter.com/userguide3/libraries/file_uploading.html
+
         $sql = "DELETE FROM imagenes WHERE idimagenes='" . $idimagenes . "'";
         $resultado = $this -> db -> query($sql);
     }

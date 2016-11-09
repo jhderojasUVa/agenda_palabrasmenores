@@ -16,16 +16,16 @@ class Modelo_secciones extends CI_Model {
         // Recuerda, en el modelo, comprobar que los datos que te meten
         // en los parametros estan correctos, por seguridad
         // $nombre --> Nombre de la seccion que se va a añadir
-        
+
         $sql = "INSERT INTO secciones (nombre) VALUES ('" . $nombre . "')";
         $resultado_add = $this -> db -> query($sql);
         // Recuperamos el ID de la seccion
         $sql="SELECT idsecciones FROM secciones WHERE nombre='".$nombre."'";
-	$resultado = $this -> db -> query($sql);
-	foreach ($resultado->result() as $row) {
-            $idsecciones = $row -> idsecciones;         
-	} 
-	return $idsecciones;
+      	$resultado = $this -> db -> query($sql);
+      	foreach ($resultado->result() as $row) {
+                  $idsecciones = $row -> idsecciones;
+      	}
+      	return $idsecciones;
     }
 
     public function update_seccion ($idsecciones, $nombre) {

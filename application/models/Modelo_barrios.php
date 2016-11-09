@@ -16,16 +16,16 @@ class Modelo_barrios extends CI_Model {
         // Recuerda, en el modelo, comprobar que los datos que te meten
         // en los parametros estan correctos, por seguridad
         // $nombre --> Nombre del barrio que se va a añadir
-        
+
         $sql = "INSERT INTO barrios (nombre) VALUES ('" . $nombre . "')";
         $resultado = $this -> db -> query($sql);
         // Recuperamos el ID del barrio
         $sql="SELECT idbarrios FROM barrios WHERE nombre='".$nombre."'";
-	$resultado = $this -> db -> query($sql);
-	foreach ($resultado->result() as $row) {
-            $idbarrios = $row -> idbarrios;         
-	}       
-	return $idbarrios;
+      	$resultado = $this -> db -> query($sql);
+      	foreach ($resultado->result() as $row) {
+                  $idbarrios = $row -> idbarrios;
+      	}
+      	return $idbarrios;
     }
 
     public function update_barrio ($idbarrios, $nombre) {

@@ -24,11 +24,11 @@ class Modelo_usuarios extends CI_Model {
         $resultado = $this -> db -> query($sql);
         // Recuperamos el ID del usuario
         $sql="SELECT login FROM usuarios WHERE password='".$password."' AND nombre='".$nombre."'  AND idacl='".$idacl."'";
-	$resultado = $this -> db -> query($sql);
-	foreach ($resultado->result() as $row) {
-           $login = $row -> login;         
-	}         
-	return $login;
+      	$resultado = $this -> db -> query($sql);
+      	foreach ($resultado->result() as $row) {
+                 $login = $row -> login;
+      	}
+      	return $login;
     }
 
     public function update_usuario ($login, $password, $nombre, $idacl) {
@@ -49,9 +49,9 @@ class Modelo_usuarios extends CI_Model {
 
         // Borramos las imagenes
         // No la borramos del HD por si acaso
-       
-        $sql = "SELECT idactividades FROM actividades WHERE usuario='" . $login."'";         
-        $resultado = $this -> db -> query($sql);       
+
+        $sql = "SELECT idactividades FROM actividades WHERE usuario='" . $login."'";
+        $resultado = $this -> db -> query($sql);
         foreach ($resultado->result() as $row) {
             $sql_borra_imagen = "DELETE FROM imagenes WHERE idactividad ='" . $row->idactividades."'";
             $resultado_borrado = $this -> db -> query($sql_borra_imagen);
