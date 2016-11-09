@@ -12,12 +12,20 @@ class Modelo_secciones extends CI_Model {
 
     public function add_seccion ($nombre) {
         // Funcion para añadir una seccion
-      // Aqui hay que poner las variables que se le pasan y que es cada una
-      // Recuerda, en el modelo, comprobar que los datos que te meten
-      // en los parametros estan correctos, por seguridad
+        // Aqui hay que poner las variables que se le pasan y que es cada una
+        // Recuerda, en el modelo, comprobar que los datos que te meten
+        // en los parametros estan correctos, por seguridad
         // $nombre --> Nombre de la seccion que se va a añadir
+        
         $sql = "INSERT INTO secciones (nombre) VALUES ('" . $nombre . "')";
-        $resultado = $this -> db -> query($sql);
+        $resultado_add = $this -> db -> query($sql);
+        // Recuperamos el ID de la seccion
+        $sql="SELECT idsecciones FROM secciones WHERE nombre='".$nombre."'";
+	$resultado = $this -> db -> query($sql);
+	foreach ($resultado->result() as $row) {
+            $idsecciones = $row -> idsecciones;         
+	} 
+	return $idsecciones;
     }
 
     public function update_seccion ($idsecciones, $nombre) {
@@ -25,7 +33,7 @@ class Modelo_secciones extends CI_Model {
         // $idsecciones --> Identificador de la seccion que se va a actualizar
         // $nombre      --> Nombre de la seccion que se va a actualizar
         $sql = "UPDATE secciones SET nombre='" . $nombre . "' WHERE idsecciones='" . $idsecciones."'";
-        $resultado = $this -> db -> query($sql);
+        $resultado_up = $this -> db -> query($sql);
     }
 
     public function del_seccion ($idsecciones) {
@@ -34,24 +42,23 @@ class Modelo_secciones extends CI_Model {
         // Primero borramos las actividades y por lo tanto, primero las imagenes y los documentos de las actividades
 
         // Borramos las imagenes
-//OJO ???  // No la borramos del HD por si acaso
+        // No la borramos del HD por si acaso
         $sql = "SELECT idactividades FROM actividades WHERE idseccion='" . $idsecciones."'";
         $resultado = $this -> db -> query($sql);
-        foreach ($resutado->result() as $row) {
+        foreach ($resultado->result() as $row) {
             $sql_borra_imagen = "DELETE FROM imagenes WHERE idactividad ='" . $row->idactividades."'";
             $resultado_borrado = $this -> db -> query($sql_borra_imagen);
         }
 
         // Borramos los documentos
- //OJO ???  // No la borramos del HD por si acaso
-	    // Lo que he dicho siempre, de esto se encarga el controlador
+        // No la borramos del HD por si acaso
+	// Lo que he dicho siempre, de esto se encarga el controlador
         $sql = "SELECT idactividades FROM actividades WHERE idseccion='" . $idsecciones."'";
         $resultado = $this->db->query($sql);
-        foreach ($resutado->result() as $row) {
+        foreach ($resultado->result() as $row) {
             $sql_borra_documento = "DELETE FROM documentos WHERE idactividad ='" . $row->idactividades."'";
             $resultado_borrado = $this -> db -> query($sql_borra_documento);
         }
-
 
         // Ahora borramos las actividades
         $sql = "DELETE FROM actividades WHERE idseccion='" . $idsecciones."'";

@@ -12,12 +12,20 @@ class Modelo_barrios extends CI_Model {
 
     public function add_barrio ($nombre) {
         // Funcion para añadir un barrio
-      // Aqui hay que poner las variables que se le pasan y que es cada una
-      // Recuerda, en el modelo, comprobar que los datos que te meten
-      // en los parametros estan correctos, por seguridad
+        // Aqui hay que poner las variables que se le pasan y que es cada una
+        // Recuerda, en el modelo, comprobar que los datos que te meten
+        // en los parametros estan correctos, por seguridad
         // $nombre --> Nombre del barrio que se va a añadir
+        
         $sql = "INSERT INTO barrios (nombre) VALUES ('" . $nombre . "')";
         $resultado = $this -> db -> query($sql);
+        // Recuperamos el ID del barrio
+        $sql="SELECT idbarrios FROM barrios WHERE nombre='".$nombre."'";
+	$resultado = $this -> db -> query($sql);
+	foreach ($resultado->result() as $row) {
+            $idbarrios = $row -> idbarrios;         
+	}       
+	return $idbarrios;
     }
 
     public function update_barrio ($idbarrios, $nombre) {
@@ -34,19 +42,19 @@ class Modelo_barrios extends CI_Model {
         // Primero borramos las actividades y por lo tanto, primero las imagenes y los documentos de las actividades
 
         // Borramos las imagenes
-//OJO ???  // No la borramos del HD por si acaso
+        // No la borramos del HD
         $sql = "SELECT idactividades FROM actividades WHERE idbarrio='" . $idbarrios."'";
         $resultado = $this -> db -> query($sql);
-        foreach ($resutado->result() as $row) {
+        foreach ($resultado->result() as $row) {
             $sql_borra_imagen = "DELETE FROM imagenes WHERE idactividad ='" . $row->idactividades."'";
             $resultado_borrado = $this -> db -> query($sql_borra_imagen);
         }
 
         // Borramos los documentos
- //OJO ???  // No la borramos del HD por si acaso
+        // No la borramos del HDo
         $sql = "SELECT idactividades FROM actividades WHERE idbarrio='" . $idbarrios."'";
         $resultado = $this -> db -> query($sql);
-        foreach ($resutado->result() as $row) {
+        foreach ($resultado->result() as $row) {
             $sql_borra_documento = "DELETE FROM documentos WHERE idactividad ='" . $row->idactividades."'";
             $resultado_borrado = $this -> db -> query($sql_borra_documento);
         }

@@ -55,12 +55,12 @@ class Principal extends CI_Controller {
 			"barrio" => "delicias"
 		);
 		$documentos = array(
-			"idactividad" => "1",
+			"idactividad" => "8",
 			"rutadocumento" => "/docs/fichero.pdf",
 			"descripcion" => "Un fichero dummy, que esto nos va a traer mucha tela divertida"
 		);
 		$imagen = array(
-			"idactividad" => "1",
+			"idactividad" => "8",
 			"rutaimagen" => "/img/imagen.gif",
 			"descripcion" => "Otro fichero dummy, en este caso una imagen"
 		);
@@ -82,23 +82,29 @@ class Principal extends CI_Controller {
 		// Tambien recuerda para cada prueba, comentar los controladores que no vayas a usar
 		// Como ves no te he puesto las de modificar, ya que son practicamente como un INSERT
 
-		$this -> modelo_usuarios -> add_usuario($usuarios['login'], $usuarios['password'], $usuarios['nombre'], $usuarios['idacl']);
-		$this -> modelo_usuarios -> del_usuario($usuarios['login']);
+		//$this -> modelo_usuarios -> add_usuario($usuarios['login'], $usuarios['password'], $usuarios['nombre'], $usuarios['idacl']);		
+                //$this -> modelo_usuarios -> update_usuario($usuarios['login'], $usuarios['password'],  $usuarios['nombre'], $usuarios['idacl']);
+                //$this -> modelo_usuarios -> del_usuario($usuarios['login']);
 
-    $this -> modelo_secciones -> add_seccion($seccion['seccion']);
-		$this -> modelo_secciones -> del_seccion();
+                //$this -> modelo_secciones -> add_seccion($seccion['seccion']);
+                //$this -> modelo_secciones -> update_seccion('2','Deporte');
+		//$this -> modelo_secciones -> del_seccion('1');
 
-		$this -> modelo_barrios -> add_barrio($barrio['barrio']);
-		$this -> modelo_barrios -> del_barrio();
+		//$this -> modelo_barrios -> add_barrio($barrio['barrio']);
+                //$this -> modelo_barrios -> update_barrio(3,'Parquesol');
+		//$this -> modelo_barrios -> del_barrio('5');
 
-		$this -> modelo_imagenes -> add_imagen($imagen['idactividad'], $imagen['rutaimagen'],$imagen['descripcion']);
-		$this -> modelo_imagenes -> del_imagen();
+		//$this -> modelo_imagenes -> add_imagen($imagen['idactividad'], $imagen['rutaimagen'],$imagen['descripcion']);              
+                //$this -> modelo_imagenes -> update_imagen(11,2,$imagen['rutaimagen'],$imagen['descripcion']);
+		//$this -> modelo_imagenes -> del_imagen(12);
 
-		$this -> modelo_documentos -> add_documento($documentos['idactividad'], $documentos['rutadocumento'], $documentos['descripcion']);
-		$this -> modelo_documentos -> del_documento();
+		//$this -> modelo_documentos -> add_documento($documentos['idactividad'], $documentos['rutadocumento'], $documentos['descripcion']);
+		//$this -> modelo_documentos -> update_documento(4,2,$documentos['rutadocumento'],$documentos['descripcion']);
+                //$this -> modelo_documentos -> del_documento(4);
 
-		$this -> modelo_actividades -> add_actividad($actividad['campanya'], $actividad['actividad'], $actividad['descripcion'], $actividad['organiza'], $actividad['lugar'], $actividad['idbarrio'], $actividad['idseccion'], $actividad['fecha'], $actividad['usuario']);
-		$this -> modelo_actividades -> del_actividad();
+		//$this -> modelo_actividades -> add_actividad($actividad['campanya'], $actividad['actividad'], $actividad['descripcion'], $actividad['organiza'], $actividad['lugar'], $actividad['idbarrio'], $actividad['idseccion'], $actividad['fecha'], $actividad['usuario']);
+		//$this -> modelo_actividades -> update_actividad('11','Seminci 2017', $actividad['actividad'], $actividad['descripcion'], $actividad['organiza'], $actividad['lugar'], 4, $actividad['idseccion'], $actividad['fecha'], $actividad['usuario']);
+                //$this -> modelo_actividades -> del_actividad('8');
 
 		// Como logear los errores
 		// Para hacer log de los errores o de lo que quieras hay dos formas o via
