@@ -38,7 +38,7 @@ class Login extends CI_Controller {
 	   if ($this -> session -> idusuario) {
 		   // Comprobarlo con la sesion
 	   	$registrado = 1;
-		$usuario = $this -> session -> nombre;
+			$usuario = $this -> session -> nombre;
 	   } elseif ($usuario !="" && $password !="") {
 		   // Comprobamos los datos del post contra el modelo de usuarios
 		   // Este modelo ha de llamar a la libreria de las sesiones y almacenar el nombre del usuario
@@ -63,8 +63,8 @@ class Login extends CI_Controller {
 			// $this -> load -> view("admin/principal");
 		}
      // Si no es correcto
-	// fallo = 1
-      // Recordar recoger los errores y se los enviamos a la vista tambien
+		 // fallo = 1
+    // Recordar recoger los errores y se los enviamos a la vista tambien
      $this -> load -> view ("admin/index", $pa_la_vista);
    }
 

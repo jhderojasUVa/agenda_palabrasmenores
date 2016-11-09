@@ -10,17 +10,6 @@ class Principal extends CI_Controller {
 		 /* Funcion de construccion del objeto */
 		 parent::__construct();
 
-		 // Cargamos los modelos
-		 /* Comentamos porque esta en el autoload
-
-		 $this -> load -> model("modelo_actividades");
-		 $this -> load -> model("modelo_barrios");
-		 $this -> load -> model("modelo_imagenes");
-		 $this -> load -> model("modelo_documentos");
-     $this -> load -> model("modelo_usuarios");
-     $this -> load -> model("modelo_secciones");
-		 */
-
 		 // Cargamos las librerias
 		 $this -> load -> library("session");
 		 $this -> load -> library("libreria_fechas");
@@ -47,7 +36,7 @@ class Principal extends CI_Controller {
 			"organiza" => "Un centro civico cualquiera",
 			"lugar" => "Teatro Calderon, Valladolid",
 			"idbarrio" => "1",
-                        "idseccion" => "1",
+      "idseccion" => "1",
 			"fecha" => "2017-12-11",
 			"usuario" => "ignacio"
 		);
@@ -82,29 +71,29 @@ class Principal extends CI_Controller {
 		// Tambien recuerda para cada prueba, comentar los controladores que no vayas a usar
 		// Como ves no te he puesto las de modificar, ya que son practicamente como un INSERT
 
-		//$this -> modelo_usuarios -> add_usuario($usuarios['login'], $usuarios['password'], $usuarios['nombre'], $usuarios['idacl']);		
-                //$this -> modelo_usuarios -> update_usuario($usuarios['login'], $usuarios['password'],  $usuarios['nombre'], $usuarios['idacl']);
-                //$this -> modelo_usuarios -> del_usuario($usuarios['login']);
+		//$this -> modelo_usuarios -> add_usuario($usuarios['login'], $usuarios['password'], $usuarios['nombre'], $usuarios['idacl']);
+    //$this -> modelo_usuarios -> update_usuario($usuarios['login'], $usuarios['password'],  $usuarios['nombre'], $usuarios['idacl']);
+    //$this -> modelo_usuarios -> del_usuario($usuarios['login']);
 
-                //$this -> modelo_secciones -> add_seccion($seccion['seccion']);
-                //$this -> modelo_secciones -> update_seccion('2','Deporte');
+    //$this -> modelo_secciones -> add_seccion($seccion['seccion']);
+    //$this -> modelo_secciones -> update_seccion('2','Deporte');
 		//$this -> modelo_secciones -> del_seccion('1');
 
 		//$this -> modelo_barrios -> add_barrio($barrio['barrio']);
-                //$this -> modelo_barrios -> update_barrio(3,'Parquesol');
+    //$this -> modelo_barrios -> update_barrio(3,'Parquesol');
 		//$this -> modelo_barrios -> del_barrio('5');
 
-		//$this -> modelo_imagenes -> add_imagen($imagen['idactividad'], $imagen['rutaimagen'],$imagen['descripcion']);              
-                //$this -> modelo_imagenes -> update_imagen(11,2,$imagen['rutaimagen'],$imagen['descripcion']);
+		//$this -> modelo_imagenes -> add_imagen($imagen['idactividad'], $imagen['rutaimagen'],$imagen['descripcion']);
+    //$this -> modelo_imagenes -> update_imagen(11,2,$imagen['rutaimagen'],$imagen['descripcion']);
 		//$this -> modelo_imagenes -> del_imagen(12);
 
 		//$this -> modelo_documentos -> add_documento($documentos['idactividad'], $documentos['rutadocumento'], $documentos['descripcion']);
 		//$this -> modelo_documentos -> update_documento(4,2,$documentos['rutadocumento'],$documentos['descripcion']);
-                //$this -> modelo_documentos -> del_documento(4);
+    //$this -> modelo_documentos -> del_documento(4);
 
 		//$this -> modelo_actividades -> add_actividad($actividad['campanya'], $actividad['actividad'], $actividad['descripcion'], $actividad['organiza'], $actividad['lugar'], $actividad['idbarrio'], $actividad['idseccion'], $actividad['fecha'], $actividad['usuario']);
 		//$this -> modelo_actividades -> update_actividad('11','Seminci 2017', $actividad['actividad'], $actividad['descripcion'], $actividad['organiza'], $actividad['lugar'], 4, $actividad['idseccion'], $actividad['fecha'], $actividad['usuario']);
-                //$this -> modelo_actividades -> del_actividad('8');
+    //$this -> modelo_actividades -> del_actividad('8');
 
 		// Como logear los errores
 		// Para hacer log de los errores o de lo que quieras hay dos formas o via
