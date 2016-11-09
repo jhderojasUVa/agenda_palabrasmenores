@@ -137,6 +137,6 @@ $autoload['model'] = array(
   'modelo_barrios',
   'modelo_documentos',
   'modelo_imagenes',
-  'modelo_sesiones',
+  'modelo_secciones',
   'modelo_usuarios'
 );
