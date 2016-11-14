@@ -27,11 +27,11 @@ Es decir se pretende realizar una gradeful upgrade comenzando desde una gestion 
 2.1 Hitos
 =========
 
-Hito 1: Defininir el sistema tanto XXXXX como informaticamente<br/>
-Hito 2: Creacion de la base de datos<br/>
-Hito 3: Creacion de los modelos<br/>
-Hito 4: Creacion de los controladores de gestion de usuario<br/>
-Hito 5: Creacion de las vistas de gestion de usuairo<br/>
+Hito 1: Defininir el sistema tanto XXXXX como informaticamente - en proceso<br/>
+Hito 2: Creacion de la base de datos - hecho<br/>
+Hito 3: Creacion de los modelos - hecho<br/>
+Hito 4: Creacion de los controladores de gestion de usuario - en proceso<br/>
+Hito 5: Creacion de las vistas de gestion de usuairo - en proceso<br/>
 Hito 6: Creacion de los controladores de introduccion de datos<br/>
 Hito 7: Creacion de las vistas de introduccionde datos<br/>
 Hito 8: Creacion de los controladores de explotacion de datos<br/>
