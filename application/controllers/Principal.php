@@ -11,9 +11,10 @@ class Principal extends CI_Controller {
 		 parent::__construct();
 
 		 // Cargamos las librerias
-		 $this -> load -> library("session");
-		 $this -> load -> library("libreria_fechas");
-		 $this -> load -> library("libreria_sesiones");
+                 // Aqui no lo carga lo paso al index
+		 //$this -> load -> library("session");
+		 //$this -> load -> library("libreria_fechas");
+		 //$this -> load -> library("libreria_sesiones");
 	 }
 
 	public function index() {
@@ -27,6 +28,10 @@ class Principal extends CI_Controller {
 		$this -> load -> model("modelo_usuarios");
 		$this -> load -> model("modelo_secciones");
 		*/
+                // Cargamos las librerias aquí y poner el nombre de la librería ccon las mayúsculas y minúsculas
+		$this -> load -> library("session");
+		$this -> load -> library("Libreria_Fechas");
+		$this -> load -> library("Libreria_sesiones");
 
 		/* Cargamos en unos array los datos falsos */
 		$actividad = array(
@@ -101,7 +106,15 @@ class Principal extends CI_Controller {
 		// O usamos el logeado de codeigniter
 		// log_message("error","texto del error var1=".$var1." var2=".$var2);
 		// Esto dejara rastro en los logs que estan en la carpeta /logs no mostrandose en pantalla
-
+                $fecha = array(
+			"fecha" => "2016/11/10",
+                        "para"=> "db"
+		);
+               
+                //$datos = array();
+              //$this -> libreria_fechas -> comprueba_fecha($fecha['fecha'],$fecha['para']);
+                //$this -> libreria_fechas -> comprueba_fecha("ddd-dd-dd","bd");
+                
 		/* Llamamos a una vista llamada principal */
 		$this->load->view('principal', $datos);
 	}

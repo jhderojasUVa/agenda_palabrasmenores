@@ -1,4 +1,4 @@
-<?
+<?php
 class Libreria_sesiones {
 
         protected $CI;
@@ -24,12 +24,16 @@ class Libreria_sesiones {
         public function registrar($estado, $idusuario) {
           // Funcion que mete si esta registrado o no en las sesiones
           // si le meten true o false y devuelve true si todo ok o false si no
-
+//OJO PREGUNTAR
           // $estado = true o false segun le registremos o se registre
           // $idusuario = si lo registramos hay que meter el login, obviamente
-
+          
           if ($estado == TRUE) {
+             
             // Le registramos
+            print ("<p></p>valor sesion en libreria_sesiones");
+            print_r ($this -> session);
+            print "<p></p>";
             $this -> session -> registrado = TRUE;
             $this -> session -> idusuario = $idusuario;
             return true;
@@ -64,14 +68,13 @@ class Libreria_sesiones {
             "registrado" => $this -> session -> registrado,
             "login" => $this -> session -> login,
             "nombre" => $this -> session -> nombre,
-            "acl" => $this -> session -> acl;
+            "acl" => $this -> session -> acl
             // nunca metemos el password luego ¿para que devolverlo?
-          )
-
+          );         
           return $cositas;
         }
 
-        public funcion mete_datos_sesion($idsesion, $registrado, $login, $nombre, $acl) {
+        public function mete_datos_sesion($idsesion, $registrado, $login, $nombre, $acl) {
           // Funcion que mete los datos en la session
           // $idsesion = el identificador que es el login
           // $registrado = TRUE o FALSE, autoexplicativo
@@ -79,7 +82,7 @@ class Libreria_sesiones {
           // $nombre = el nombre real del pollopera
 
           // La idea de esta funcion es que tras comprobar y registrarlo
-          // la llamamos y metemos los datos del usuario completos
+          // la llamamos y metemos los datos del usuario completos         
           $this -> session -> idlogin = $login;
           $this -> session -> registrado = $registrado;
           $this -> session -> login = $login;

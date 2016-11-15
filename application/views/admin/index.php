@@ -12,15 +12,15 @@
 <body>
 <?
 if (isset($error)) {
-  ?><span style="color:red;">LA HAS CAGAO, USUARIO o COTNRASÑEA MAL</span><?
+  ?><span style="color:red;"><?echo$error?></span><?
 }
 ?>
 <div class="container">
   <div class="col-md-12">
-    <form action="/admin/index/index" method="POST">
-    <input type="text" name="usuario"><br/>
-    <input type="password" name="password"><br/>
-    <input type="submit" value="enviar">
+    <form action="login" method="POST">
+        <label for="usuario">Usuario</label><input type="text" name="usuario" id="usuario" required=""><br/>
+        <label for="password">Contraseña</label><input type="password" name="password" id="password" required=""><br/>
+        <input type="submit" value="acceder">
     </form>
   </div>
 </div>

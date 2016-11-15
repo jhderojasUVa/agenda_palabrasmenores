@@ -1,4 +1,4 @@
-<?
+<?php
 
 class Libreria_fechas {
 
@@ -32,6 +32,7 @@ class Libreria_fechas {
           // Comprobamos si la fecha esta en formato correcto
           // Usamos preg_match
           // Seguro que la he cagado en las expresiones regulares habria que repasarlo
+          /*
           if (!preg_match("/^(d){1,4}-(d){1,2}-(d){1,4}+$/i"), $fecha) {
             // La fecha es vete a saber
             return false;
@@ -40,6 +41,18 @@ class Libreria_fechas {
           } elseif (preg_match("/^(d){1,4}\/(d){1,2}\/(d){1,2}+$/i",$fecha) {
             // Es para web
           }
+           * 
+           */
+                   
+            if (preg_match("/^\d{1,4}-\d{1,2}-\d{1,2}+$/i",$fecha)) {              
+                // Es para bd
+            } elseif (preg_match("/^\d{1,4}\/\d{1,2}\/\d{1,2}+$/i",$fecha)) {
+                // Es para web
+            } else { 
+                // La fecha es vete a saber
+                return false; 
+            }
+            
 
           // Si lo es continuamos y la desgranamos
           $nueva_fecha = divide_fecha($fecha);
@@ -67,10 +80,10 @@ class Libreria_fechas {
           // $para_que = para que lo vamos a usar "web", "bd"
 
           if ($para_que == "web") {
-            $array_fechas = explode("/", $fecha)
+            $array_fechas = explode("/", $fecha);
             return $array_fechas;
           } elseif ($para_que == "bd") {
-            $array_fechas = explode("-", $fecha)
+            $array_fechas = explode("-", $fecha);
             return $array_fechas;
           } else {
             return false;
