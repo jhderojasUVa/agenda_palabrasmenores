@@ -65,12 +65,251 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
 
 3.2.2. Modelos
 ==============
+Modelo_actividades
+    Métodos:
+        Añadir una actividad
+        public function add_actividad ($campanya, $actividad, $descripcion, $organiza, $lugar, $idbarrio, $idseccion, $fecha, $usuario)
+            Parámetros entrada:
+            $campanya    --> Nombre de la campanya de la actividad
+            $actividad   --> Nombre de la actividad
+            $descripcion --> Descripcion de la actividad
+            $organiza    --> Nombre del organizador u organizadores
+            $lugar       --> Direccion donde tiene lugar
+            $idbarrio    --> ID del barrrio donde se realiza la actividad
+            $idseccion   --> ID de la seccion a la que pertenece la actividad
+            $fecha       --> Fecha y Hora de comienzo de la actividad
+            $usuario     --> login del usuario                
+
+        Actualizar una actividad            
+        public function update_actividad ($idactividades, $campanya, $actividad, $descripcion, $organiza, $lugar, $idbarrio, $idseccion, $fecha, $usuario)
+            Parámetros entrada:
+            $idactividades --> Identificador de la actividad que se va a actualizar
+            $campanya      --> Nombre de la campanya de la actividad
+            $actividad     --> Nombre de la actividad
+            $descripcion   --> Descripcion de la actividad
+            $organiza      --> Nombre del organizador u organizadores
+            $lugar         --> Direccion donde tiene lugar
+            $idbarrio      --> ID del barrrio donde se realiza la actividad
+            $idseccion     --> ID de la seccion a la que pertenece la actividad
+            $fecha         --> Fecha y Hora de comienzo de la actividad
+            $usuario       --> login del usuario
+                
+        Borrar una actividad                 
+        public function del_actividad ($idactividades)
+            Parámetros entrada:
+            $idactividades --> Identificador de la actividad que se va a eliminar
+            Antes de borrar la actividad:
+                Borra del fichero imagenes, las imagenes de esa actividad.
+                Borra del fichero documentos, los documentos de esa actividad.
+                Borra la actividad.
+
+Modelo_barrios
+    Métodos:
+        Añadir un barrio
+        public function add_barrio ($nombre)
+            Parámetros entrada:      
+            $nombre --> Nombre del barrio que se va a añadir
+
+        Actualizar un barrio
+        public function update_barrio ($idbarrios, $nombre)
+            Parámetros entrada:
+            $idbarrios --> Identificador del barrio que se va a actualizar
+            $nombre    --> Nombre del barrio que se va a actualizar
+
+        Borrar un barrio
+        public function del_barrio ($idbarrios)
+            Parámetros entrada:
+            $idbarrios  --> Identificador del barrio que se va a eliminar
+            Antes de borrar el barrio:
+                Borra del fichero imagenes, las imagenes de las actividades del barrio.
+                Borra del fichero documentos, los documentos de las actividades del barrio.
+                Borra del ficheros actividades, las actividades del barrio.
+                Borra el barrio.
+
+Modelo_documentos
+    Métodos:
+        Añadir un documento a la actividad
+        public function add_documento ($idactividad, $rutadocumento, $descripcion)
+            Parámetros entrada: 
+            $idactividad   --> ID de la actividad a la que pertenece el documento
+            $rutadocumento --> Ruta donde esta el documento
+            $descripcion   --> Descripcion del documento
+
+        Actualizar un documento de una actividad
+        public function update_documento ($iddocumentos, $idactividad, $rutadocumento, $descripcion)
+            Parámetros entrada:
+            $iddocumentos --> Identificador del documento que se va a actualizar
+            $idactividad  --> ID de la actividad a la que pertenece el documento
+            $rutaimagen   --> Ruta donde esta el documento
+            $descripcion  --> Descripcion del documento
+
+        Borrar un documento de una actividad
+        public function del_documento ($iddocumentos) {
+            Parámetros entrada:
+            iddocumentos  --> Identificador del documento que se va a eliminar
+
+Modelo_imagenes
+    Métodos:
+        Añadir una imagen a una actividad      
+        public function add_imagen ($idactividad, $rutaimagen, $descripcion)
+            Parámetros entrada:
+            $idactividad --> ID de la actividad a la que pertenece la imagen
+            $rutaimagen  --> Ruta donde esta la imagen
+            $descripcion --> Descripcion de la imagen
+
+        Actualizar una imagen de una actividad
+        public function update_imagen ($idimagenes, $idactividad, $rutaimagen, $descripcion)
+            Parámetros entrada:
+            $idimagenes  --> Identificador de la imagen que se va a actualizar
+            $idactividad --> ID de la actividad a la que pertenece la imagen
+            $rutaimagen  --> Ruta donde esta la imagen
+            $descripcion --> Descripcion de la imagen
+
+        Borrar una imagen de una actividad
+        public function del_imagen ($idimagenes)
+            Parámetros entrada:
+            $idimagenes  --> Identificador de la imagen que se va a eliminar
+
+Modelo_secciones
+    Métodos:
+        Añadir una seccion
+        public function add_seccion ($nombre)
+            Parámetros entrada:
+            $nombre --> Nombre de la seccion que se va a añadir
+
+        Actualizar una seccion
+        public function update_seccion ($idsecciones, $nombre)
+            Parámetros entrada:
+            $idsecciones --> Identificador de la seccion que se va a actualizar
+            $nombre      --> Nombre de la seccion que se va a actualizar
+
+        Borrar una seccion
+        public function del_seccion ($idsecciones)
+            Parámetros entrada:
+            $idsecciones  --> Identificador de la seccion que se va a eliminar
+            Antes de borrar la seccion:
+                Borra del fichero imagenes, las imagenes de las actividades de la seccion.
+                Borra del fichero documentos, los documentos de las actividades de la seccion.
+                Borra del ficheros actividades, las actividades de la seccion.
+                Borra la seccion.
+
+Modelo_usuarios
+    Métodos:
+        Añadir un usuario
+        public function add_usuario ($login, $password, $nombre, $idacl)
+            Parámetros entrada: 
+            $login    --> Login de entrada del usuario
+            $password --> Password, md5
+            $nombre   --> Nombre del usuario
+            $idacl    --> Identificador de la ACL. 1-Administrador, 2-Usuario, 3-Desactivado
+
+        Actualizar un usuario
+            public function add_usuario ($login, $password, $nombre, $idacl)
+            Parámetros entrada: 
+            $login    --> Login de entrada del usuario
+            $password --> Password, md5
+            $nombre   --> Nombre del usuario
+            $idacl    --> Identificador de la ACL. 1-Administrador, 2-Usuario, 3-Desactivado
+
+        Borrar un usuario
+        public function del_usuario ($login)
+            Parámetros entrada:
+            $login    --> Login de entrada del usuario que se va a eliminar
+            Antes de borrar el usuario:
+                Borra del fichero imagenes, las imagenes de las actividades del usuario.
+                Borra del fichero documentos, los documentos de las actividades del usuario.
+                Borra del ficheros actividades, las actividades del usuario.
+                Borra el usuario.
 
 3.2.3. Vistas
 =============
 
 3.3. Base de Datos
 ==================
+
+Nombre de la Base de Datos: agenda
+3.3.1 Características
+=====================
+    Default collation: utf8_spanish-ci
+    Default characterset: utf8
+    Número de Tablas: 6
+
+3.3.2 Tablas
+============
+
+actividades
+    Engine=MyISAM
+    Default Charset=utf8
+    Collate=utf8_spanish_ci
+
+    campos:
+    idactividades: int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la actividad, UNICO',
+    campanya: varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Nombre de la campanya',
+    actividad: varchar(150) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre de la actividad',
+    descripcion: text COLLATE utf8_spanish_ci COMMENT 'Descripcion de la actividad',
+    organiza: varchar(150) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Nombre del organizador u organizadores (separados por - )',
+    lugar: varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Direccion donde tiene lugar la actividad',
+    idbarrio: int(11) NOT NULL COMMENT 'ID del barrio donde se realiza la actividad',
+    idseccion: int(11) NOT NULL COMMENT 'ID de la seccion a la que pertenece',
+    fecha: datetime NOT NULL COMMENT 'Fecha y hora de comienzo de la actividad',
+    usuario: varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'login del usuario',
+    PRIMARY KEY (`idactividades`)
+
+barrios
+    Engine=MyISAM
+    Default Charset=utf8
+    Collate=utf8_spanish_ci
+
+    campos:
+    idbarrios: int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del barrio, UNICO',
+    nombre: varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre del barrio',
+    PRIMARY KEY (`idbarrios`)
+
+documentos
+    Engine=MyISAM
+    Default Charset=utf8
+    Collate=utf8_spanish_ci
+
+    campos:
+    iddocumentos: int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del documento, UNICO',
+    idactividad; int(11) NOT NULL COMMENT 'ID de la actividad a la que pertenece el documento',
+    rutadocumento: varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Ruta donde esta el documento ',
+    descripcion: varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Descripcion del documento',
+    PRIMARY KEY (`iddocumentos`)
+
+imagenes
+    Engine=MyISAM
+    Default Charset=utf8
+    Collate=utf8_spanish_ci
+
+    campos:    
+    idimagenes: int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la imagen, UNICO',
+    idactividad: int(11) NOT NULL COMMENT 'ID de la actividad a la que pertenece',
+    rutaimagen: varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Ruta donde esta la imagen',
+    descripcion: varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Descripcion de la imagen',
+    PRIMARY KEY (`idimagenes`)
+
+secciones
+    Engine=MyISAM
+    Default Charset=utf8
+    Collate=utf8_spanish_ci
+
+    campos: 
+    idsecciones: int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la seccion, UNICO',
+    nombre: varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre de la seccion',
+    PRIMARY KEY (`idsecciones`)
+
+usuarios
+    Engine=MyISAM
+    Default Charset=utf8
+    Collate=utf8_spanish_ci
+
+    campos: 
+    login varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Login de entrada del usuario, UNICO',
+    password varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Password. md5',
+    nombre varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre del usuario',
+    idacl int(11) NOT NULL COMMENT 'Identificador de la ACL. 1-Administrador, 2-Usuario General, 3-Desactivado',
+    PRIMARY KEY (`login`)
 
 4. Test/Pruebas
 ===============
