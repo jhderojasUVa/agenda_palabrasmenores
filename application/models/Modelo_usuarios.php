@@ -8,6 +8,8 @@ class Modelo_usuarios extends CI_Model {
         parent::__construct();
 		// Cargamos la base de datos
 		$this -> load -> database();
+                // Cargamos la libreria-sesiones
+                //$this -> load -> library("libreria_sesiones");                
     }
 
     public function add_usuario ($login, $password, $nombre, $idacl) {
@@ -18,7 +20,7 @@ class Modelo_usuarios extends CI_Model {
         // $login    --> Login de entrada del usuario
         // $password --> Password, md5
         // $nombre   --> Nombre del usuario
-        // $idacl    --> Identificador de la ACL. 1-Administrador, 2-Usuario
+        // $idacl    --> Identificador de la ACL. 1-Administrador, 2-Usuario, 3-Desactivado
 
         $sql = "INSERT INTO usuarios (login, password, nombre, idacl) VALUES ('" . $login . "', '" . $password . "', '" . $nombre . "', '" . $idacl . "')";
         $resultado = $this -> db -> query($sql);
@@ -36,7 +38,7 @@ class Modelo_usuarios extends CI_Model {
         // $login    --> Login de entrada del usuario que se quiere modificar
         // $password --> Password, md5
         // $nombre   --> Nombre del usuario
-        // $idacl    --> Identificador de la ACL. 1-Administrador, 2-Usuario
+        // $idacl    --> Identificador de la ACL. 1-Administrador, 2-Usuario, 3-Desactivado
 
         $sql = "UPDATE usuarios SET password='" . $password . "', nombre='" . $nombre . "', idacl='". $idacl."' WHERE login='" . $login."'";
         $resultado = $this -> db -> query($sql);
@@ -75,4 +77,62 @@ class Modelo_usuarios extends CI_Model {
         $sql = "DELETE FROM usuarios WHERE login='" . $login."'";
         $resultado = $this -> db -> query($sql);
     }
-  }
+    
+    public function checkusuario($login, $password){
+        // $this -> load -> library("libreria_sesiones");        
+        // revisa dentro de la base de datos si existe el usuario
+         
+        $chek=0;
+        $sql = "SELECT login, password, nombre, idacl FROM usuarios WHERE login='" . $login."' AND password='".$password."'";
+        $resultado = $this -> db -> query($sql);
+        
+        foreach ($resultado->result() as $row) {
+                $chek=1;
+                 $login = $row -> login;
+                 $nombre = $row -> nombre;
+                 $idacl = $row -> idacl;                  
+                 
+                 // Si idacl=2 El usuario está deshabilitado
+                 if ($idacl==2){
+                    $chek=2;
+                 }
+      	}
+        if ($chek==1) {
+            /*
+            if ($this ->session -> registrado == TRUE) {
+                
+            $this -> session -> unset_userdata("registrado");
+            $this -> session -> unset_userdata("idusuario");
+            }
+             * */
+          
+            // Registamos al usuario
+            // Sin llamara la libreria-sesiones
+          
+            //$this -> load -> library("session");
+             //esto es lo que haria registrar
+            /*
+            $this -> session -> registrado = TRUE;
+            $this -> session -> idusuario = $login;
+            // Esto es lo que haria mete_datos_sesion
+            $this -> session -> idlogin = $login;
+            $this -> session -> registrado = TRUE;
+            $this -> session -> login = $login;
+            $this -> session -> nombre = $nombre;
+            $this -> session -> acl = $idacl;
+             * */
+             print ("valor sesion en modelo_usuario<p></p>");   
+             print_r ($this -> session);
+             
+// Con la libreria-sesiones             
+            $this -> libreria_sesiones -> registrar(TRUE, $login,$this -> session);
+            //$this -> libreria_sesiones -> mete_datos_sesion($login, TRUE, $login, $nombre, $idacl);
+              
+         
+        
+             
+        }
+        return $chek;
+    }
+    
+  } 

@@ -23,49 +23,95 @@ class Login extends CI_Controller {
 	 }
 
    public function index() {
-     // Controlador de entrada
-
-	   $registrado = 0;
-	   $fallo = 0;
-	   $pa_la_vista = array();
+       $desconectar = $this -> input -> post("desconectar");
+       $this -> load -> library ("libreria_sesiones");
+       
+      if ($desconectar){          
+          //destruyendo la sesion sigue quedando las $this->session
+           $this -> session -> unset_userdata("registrado");
+           $this -> session -> unset_userdata("idusuario");
+           $this -> session -> sess_destroy();
+           print $this -> session -> idusuario;
+       }
+        
+     // Controlador de entrada       
+//?? Se podría solo con registrado, sin $fallo o está para poner todos los mensajes de error en la misma zona
+	$registrado = 0;
+	$fallo = 0;
+	$pa_la_vista = array();
      // Comprobamos si ha recibido algo por POST o si tiene algo en la session de usuario
-	   $usuario = $this -> POST["usuario"];
-	   $password = $this -> POST["password"];
+	if ($desconectar){
+            $usuario="";
+            $password="";
+        }else{
+            $usuario = $this -> input -> post("usuario");
+            $password = $this -> input -> post("password");
+        }
 
-		 // Para saber mas sobre como se usan las sessiones
-		 // http://www.codeigniter.com/user_guide/libraries/sessions.html
-
-	   if ($this -> session -> idusuario) {
-		   // Comprobarlo con la sesion
-	   	$registrado = 1;
-		$usuario = $this -> session -> nombre;
-	   } elseif ($usuario !="" && $password !="") {
-		   // Comprobamos los datos del post contra el modelo de usuarios
-		   // Este modelo ha de llamar a la libreria de las sesiones y almacenar el nombre del usuario
-		   // y de paso devolver 1 si esta ok y 0 si no
-	   	$registrado = $this -> model -> modelo_usuario -> checkusuario($contrasenya, $pasword);
-		   $fallo = 1;
-	   }
-
-	   if ($fallo !=0) {
+            // Para saber mas sobre como se usan las sessiones
+            // http://www.codeigniter.com/user_guide/libraries/sessions.html
+        //print "usuario= ".$usuario;
+        //print"<p></p> ";
+        //print "sesion de usuario login".($this -> session -> nombre);
+	 
+        if ($this -> session -> idusuario) {
+            // Comprobarlo con la sesion
+            $registrado = 1;
+            $nombre = $this -> session -> nombre;
+	} elseif ($usuario !="" && $password !="") {
+            // Comprobamos los datos del post contra el modelo de usuarios
+            // Este modelo ha de llamar a la libreria de las sesiones y almacenar el nombre del usuario
+            // y de paso devolver 1 si esta ok y 0 si no y 2 si está inhabilitado
+            $registrado = $this -> modelo_usuarios -> checkusuario($usuario, $password);
+           
+            if ($registrado==0){
+                $fallo = 1;
+                $pa_la_vista=array(
+                    "error" => "Usuario o contraseña mal"
+                );
+            } elseif ($registrado==2) {
+                //Si registrado es  el usuario está deshabilitado
+//?? Si el mensaje de error se pone aquí $fallo podría Ser $fallo=1              
+                $fallo=2;
+                $pa_la_vista=array(
+                    "error" => "Usuario inhabilitado"
+		);
+            }              
+	}
+ //?? Si pongo tdos los mensajes de error en la misma zona      
+        /*
+	if ($fallo !=0) {
+            if ($fallo==2){
+                // está inhabilitado
+		$pa_la_vista=array(
+                    "error" => "Usuario inhabilitado"
+		);
+            }else {               
 	   	// el tio ha puesto mal algo
-		   $pa_la_vista({
-		   	"error" => "Usuario o contraseña mal"
-		   });
-	   }
-
-
+		$pa_la_vista=array(
+                    "error" => "Usuario o contraseña mal"
+		);
+            }   
+	}
+        * */
+          
 
      // Si es correcto
 	// fallo = 0 & registrado = 1
-		if ($registrado==1 && $fallo ==0) {
-			// En principio no deberiamos hacer nada, salvo redirigirle al sitio correcto
-			// $this -> load -> view("admin/principal");
-		}
-     // Si no es correcto
+	if ($registrado==1 && $fallo ==0) {
+            // En principio no deberiamos hacer nada, salvo redirigirle al sitio correcto
+            // $this -> load -> view("admin/principal");
+            
+            $pa_la_vista=array(
+                    "nombre" => $this -> session -> nombre
+		);
+            $this -> load -> view("admin/desconectar",$pa_la_vista);
+	} else {
+        // Si no es correcto
 	// fallo = 1
-      // Recordar recoger los errores y se los enviamos a la vista tambien
-     $this -> load -> view ("admin/index", $pa_la_vista);
+        // Recordar recoger los errores y se los enviamos a la vista tambien
+            $this -> load -> view ("admin/index", $pa_la_vista);
+        }
    }
 
    public function ver_mis_datos() {
