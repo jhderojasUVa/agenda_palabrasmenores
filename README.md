@@ -65,8 +65,8 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
 
 3.2.2. Modelos
 ==============
-Modelo_actividades
-    Métodos:
+Modelo_actividades. Métodos:
+
         Añadir una actividad
         public function add_actividad ($campanya, $actividad, $descripcion, $organiza, $lugar, $idbarrio, $idseccion, $fecha, $usuario)
             Parámetros entrada:
@@ -103,8 +103,8 @@ Modelo_actividades
                 Borra del fichero documentos, los documentos de esa actividad.
                 Borra la actividad.
 
-Modelo_barrios
-    Métodos:
+Modelo_barrios. Métodos:
+
         Añadir un barrio
         public function add_barrio ($nombre)
             Parámetros entrada:      
@@ -126,8 +126,8 @@ Modelo_barrios
                 Borra del ficheros actividades, las actividades del barrio.
                 Borra el barrio.
 
-Modelo_documentos
-    Métodos:
+Modelo_documentos. Métodos:
+
         Añadir un documento a la actividad
         public function add_documento ($idactividad, $rutadocumento, $descripcion)
             Parámetros entrada: 
@@ -148,8 +148,8 @@ Modelo_documentos
             Parámetros entrada:
             iddocumentos  --> Identificador del documento que se va a eliminar
 
-Modelo_imagenes
-    Métodos:
+Modelo_imagenes. Métodos:
+
         Añadir una imagen a una actividad      
         public function add_imagen ($idactividad, $rutaimagen, $descripcion)
             Parámetros entrada:
@@ -170,8 +170,8 @@ Modelo_imagenes
             Parámetros entrada:
             $idimagenes  --> Identificador de la imagen que se va a eliminar
 
-Modelo_secciones
-    Métodos:
+Modelo_secciones. Métodos:
+
         Añadir una seccion
         public function add_seccion ($nombre)
             Parámetros entrada:
@@ -193,8 +193,8 @@ Modelo_secciones
                 Borra del ficheros actividades, las actividades de la seccion.
                 Borra la seccion.
 
-Modelo_usuarios
-    Métodos:
+Modelo_usuarios. Métodos:
+
         Añadir un usuario
         public function add_usuario ($login, $password, $nombre, $idacl)
             Parámetros entrada: 
