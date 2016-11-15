@@ -39,7 +39,7 @@ class Libreria_sesiones {
 
             // Le registramos
             print ("<p></p>valor sesion en libreria_sesiones");
-            print_r ($ci -> session);
+            print_r ($this -> CI -> session);
             print "<p></p>";
             $this -> CI -> session -> registrado = TRUE;
             $this -> CI -> session -> idusuario = $idusuario;
@@ -71,11 +71,11 @@ class Libreria_sesiones {
         public function devuelve_datos_session() {
           // Funcion que devuelve un array de los datos de la sesion
           $cositas = array(
-            "idsesion" => $this -> session -> login,
-            "registrado" => $this -> session -> registrado,
-            "login" => $this -> session -> login,
-            "nombre" => $this -> session -> nombre,
-            "acl" => $this -> session -> acl
+            "idsesion" => $this -> CI -> session -> login,
+            "registrado" => $this -> CI -> session -> registrado,
+            "login" => $this -> CI -> session -> login,
+            "nombre" => $this -> CI -> session -> nombre,
+            "acl" => $this -> CI -> session -> acl
             // nunca metemos el password luego ¿para que devolverlo?
           );
           return $cositas;
