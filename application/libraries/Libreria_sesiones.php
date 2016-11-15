@@ -5,16 +5,23 @@ class Libreria_sesiones {
 
         // We'll use a constructor, as you can't directly call a function
         // from a property definition.
-        public function __construct()
-        {
+        public function __construct(){
                 // Assign the CodeIgniter super-object
                 $this->CI =& get_instance();
         }
 
+        // ATENCION
+        // Para llamar a una libreria dentro de una libreria hay que usar el objeto
+        // $this -> CI -> libreria -> funcion
+        // Y no el e
+        // $this -> libreria -> funcion
+        // Porque, como indica la documentacion, al ser una clase no
+        // podemos llamar directamente y solo a una copia de la misma (obviamente)
+
         public function comprobar_session() {
           // Funcion que comprueba si esta registrado o no
           // devuevle 0 si no y 1 si esta, vamos true o false
-          if ($this -> session -> registrado) {
+          if ($this -> CI -> session -> registrado) {
             return true;
           } else {
             return false;
@@ -27,19 +34,19 @@ class Libreria_sesiones {
 //OJO PREGUNTAR
           // $estado = true o false segun le registremos o se registre
           // $idusuario = si lo registramos hay que meter el login, obviamente
-          
+
           if ($estado == TRUE) {
-             
+
             // Le registramos
             print ("<p></p>valor sesion en libreria_sesiones");
-            print_r ($this -> session);
+            print_r ($ci -> session);
             print "<p></p>";
-            $this -> session -> registrado = TRUE;
-            $this -> session -> idusuario = $idusuario;
+            $this -> CI -> session -> registrado = TRUE;
+            $this -> CI -> session -> idusuario = $idusuario;
             return true;
           } elseif ($estado == FALSE) {
             // No esta registrado
-            $this -> session -> registrado = FALSE;
+            $this -> CI -> session -> registrado = FALSE;
             return true;
           } else {
             // Woops ha habido algun problema
@@ -51,9 +58,9 @@ class Libreria_sesiones {
           // Funcion que des-logea o des-registra al usuario
           // devuelve true si ha ido todo bien o false sino
 
-          if ($this ->session -> registrado == TRUE) {
-            $this -> session -> unset_userdata("registrado");
-            $this -> session -> unset_userdata("idusuario");
+          if ($this -> CI -> session -> registrado == TRUE) {
+            $this -> CI -> session -> unset_userdata("registrado");
+            $this -> CI -> session -> unset_userdata("idusuario");
             return true;
           } else {
             // Woops algo ha ido mal
@@ -70,7 +77,7 @@ class Libreria_sesiones {
             "nombre" => $this -> session -> nombre,
             "acl" => $this -> session -> acl
             // nunca metemos el password luego ¿para que devolverlo?
-          );         
+          );
           return $cositas;
         }
 
@@ -82,12 +89,12 @@ class Libreria_sesiones {
           // $nombre = el nombre real del pollopera
 
           // La idea de esta funcion es que tras comprobar y registrarlo
-          // la llamamos y metemos los datos del usuario completos         
-          $this -> session -> idlogin = $login;
-          $this -> session -> registrado = $registrado;
-          $this -> session -> login = $login;
-          $this -> session -> nombre = $nombre;
-          $this -> session -> acl = $acl;
+          // la llamamos y metemos los datos del usuario completos
+          $this -> CI -> session -> idlogin = $login;
+          $this -> CI -> session -> registrado = $registrado;
+          $this -> CI -> session -> login = $login;
+          $this -> CI -> session -> nombre = $nombre;
+          $this -> CI -> session -> acl = $acl;
 
           return true;
         }

@@ -12,14 +12,6 @@ class Login extends CI_Controller {
 	 public function __contruct() {
 		 /* Funcion de construccion del objeto */
 		 parent::__construct();
-
-		 // Cargamos los modelos
-		 /* No hace falta puesto que lo hemos puesto en el autoload
-		 $this -> load -> model("modelo_actividades");
-		 $this -> load -> model("modelo_barrios");
-		 $this -> load -> model("modelo_imagenes");
-		 $this -> load -> model("modelo_documentos");
-		 */
 	 }
 
    public function index() {
@@ -29,35 +21,39 @@ class Login extends CI_Controller {
 	   $fallo = 0;
 	   $pa_la_vista = array();
      // Comprobamos si ha recibido algo por POST o si tiene algo en la session de usuario
-	   $usuario = $this -> POST["usuario"];
-	   $password = $this -> POST["password"];
-
+		 if ($this -> libreria_sesiones -> comprobar_session() == true){
+			 // El usuario esta registrado hay que mandarle a la vista definitiva
+			 // indicamos que esta registrado y llenamos un array con los datos de el
+			 $registrado = 1;
+			 $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
+		 } else {
+			 // Revisamos si ha hecho un POST o no y cogemos los datos
+		   $usuario = $this -> input -> POST["usuario"];
+		   $password = $this -> input -> POST["password"];
+		 }
 		 // Para saber mas sobre como se usan las sessiones
 		 // http://www.codeigniter.com/user_guide/libraries/sessions.html
 
-	   if ($this -> session -> idusuario) {
-		   // Comprobarlo con la sesion
-	   	$registrado = 1;
-			$usuario = $this -> session -> nombre;
-	   } elseif ($usuario !="" && $password !="") {
-		   // Comprobamos los datos del post contra el modelo de usuarios
-		   // Este modelo ha de llamar a la libreria de las sesiones y almacenar el nombre del usuario
-		   // y de paso devolver 1 si esta ok y 0 si no
-	   	$registrado = $this -> model -> modelo_usuario -> checkusuario($contrasenya, $pasword);
-		   $fallo = 1;
-	   }
+		 if ($registrado = 0) {
+			 if ($usuario !="" || $password !="") {
+				 // Si el pollopera no ha enviado nada, le abroncamo
+				 $fallo = 1;
+				 $pa_la_vista = array(
+			   	"error" => "Usuario o contraseña mal"
+			   );
+			 } else {
+				 // Si ha enviado algo lo comprobamos
+				 // recordamos que fallo viene valiendo 0 de antes
+				 $registrado = $this -> model -> modelo_usuario -> checkusuario($usuario, $pasword);
+				 if ($registrado==0) {
+					 // Comprobamos si esta registrado y sino, a la mierda con el
+					 $fallo = 1;
+				 }
+			 }
+		 }
 
-	   if ($fallo !=0) {
-	   	// el tio ha puesto mal algo
-		   $pa_la_vista({
-		   	"error" => "Usuario o contraseña mal"
-		   });
-	   }
-
-
-
-     // Si es correcto
-	// fallo = 0 & registrado = 1
+    // Si es correcto
+		// fallo = 0 & registrado = 1
 		if ($registrado==1 && $fallo ==0) {
 			// En principio no deberiamos hacer nada, salvo redirigirle al sitio correcto
 			// $this -> load -> view("admin/principal");
