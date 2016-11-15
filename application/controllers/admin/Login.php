@@ -49,10 +49,13 @@ class Login extends CI_Controller {
 				 if ($registrado==0) {
 					 // Comprobamos si esta registrado y sino, a la mierda con el
 					 $fallo = 1;
+					 $pa_la_vista = array(
+				   	"error" => "Usuario o contraseña mal"
+				   );
 				 }
 			 }
 		 }
-		 
+
     // Si es correcto
 		// fallo = 0 & registrado = 1
 		if ($registrado == 1 && $fallo == 0) {
