@@ -50,6 +50,7 @@ Las fases coinciden practicamente con los hitos.
 
 3. Especificaciones
 ===================
+A continuación se relatan las especificaciones técnicas del producto.
 
 3.1. Requisitos
 ===============
@@ -62,6 +63,9 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
 
 3.2.1. Controladores
 ====================
+/Admin
+        Login.php --> Controlador de usuario
+Principal.php --> Controlador de entrada
 
 3.2.2. Modelos
 ==============
@@ -223,6 +227,14 @@ Modelo_usuarios. Métodos:
 
 3.2.3. Vistas
 =============
+admin/
+      index.php --> Entrada de usuario
+      add_usuario.php --> Añadir usuarios
+      desconectar.php --> Desconexion o salida del usuario
+      del_usuario.php --> Eliminar usuario
+      modificar_mis_datos.php --> Modificación de los datos del propio usuario
+      principal.php --> Principal tras un login correcto
+      ver_mis_datos.php --> Muestra los datos del usuario
 
 3.3. Base de Datos
 ==================
