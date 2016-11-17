@@ -208,7 +208,7 @@ Modelo_usuarios. Métodos:
             $idacl    --> Identificador de la ACL. 1-Administrador, 2-Usuario, 3-Desactivado
 
         Actualizar un usuario
-            public function add_usuario ($login, $password, $nombre, $idacl)
+        public function add_usuario ($login, $password, $nombre, $idacl)
             Parámetros entrada: 
             $login    --> Login de entrada del usuario
             $password --> Password, md5
@@ -225,6 +225,16 @@ Modelo_usuarios. Métodos:
                 Borra del ficheros actividades, las actividades del usuario.
                 Borra el usuario.
 
+        Comprobar en la base de datos si existe un usuario con un password
+        public function checkusuario($login, $password)           
+            Parámetros entrada:
+            $login --> login del usuario que se va a chequear
+            $password --> password del usuario que se va a chequear
+            Salida:
+            0 --> no existe usuario y password
+            1 --> existe y es correcto
+            2 --> existe y deshabilitado
+
 3.2.3. Vistas
 =============
 admin/
@@ -235,6 +245,46 @@ admin/
       modificar_mis_datos.php --> Modificación de los datos del propio usuario
       principal.php --> Principal tras un login correcto
       ver_mis_datos.php --> Muestra los datos del usuario
+
+3.2.4 Librerias
+===============
+Librería_sesiones. Métodos:
+
+        Comprobar si hay sesion
+        public function comprobar_session()
+            Salida:
+            TRUE --> Si hay sesion iniciada.
+            FALSE --> Si no hay sesion iniciada.
+
+        Registrar una sesión de usuario
+        public function registrar($estado, $idusuario)
+            Parámetros entrada:
+            $estado = true
+            $idusuario = login del usuario que se va a registrar en la sesion.
+            Salida:
+            TRUE --> Si el registro de sesion es correcto.
+            FALSE --> Si no es correcto.
+
+        Des-registrar o des-logear al usuario
+        public function des_registrar()
+            Salida:
+            TRUE --> Si el des-registro es correcto.
+            FALSE --> Si no es correcto. 
+
+        Devolver datos de una sesion
+        public function devuelve_datos_session()
+            Salida: Array con los datos de la sesion
+
+        Meter datos en la sesion
+        public function mete_datos_sesion($idsesion, $registrado, $login, $nombre, $acl)
+            Parámetros entrada:
+            $idsesion = el identificador que es el login
+            $registrado = TRUE o FALSE, autoexplicativo
+            $login = El login del usuario
+            $nombre = el nombre real del usuario
+            $acl = el identificador de acl 
+            Salida:
+            TRUE
 
 3.3. Base de Datos
 ==================
