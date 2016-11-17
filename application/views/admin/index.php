@@ -18,8 +18,8 @@ if (isset($error)) {
 <div class="container">
   <div class="col-md-12">
     <form action="login" method="POST">
-        <label for="usuario">Usuario</label><input type="text" name="usuario" id="usuario" required=""><br/>
-        <label for="password">Contraseña</label><input type="password" name="password" id="password" required=""><br/>
+        <label for="usuario">Usuario</label><input type="text" name="usuario" id="usuario"><br/>
+        <label for="password">Contraseña</label><input type="password" name="password" id="password"><br/>
         <input type="submit" value="acceder">
     </form>
   </div>

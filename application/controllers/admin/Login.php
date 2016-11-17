@@ -15,8 +15,7 @@ class Login extends CI_Controller {
 	 }
 
    public function index() {
-     // Controlador de entrada
-
+     // Controlador de entrada          
 	   $registrado = 0;
 	   $fallo = 0;
 	   $pa_la_vista = array();
@@ -25,48 +24,47 @@ class Login extends CI_Controller {
 			 // El usuario esta registrado hay que mandarle a la vista definitiva
 			 // indicamos que esta registrado y llenamos un array con los datos de el
 			 $registrado = 1;
-			 $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
-		 } else {
-			 // Revisamos si ha hecho un POST o no y cogemos los datos
-		   $usuario = $this -> input -> POST("usuario");
-		   $password = $this -> input -> POST("password");
+                         $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();  
+                 } else {
+                         $usuario = $this -> input -> POST("usuario");
+                         $password = $this -> input -> POST("password");
 		 }
 		 // Para saber mas sobre como se usan las sessiones
 		 // http://www.codeigniter.com/user_guide/libraries/sessions.html
 
-		 if ($registrado == 0) {
-			 if ($usuario == "" || $password == "") {
+                 // Comprueba si ha enviado el formulario
+                 if (isset($usuario) && isset($password) && $registrado == 0){
+                    	 if ($usuario == "" || $password == "") {
 				 // Si el pollopera no ha enviado nada, le abroncamo
 				 $fallo = 1;
 				 $pa_la_vista = array(
 			   	"error" => "Usuario o contraseña mal"
 			   );
-			 } else {
+			 } else {  
 				 // Si ha enviado algo lo comprobamos
 				 // recordamos que fallo viene valiendo 0 de antes
 				 $registrado = $this -> modelo_usuarios -> checkusuario($usuario, $password);
-				 echo $registrado;
-				 if ($registrado==0) {
+
+				 if ($registrado!=1) {
 					 // Comprobamos si esta registrado y sino, a la mierda con el
 					 $fallo = 1;
 					 $pa_la_vista = array(
 				   	"error" => "Usuario o contraseña mal"
 				   );
-				 }
-			 }
-		 }
-
-    // Si es correcto
+                                 }
+			 }		 
+                 }
+                // Si es correcto
 		// fallo = 0 & registrado = 1
 		if ($registrado == 1 && $fallo == 0) {
 			// En principio no deberiamos hacer nada, salvo redirigirle al sitio correcto
 			// $this -> load -> view("admin/principal");
 			$this -> load -> view("admin/principal");
 		} else {
-     // Si no es correcto
-		 // fallo = 1
-    // Recordar recoger los errores y se los enviamos a la vista tambien
-     $this -> load -> view ("admin/index", $pa_la_vista);
+                // Si no es correcto
+		// fallo = 1
+                // Recordar recoger los errores y se los enviamos a la vista tambien
+                        $this -> load -> view ("admin/index", $pa_la_vista);
 	 	}
    }
 

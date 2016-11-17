@@ -78,9 +78,14 @@ class Modelo_usuarios extends CI_Model {
         $resultado = $this -> db -> query($sql);
     }
     
-    public function checkusuario($login, $password){
-        // $this -> load -> library("libreria_sesiones");        
-        // revisa dentro de la base de datos si existe el usuario
+    public function checkusuario($login, $password){       
+        // Revisa dentro de la base de datos si existe el usuario y si esta habilitado
+        // $login --> login del usuario que se va a chequear
+        // $password --> password del usuario que se va a chequear
+        // Devuelve:
+        // 0 - no existe usuario y password
+        // 1 - existe y es correcto
+        // 2 - existe y deshabilitado
          
         $chek=0;
         $sql = "SELECT login, password, nombre, idacl FROM usuarios WHERE login='" . $login."' AND password='".$password."'";
@@ -88,51 +93,23 @@ class Modelo_usuarios extends CI_Model {
         
         foreach ($resultado->result() as $row) {
                 $chek=1;
-                 $login = $row -> login;
-                 $nombre = $row -> nombre;
-                 $idacl = $row -> idacl;                  
-                 
-                 // Si idacl=2 El usuario está deshabilitado
-                 if ($idacl==2){
-                    $chek=2;
-                 }
+                $login = $row -> login;
+                $nombre = $row -> nombre;
+                $idacl = $row -> idacl;
+                $pass = $row -> password;
+
+                if ($idacl==2){
+                   // Si idacl=2 El usuario está deshabilitado
+                   $chek=2;
+                }            
       	}
-        if ($chek==1) {
-            /*
-            if ($this ->session -> registrado == TRUE) {
-                
-            $this -> session -> unset_userdata("registrado");
-            $this -> session -> unset_userdata("idusuario");
-            }
-             * */
-          
-            // Registamos al usuario
-            // Sin llamara la libreria-sesiones
-          
-            //$this -> load -> library("session");
-             //esto es lo que haria registrar
-            /*
-            $this -> session -> registrado = TRUE;
-            $this -> session -> idusuario = $login;
-            // Esto es lo que haria mete_datos_sesion
-            $this -> session -> idlogin = $login;
-            $this -> session -> registrado = TRUE;
-            $this -> session -> login = $login;
-            $this -> session -> nombre = $nombre;
-            $this -> session -> acl = $idacl;
-             * */
-             print ("valor sesion en modelo_usuario<p></p>");   
-             print_r ($this -> session);
-             
-// Con la libreria-sesiones             
-            $this -> libreria_sesiones -> registrar(TRUE, $login,$this -> session);
-            //$this -> libreria_sesiones -> mete_datos_sesion($login, TRUE, $login, $nombre, $idacl);
-              
-         
-        
-             
+        if ($chek==1) {            
+            // Registamos al usuario 
+            // Con la libreria-sesiones             
+            $this -> libreria_sesiones -> registrar(TRUE, $login);
+            $this -> libreria_sesiones -> mete_datos_sesion($login, TRUE, $login, $nombre, $idacl);             
         }
-        return $chek;
+        return $chek; // 0, 1, 2
     }
     
   } 
