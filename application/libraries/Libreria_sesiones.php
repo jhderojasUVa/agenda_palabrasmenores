@@ -65,9 +65,10 @@ class Libreria_sesiones {
                   );
 
             $this -> CI -> session -> unset_userdata( $array_desregistrar);
-
-//??? hay que destruir la sesion 
-//$this -> CI -> session -> sess_destroy(); 
+            
+            // Destruye la sesion 
+            $this -> CI -> session -> sess_destroy(); 
+            
             return true;
           } else {
             // Woops algo ha ido mal

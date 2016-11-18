@@ -65,6 +65,7 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
 ====================
 /Admin
         Login.php --> Controlador de usuario
+                      Valida los datos del usuario para iniciar sesion  
 Principal.php --> Controlador de entrada
 
 3.2.2. Modelos
