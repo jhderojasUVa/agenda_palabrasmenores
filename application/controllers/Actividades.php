@@ -21,8 +21,8 @@ class Actividades extends CI_Controller {
         // Datos del usuario de la sesion de usuario
         $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
         $idusuario = $datos_usuario['idsesion'];
-        // Actividades de usuario por fecha descenciente
-        $actividades = $this -> modelo_usuarios -> actividad_usuario_fecha($idusuario);
+        // Actividades de usuario por fecha descencente
+        $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
         $pa_la_vista['usuario'] = $datos_usuario;
         $pa_la_vista['actividades'] = $actividades;
 

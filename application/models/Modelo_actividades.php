@@ -73,5 +73,17 @@ class Modelo_actividades extends CI_Model {
         $sql = "DELETE FROM actividades WHERE idactividades='".$idactividades."'";
 	      $resultado = $this -> db -> query($sql);
     }
+    
+    public function actividad_usuario_fecha($idusuario){       
+        // Funcion que devuelve las actividades de un usuario por orden descendente de fecha
+        // $idusuario --> Identificador del usuario      
+       
+        $sql = "SELECT * FROM actividades WHERE usuario ='" . $idusuario."' ORDER BY fecha DESC";
+        $resultado = $this -> db -> query($sql); 
+        $resultado_array = $resultado -> result_array(); // Obtener el array
+
+        return $resultado_array;
+    }    
+    
   }
 ?>
