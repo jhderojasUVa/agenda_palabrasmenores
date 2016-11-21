@@ -37,14 +37,14 @@ class Actividades extends CI_Controller {
         $idusuario = $datos_usuario['idsesion'];    
         // Vemos si ha mandado datos por POST o no
 
-       $campanya = $this -> input -> POST("campanya");
-       $actividad = $this -> input -> POST("actividad");
-       $descripcion = $this -> input -> POST("descripcion");
-       $organiza = $this -> input -> POST("organiza");
-       $lugar = $this -> input -> POST("lugar");
-       $idbarrio = $this -> input -> POST("idbarrio");
-       $idseccion = $this -> input -> POST("idseccion");    
-       $fecha = $this -> input -> POST("fecha");    
+        $campanya = $this -> input -> POST("campanya");
+        $actividad = $this -> input -> POST("actividad");
+        $descripcion = $this -> input -> POST("descripcion");
+        $organiza = $this -> input -> POST("organiza");
+        $lugar = $this -> input -> POST("lugar");
+        $idbarrio = $this -> input -> POST("idbarrio");
+        $idseccion = $this -> input -> POST("idseccion");    
+        $fecha = $this -> input -> POST("fecha");    
         // Si se ha enviado llamamos al modelo y añadimos la actividad
 // ??? Si CodeIgniter tiene algo para comprobar si ha enviado algo
 // ??? En principio lo pongo con el barrio que en la tabla tiene campo obligatorio       
