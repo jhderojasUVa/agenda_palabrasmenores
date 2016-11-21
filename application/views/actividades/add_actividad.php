@@ -45,7 +45,7 @@
                 <label for="descripcion">Descripción</label>
             </div>
             <div class="col-md-6">
-                <input type="text" name="descripcion" id="descripcion"><br/>
+                <textarea name="descripcion" id="descripcion"></textarea><br/>
             </div>
             <div class="col-md-2"></div>
 
