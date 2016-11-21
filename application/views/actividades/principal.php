@@ -21,7 +21,7 @@
     </div>
 
     <div class="col-md-12">
-        <form action="#" method="POST">
+        <form action="Actividades/add_actividad" method="POST">
             <input type="submit" value="nueva actividad">
         </form>
     </div>
