@@ -25,8 +25,10 @@ class Actividades extends CI_Controller {
         $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
         $pa_la_vista['usuario'] = $datos_usuario;
         $pa_la_vista['actividades'] = $actividades;
-
-        $this -> load -> view ("actividades/principal", $pa_la_vista);	 	
+        
+        $this -> load -> view ("header");        
+        $this -> load -> view ("actividades/principal", $pa_la_vista);
+        $this -> load -> view ("footer");        
     }
    
     public function add_actividad() {
@@ -48,12 +50,13 @@ class Actividades extends CI_Controller {
         // Si se ha enviado llamamos al modelo y añadimos la actividad
 // ??? Si CodeIgniter tiene algo para comprobar si ha enviado algo
 // ??? En principio lo pongo con el barrio que en la tabla tiene campo obligatorio       
-       if (!empty($idbarrio)){
+        if (!empty($idbarrio)){
             $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario);
 //?? que tiene que hacer despues en pricipio está para añadir otra actividad
-       }
-
-       $this -> load -> view ("actividades/add_actividad");
+        }
+        $this -> load -> view ("header");
+        $this -> load -> view ("actividades/add_actividad");
+        $this -> load -> view ("footer");        
     }
    
  }
