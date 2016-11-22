@@ -15,17 +15,17 @@ class Login extends CI_Controller {
 	 }
 
     public function index() {
-        // Controlador de entrada          
+        // Controlador de entrada
 	$registrado = 0;
 	$fallo = 0;
-	$pa_la_vista = array(); 
-           
+	$pa_la_vista = array();
+
         // Comprobamos si ha recibido algo por POST o si tiene algo en la session de usuario
         if ($this -> libreria_sesiones -> comprobar_session() == true){
             // El usuario esta registrado hay que mandarle a la vista definitiva
             // indicamos que esta registrado y llenamos un array con los datos de el
             $registrado = 1;
-            $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();  
+            $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
         } else {
             $usuario = $this -> input -> POST("usuario");
             $password = $this -> input -> POST("password");
@@ -41,7 +41,7 @@ class Login extends CI_Controller {
 		$pa_la_vista = array(
                     "error" => "Usuario o contraseña mal"
 		);
-            } else {  
+            } else {
                 // Si ha enviado algo lo comprobamos
                 // recordamos que fallo viene valiendo 0 de antes
                 $registrado = $this -> modelo_usuarios -> checkusuario($usuario, $password);
@@ -53,7 +53,7 @@ class Login extends CI_Controller {
 			"error" => "Usuario o contraseña mal"
                     );
                 }
-            }		 
+            }
         }
         // Si es correcto
 	// fallo = 0 & registrado = 1
@@ -68,16 +68,17 @@ class Login extends CI_Controller {
             $pa_la_vista['usuario'] = $datos_usuario;
             $pa_la_vista['actividades'] = $actividades;
 
-            $this -> load -> view ("admin/header");        
+            $this -> load -> view ("admin/header");
+						$this -> load -> view ("admin/menu");     
             $this -> load -> view ("admin/actividades/principal", $pa_la_vista);
-            $this -> load -> view ("admin/footer"); 
+            $this -> load -> view ("admin/footer");
 	} else {
             // Si no es correcto
             // fallo = 1
             // Recordar recoger los errores y se los enviamos a la vista tambien
-            $this -> load -> view ("admin/header");                    
+            $this -> load -> view ("admin/header");
             $this -> load -> view ("admin/index", $pa_la_vista);
-            $this -> load -> view ("admin/footer"); 
+            $this -> load -> view ("admin/footer");
 	}
     }
 

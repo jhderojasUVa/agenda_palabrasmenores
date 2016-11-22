@@ -1,9 +1,15 @@
+    <!-- footer -->
     <footer>
-        <div class="col-md-12"><p></p></div>
-        <div class="col-md-4"></div>
-        <div class="col-md-6"><h2>Pie</h2></div>
-        <div class="col-md-2"></div>
-        <div class="col-md-12"><p></p></div>
-    </footer>    
+        <!-- contenedor -->
+        <div class="container-fluid">
+          <!-- fila -->
+          <div class="row">
+            <!-- celda -->
+            <div class="col-md-12">
+              <h1 class="text-center">Footer</h1>
+            </div>
+          </div>
+        </div>
+    </footer>
 </body>
 </html>

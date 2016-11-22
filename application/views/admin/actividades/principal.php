@@ -2,91 +2,56 @@
 <!-- Inicio Contenido de la página de actividades-->
 
 <div class="container">
-    <div class="col-md-3">
-    </div>
-    <div class="col-md-6">
+  <div class="row">
+    <div class="col-md-offset-3 col-md-6">
         <h3>Actividades del usuario: <?echo $usuario['nombre']?></h3>
     </div>
-    <div class="col-md-3">
-    </div>
+  </div>
 
+  <!-- en principio esto ya no hace falta al estar en el menu.php -->
+  <div class="row">
     <div class="col-md-12">
         <form action="admin/Actividades/add_actividad" method="POST">
             <input type="submit" value="nueva actividad">
         </form>
     </div>
-    
-<?  
-    // Lo guardo por si acaso
-    /*
-    foreach ($actividades as $fila) {
-        echo "<br/>Fila<br/>";
-        print_r($fila);    
-        echo "<br/>";
-        foreach ($fila as $campo =>$valor) {    
-            echo "<br/>Campo - Valor<br/>";
-            echo "$campo - $valor";
-            echo "<br/>";
-        }
-    } 
-    */
-?>
-    <div class="col-md-12"><p></p></div>
-    
-    <div class="col-md-1">ID</div>
-    <div class="col-md-1">Campaña</div>
-    <div class="col-md-2">Actividad</div> 
-    <div class="col-md-2">Descripción</div>
-    <div class="col-md-1">Organiza</div>
-    <div class="col-md-1">Lugar</div>
-    <div class="col-md-1">Barrio</div>
-    <div class="col-md-1">Sección</div> 
-    <div class="col-md-1">Fecha</div>
-    <div class="col-md-1">Publicada</div>
-<?  
-    foreach ($actividades as $fila) {
-?>
-        <div class="col-md-1"><p><?echo $fila['idactividades']?><p></div>
-        <div class="col-md-1"><?echo $fila['campanya']?></div>
-        <div class="col-md-2"><?echo $fila['actividad']?></div> 
-        <div class="col-md-2"><?echo $fila['descripcion']?></div>
-        <div class="col-md-1"><?echo $fila['organiza']?></div>
-        <div class="col-md-1"><?echo $fila['lugar']?></div>
-        <div class="col-md-1"><?echo $fila['idbarrio']?></div>    
-        <div class="col-md-1"><?echo $fila['idseccion']?></div> 
-        <div class="col-md-1"><?echo $fila['fecha']?></div>
-<?
-        if ($fila['publicada']==1) {
-            $publi="Si";
-        } else {
-            $publi="No";
-        }
-?>       
-        <div class="col-md-1"><?echo $publi?></div>
-
-        <div class="col-md-12"><p></p></div>
-<?  }?> 
-<!-- Por columnas sería
-        <div class="col-md-2"><p>ID</p></div>
-        <div class="col-md-10"><p><?echo $fila['idactividades']?></p></div>        
-        <div class="col-md-2"><p>Campaña</p></div>
-        <div class="col-md-10"><p><?echo $fila['campanya']?></p></div>
-        <div class="col-md-2"><p>Actividad</p></div>
-        <div class="col-md-10"><p><?echo $fila['actividad']?></p></div>
-        <div class="col-md-2"><p>Descripción</p></div>
-        <div class="col-md-10"><p><?echo $fila['descripcion']?></p></div>
-        <div class="col-md-2"><p>Organiza</p></div>
-        <div class="col-md-10"><p><?echo $fila['organiza']?></p></div>
-        <div class="col-md-2"><p>Lugar</p></div>
-        <div class="col-md-10"><p><?echo $fila['lugar']?></p></div>
-        <div class="col-md-2"><p>Barrio</p></div>
-        <div class="col-md-10"><p><?echo $fila['idbarrio']?></p></div> 
-        <div class="col-md-2"><p>Sección</p></div>
-        <div class="col-md-10"><p><?echo $fila['idseccion']?></p></div>
-        <div class="col-md-2"><p>Fecha</p></div>
-        <div class="col-md-10"><p><?echo $fila['fecha']?></p></div>         
-        <div class="col-md-12"><p></p></div> 
--->
+  </div>
+  <!-- reordenamos todo y lo juntamos -->
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-stripped">
+        <th>
+          <td>Actividad</td>
+          <td>Campaña</td>
+          <td>Fecha</td>
+          <td>Publicada</td>
+          <td>Acciones</td>
+        </th>
+        <? foreach ($actividades as $fila) { ?>
+        <tr>
+          <td>
+            <a href="<?=base_url()?>/admin/Actividades/modifica_actividad?id=<?=$fila["idactividades"]?>"><?=$fila["actividad"]?></a>
+          </td>
+          <td>
+            <?=$fila["campanya"]?>
+          </td>
+          <td>
+            <?=$fila["fecha"]?>
+          </td>
+          <td>
+            <? if ($fila["publicada"]==1) { echo "Si" } else { echo "No"} ?>
+          </td>
+          <td>
+            <span class="text-center">
+              <a href="<?=base_url()?>/admin/Actividades/modifica_actividad?id=<?=$fila["idactividades"]?>">Modificar</a>
+              <a href="#">Borrar</a>
+            <span>
+          </td>
+        </tr>
+        <? } ?>
+        <tr>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
-<!-- Final Contenido de la página actividad-->
-

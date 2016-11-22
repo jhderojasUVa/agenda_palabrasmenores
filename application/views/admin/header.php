@@ -10,9 +10,16 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
+    <!-- cabecera -->
     <header>
-        <div class="col-md-4"></div>
-        <div class="col-md-6"><h2>Cabecera</h2></div>
-        <div class="col-md-2"></div>
-        <div class="col-md-12"><p></p></div>
-    </header>    
+      <!-- contenedor -->
+      <div class="container-fluid">
+        <!-- fila -->
+        <div class="row">
+          <!-- celda -->
+          <div class="col-md-12">
+            <h1 class="text-center">Cabecera</h1>  
+          </div>
+        </div>
+      </div>
+    </header>
