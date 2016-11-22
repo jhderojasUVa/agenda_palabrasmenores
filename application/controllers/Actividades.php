@@ -46,12 +46,13 @@ class Actividades extends CI_Controller {
         $lugar = $this -> input -> POST("lugar");
         $idbarrio = $this -> input -> POST("idbarrio");
         $idseccion = $this -> input -> POST("idseccion");    
-        $fecha = $this -> input -> POST("fecha");    
+        $fecha = $this -> input -> POST("fecha");
+        $publicada = 0;
         // Si se ha enviado llamamos al modelo y añadimos la actividad
 // ??? Si CodeIgniter tiene algo para comprobar si ha enviado algo
 // ??? En principio lo pongo con el barrio que en la tabla tiene campo obligatorio       
         if (!empty($idbarrio)){
-            $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario);
+            $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario,$publicada);
 //?? que tiene que hacer despues en pricipio está para añadir otra actividad
         }
         $this -> load -> view ("header");

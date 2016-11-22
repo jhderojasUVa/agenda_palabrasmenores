@@ -10,7 +10,7 @@ class Modelo_actividades extends CI_Model {
 		$this -> load -> database();
     }
 
-    public function add_actividad ($campanya, $actividad, $descripcion, $organiza, $lugar, $idbarrio, $idseccion, $fecha, $usuario) {
+    public function add_actividad ($campanya, $actividad, $descripcion, $organiza, $lugar, $idbarrio, $idseccion, $fecha, $usuario, $publicada) {
         // Aqui hay que poner las variables que se le pasan y que es cada una
         // Recuerda, en el modelo, comprobar que los datos que te meten
         // en los parametros estan correctos, por seguridad
@@ -24,11 +24,12 @@ class Modelo_actividades extends CI_Model {
         // $idseccion   --> ID de la seccion a la que pertenece la actividad
         // $fecha       --> Fecha y Hora de comienzo de la actividad
         // $usuario     --> login del usuario
+        // $publicada   --> Si está o no publicada la actividad, al crearla vendrá con valor 0 
 
-        $sql = "INSERT INTO actividades (campanya, actividad, descripcion, organiza, lugar, idbarrio, idseccion, fecha, usuario) VALUES ('" . $campanya . "', '" . $actividad . "', '" . $descripcion . "', '" . $organiza . "', '" . $lugar . "', '" . $idbarrio . "', '" . $idseccion . "', '" . $fecha . "', '" . $usuario . "')";
+        $sql = "INSERT INTO actividades (campanya, actividad, descripcion, organiza, lugar, idbarrio, idseccion, fecha, usuario, publicada) VALUES ('" . $campanya . "', '" . $actividad . "', '" . $descripcion . "', '" . $organiza . "', '" . $lugar . "', '" . $idbarrio . "', '" . $idseccion . "', '" . $fecha . "', '" . $usuario . "', '" . $publicada . "')";
         $resultado = $this->db->query($sql);
         // Recuperamos el ID
-        $sql="SELECT idactividades FROM actividades WHERE campanya='".$campanya."' AND actividad='".$actividad."' AND descripcion='".$descripcion."' AND organiza='".$organiza."' AND lugar='".$lugar."' AND idbarrio='".$idbarrio."' AND idseccion='".$idseccion."' AND fecha='".$fecha."' AND usuario='".$usuario."'";
+        $sql="SELECT idactividades FROM actividades WHERE campanya='".$campanya."' AND actividad='".$actividad."' AND descripcion='".$descripcion."' AND organiza='".$organiza."' AND lugar='".$lugar."' AND idbarrio='".$idbarrio."' AND idseccion='".$idseccion."' AND fecha='".$fecha."' AND usuario='".$usuario."' AND publicada='".$publicada."'";
       	$resultado = $this -> db -> query($sql);
       	foreach ($resultado->result() as $row) {
                   $idactividades = $row -> idactividades;
@@ -36,7 +37,7 @@ class Modelo_actividades extends CI_Model {
 	      return $idactividades;
     }
 
-    public function update_actividad ($idactividades, $campanya, $actividad, $descripcion, $organiza, $lugar, $idbarrio, $idseccion, $fecha, $usuario) {
+    public function update_actividad ($idactividades, $campanya, $actividad, $descripcion, $organiza, $lugar, $idbarrio, $idseccion, $fecha, $usuario, $publicada) {
         // Funcion para modificar una actividad
         // $idactividades --> Identificador de la actividad que se va a actualizar
         // $campanya      --> Nombre de la campanya de la actividad
@@ -48,7 +49,8 @@ class Modelo_actividades extends CI_Model {
         // $idseccion     --> ID de la seccion a la que pertenece la actividad
         // $fecha         --> Fecha y Hora de comienzo de la actividad
         // $usuario       --> login del usuario
-        $sql = "UPDATE actividades SET campanya='".$campanya."', actividad='". $actividad."', descripcion='".$descripcion."', organiza='".$organiza."', lugar='".$lugar."', idbarrio='".$idbarrio."', idseccion='".$idseccion."', fecha='".$fecha."', usuario='".$usuario."' WHERE idactividades='".$idactividades."'";
+        // $publicada     --> Si está o no publicada la actividad
+        $sql = "UPDATE actividades SET campanya='".$campanya."', actividad='". $actividad."', descripcion='".$descripcion."', organiza='".$organiza."', lugar='".$lugar."', idbarrio='".$idbarrio."', idseccion='".$idseccion."', fecha='".$fecha."', usuario='".$usuario."', publicada='".$publicada."' WHERE idactividades='".$idactividades."'";
 	      $resultado = $this -> db -> query($sql);
     }
 

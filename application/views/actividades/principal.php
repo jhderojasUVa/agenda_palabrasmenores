@@ -42,7 +42,7 @@
     <div class="col-md-1">Barrio</div>
     <div class="col-md-1">Sección</div> 
     <div class="col-md-1">Fecha</div>
-    <div class="col-md-1">Estado</div>
+    <div class="col-md-1">Publicada</div>
 <?  
     foreach ($actividades as $fila) {
 ?>
@@ -55,7 +55,14 @@
         <div class="col-md-1"><?echo $fila['idbarrio']?></div>    
         <div class="col-md-1"><?echo $fila['idseccion']?></div> 
         <div class="col-md-1"><?echo $fila['fecha']?></div>
-        <div class="col-md-1">Falta</div>
+<?
+        if ($fila['publicada']==1) {
+            $publi="Si";
+        } else {
+            $publi="No";
+        }
+?>       
+        <div class="col-md-1"><?echo $publi?></div>
 
         <div class="col-md-12"><p></p></div>
 <?  }?> 
