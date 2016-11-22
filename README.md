@@ -63,12 +63,12 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
 
 3.2.1. Controladores
 ====================
-/Admin
-        Login.php --> Controlador de usuario
-                      Valida los datos del usuario para iniciar sesion  
-Principal.php --> Controlador de entrada
-Actividades.php --> Controlador de actividades
-                    Datos para mostrar y añadir actividades.
+/Admin<br/>
+        Login.php --> Controlador de usuario<br/>
+                      Valida los datos del usuario para iniciar sesion<br/>  
+Principal.php --> Controlador de entrada<br/>
+Actividades.php --> Controlador de actividades<br/>
+                    Datos para mostrar y añadir actividades<br/>
 
 3.2.2. Modelos
 ==============
@@ -249,18 +249,18 @@ Modelo_usuarios. Métodos:
 
 3.2.3. Vistas
 =============
-admin/
-      index.php --> Entrada de usuario
-      add_usuario.php --> Añadir usuarios
-      desconectar.php --> Desconexion o salida del usuario
-      del_usuario.php --> Eliminar usuario
-      modificar_mis_datos.php --> Modificación de los datos del propio usuario
-      principal.php --> Principal tras un login correcto
-      ver_mis_datos.php --> Muestra los datos del usuario
+admin/<br/>
+      index.php --> Entrada de usuario<br/>
+      add_usuario.php --> Añadir usuarios<br/>
+      desconectar.php --> Desconexion o salida del usuario<br/>
+      del_usuario.php --> Eliminar usuario<br/>
+      modificar_mis_datos.php --> Modificación de los datos del propio usuario<br/>
+      principal.php --> Principal tras un login correcto<br/>
+      ver_mis_datos.php --> Muestra los datos del usuario<br/>
 
-actividades/
-        principal.php --> Muestra actividades de un usuario
-        add_actividades.php --> Añadir actividades
+actividades/<br/>
+        principal.php --> Muestra actividades de un usuario<br/>
+        add_actividades.php --> Añadir actividades<br/>
 
 3.2.4 Librerias
 ===============
