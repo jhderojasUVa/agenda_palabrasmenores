@@ -67,13 +67,15 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
         Login.php --> Controlador de usuario
                       Valida los datos del usuario para iniciar sesion  
 Principal.php --> Controlador de entrada
+Actividades.php --> Controlador de actividades
+                    Datos para mostrar y añadir actividades.
 
 3.2.2. Modelos
 ==============
 Modelo_actividades. Métodos:
 
         Añadir una actividad
-        public function add_actividad ($campanya, $actividad, $descripcion, $organiza, $lugar, $idbarrio, $idseccion, $fecha, $usuario)
+        public function add_actividad ($campanya, $actividad, $descripcion, $organiza, $lugar, $idbarrio, $idseccion, $fecha, $usuario, $publicada)
             Parámetros entrada:
             $campanya    --> Nombre de la campanya de la actividad
             $actividad   --> Nombre de la actividad
@@ -84,9 +86,10 @@ Modelo_actividades. Métodos:
             $idseccion   --> ID de la seccion a la que pertenece la actividad
             $fecha       --> Fecha y Hora de comienzo de la actividad
             $usuario     --> login del usuario                
+            $publicada   --> Si está o no publicada la actividad, al crearla vendrá con valor 0 
 
         Actualizar una actividad            
-        public function update_actividad ($idactividades, $campanya, $actividad, $descripcion, $organiza, $lugar, $idbarrio, $idseccion, $fecha, $usuario)
+        public function update_actividad ($idactividades, $campanya, $actividad, $descripcion, $organiza, $lugar, $idbarrio, $idseccion, $fecha, $usuario, $publicada)
             Parámetros entrada:
             $idactividades --> Identificador de la actividad que se va a actualizar
             $campanya      --> Nombre de la campanya de la actividad
@@ -98,6 +101,7 @@ Modelo_actividades. Métodos:
             $idseccion     --> ID de la seccion a la que pertenece la actividad
             $fecha         --> Fecha y Hora de comienzo de la actividad
             $usuario       --> login del usuario
+            $publicada     --> Si está o no publicada la actividad 1- Publicada 0 - No publicada
                 
         Borrar una actividad                 
         public function del_actividad ($idactividades)
@@ -107,6 +111,13 @@ Modelo_actividades. Métodos:
                 Borra del fichero imagenes, las imagenes de esa actividad.
                 Borra del fichero documentos, los documentos de esa actividad.
                 Borra la actividad.
+
+        Actividades de un usuario por orden descendente de fecha
+        public function actividad_usuario_fecha($idusuario){
+            Parámetros entrada:
+            $idusuario --> Identificador del usuario del que se van a obtener las actividades
+            Salida:
+            Array con las actividades
 
 Modelo_barrios. Métodos:
 
@@ -247,6 +258,10 @@ admin/
       principal.php --> Principal tras un login correcto
       ver_mis_datos.php --> Muestra los datos del usuario
 
+actividades/
+        principal.php --> Muestra actividades de un usuario
+        add_actividades.php --> Añadir actividades
+
 3.2.4 Librerias
 ===============
 Librería_sesiones. Métodos:
@@ -316,6 +331,7 @@ actividades
     idseccion: int(11) NOT NULL COMMENT 'ID de la seccion a la que pertenece',
     fecha: datetime NOT NULL COMMENT 'Fecha y hora de comienzo de la actividad',
     usuario: varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'login del usuario',
+    publicada: tinyint(1) DEFAULT '0' COMMENT 'Si esta publicada o no la actividad (1- Publicada,  0 - No publicada)',
     PRIMARY KEY (`idactividades`)
 
 barrios
@@ -371,7 +387,7 @@ usuarios
     login varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Login de entrada del usuario, UNICO',
     password varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Password. md5',
     nombre varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre del usuario',
-    idacl int(11) NOT NULL COMMENT 'Identificador de la ACL. 1-Administrador, 2-Usuario General, 3-Desactivado',
+    idacl int(11) NOT NULL COMMENT 'Identificador de la ACL. 1-Super Administrador, 2-Usuario General, 3-Desactivado, 4-Administrador',
     PRIMARY KEY (`login`)
 
 4. Test/Pruebas
