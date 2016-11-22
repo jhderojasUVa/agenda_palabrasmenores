@@ -13,24 +13,7 @@ class Actividades extends CI_Controller {
 		 /* Funcion de construccion del objeto */
 		 parent::__construct();
 	 }
-
-    public function index() {
-        // Carga las actividades del usuario.
-        
-        $pa_la_vista = array();
-        // Datos del usuario de la sesion de usuario
-        $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
-        $idusuario = $datos_usuario['idsesion'];
-        // Actividades de usuario por fecha descencente
-        $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
-        $pa_la_vista['usuario'] = $datos_usuario;
-        $pa_la_vista['actividades'] = $actividades;
-        
-        $this -> load -> view ("header");        
-        $this -> load -> view ("actividades/principal", $pa_la_vista);
-        $this -> load -> view ("footer");        
-    }
-   
+         
     public function add_actividad() {
         // Controlador para todos los usuarios de creacion de una actividad
         //
@@ -55,9 +38,9 @@ class Actividades extends CI_Controller {
             $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario,$publicada);
 //?? que tiene que hacer despues en pricipio está para añadir otra actividad
         }
-        $this -> load -> view ("header");
-        $this -> load -> view ("actividades/add_actividad");
-        $this -> load -> view ("footer");        
+        $this -> load -> view ("admin/header");
+        $this -> load -> view ("admin/actividades/add_actividad");
+        $this -> load -> view ("admin/footer");        
     }
    
  }
