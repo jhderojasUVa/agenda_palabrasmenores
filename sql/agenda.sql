@@ -35,18 +35,10 @@ CREATE TABLE `actividades` (
   `idseccion` int(11) NOT NULL COMMENT 'ID de la seccion a la que pertenece',
   `fecha` datetime NOT NULL COMMENT 'Fecha y hora de comienzo de la actividad',
   `usuario` varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'login del usuario',
+  `publicada` tinyint(1) DEFAULT '0' COMMENT 'Si esta publicada o no la actividad (1- Publicada,  0 - No publicada)',
   PRIMARY KEY (`idactividades`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `actividades`
---
-
-LOCK TABLES `actividades` WRITE;
-/*!40000 ALTER TABLE `actividades` DISABLE KEYS */;
-/*!40000 ALTER TABLE `actividades` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `barrios`
@@ -59,17 +51,8 @@ CREATE TABLE `barrios` (
   `idbarrios` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del barrio, UNICO',
   `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre del barrio',
   PRIMARY KEY (`idbarrios`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `barrios`
---
-
-LOCK TABLES `barrios` WRITE;
-/*!40000 ALTER TABLE `barrios` DISABLE KEYS */;
-/*!40000 ALTER TABLE `barrios` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `documentos`
@@ -84,17 +67,8 @@ CREATE TABLE `documentos` (
   `rutadocumento` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Ruta donde esta el documento ',
   `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Descripcion del documento',
   PRIMARY KEY (`iddocumentos`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `documentos`
---
-
-LOCK TABLES `documentos` WRITE;
-/*!40000 ALTER TABLE `documentos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `documentos` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `imagenes`
@@ -109,17 +83,8 @@ CREATE TABLE `imagenes` (
   `rutaimagen` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Ruta donde esta la imagen',
   `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Descripcion de la imagen',
   PRIMARY KEY (`idimagenes`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `imagenes`
---
-
-LOCK TABLES `imagenes` WRITE;
-/*!40000 ALTER TABLE `imagenes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `imagenes` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `secciones`
@@ -132,17 +97,8 @@ CREATE TABLE `secciones` (
   `idsecciones` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la seccion, UNICO',
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre de la seccion',
   PRIMARY KEY (`idsecciones`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `secciones`
---
-
-LOCK TABLES `secciones` WRITE;
-/*!40000 ALTER TABLE `secciones` DISABLE KEYS */;
-/*!40000 ALTER TABLE `secciones` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `usuarios`
@@ -155,19 +111,18 @@ CREATE TABLE `usuarios` (
   `login` varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Login de entrada del usuario, UNICO',
   `password` varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Password. md5',
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre del usuario',
-  `idacl` int(11) NOT NULL COMMENT 'Identificador de la ACL. 1-Administrador, 2-Usuario General, 3-Desactivado',
+  `idacl` int(11) NOT NULL COMMENT 'Identificador de la ACL. 1-Super Administrador, 2-Usuario General, 3-Desactivado, 4-Administrador',
   PRIMARY KEY (`login`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `usuarios`
+-- Dumping events for database 'agenda'
 --
 
-LOCK TABLES `usuarios` WRITE;
-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
-UNLOCK TABLES;
+--
+-- Dumping routines for database 'agenda'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -178,4 +133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-08  7:06:45
+-- Dump completed on 2016-11-22  3:07:16
