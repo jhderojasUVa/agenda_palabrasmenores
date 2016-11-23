@@ -82,10 +82,17 @@ class Modelo_actividades extends CI_Model {
        
         $sql = "SELECT * FROM actividades WHERE usuario ='" . $idusuario."' ORDER BY fecha DESC";
         $resultado = $this -> db -> query($sql); 
-        $resultado_array = $resultado -> result_array(); // Obtener el array
-
-        return $resultado_array;
-    }    
+        return $resultado -> result_array(); // Obtener el array
+    } 
+    
+    public function actividad_id($idactividades){       
+        // Funcion que devuelve una actividad a partir del id de actividades
+        // $idactividades --> Identificador de la actividad      
+       
+        $sql = "SELECT * FROM actividades WHERE idactividades ='" . $idactividades."'";
+        $resultado = $this -> db -> query($sql); 
+        return $resultado -> result_array(); // Obtener el array
+    }   
     
   }
 ?>
