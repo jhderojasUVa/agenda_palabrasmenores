@@ -20,13 +20,13 @@
   <div class="row">
     <div class="col-md-12">
       <table class="table table-stripped">
-        <th>
-          <td>Actividad</td>
-          <td>Campaña</td>
-          <td>Fecha</td>
-          <td>Publicada</td>
-          <td>Acciones</td>
-        </th>
+        <tr>
+          <th>Actividad</th>
+          <th>Campaña</th>
+          <th>Fecha</th>
+          <th>Publicada</th>
+          <th>Acciones</th>
+        </tr>
         <? foreach ($actividades as $fila) { ?>
         <tr>
           <td>
@@ -39,7 +39,7 @@
             <?=$fila["fecha"]?>
           </td>
           <td>
-            <? if ($fila["publicada"]==1) { echo "Si" } else { echo "No"} ?>
+            <? if ($fila["publicada"]==1) { echo "Si"; } else { echo "No";} ?>
           </td>
           <td>
             <span class="text-center">
