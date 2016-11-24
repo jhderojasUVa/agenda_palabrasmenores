@@ -111,7 +111,7 @@ CREATE TABLE `usuarios` (
   `login` varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Login de entrada del usuario, UNICO',
   `password` varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Password. md5',
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre del usuario',
-  `idacl` int(11) NOT NULL COMMENT 'Identificador de la ACL. 0-Disabled 1-Super Administrador, 2-Redactor, 3-Editor',
+  `idacl` int(11) NOT NULL COMMENT 'Identificador de la ACL: 0-Disabled, 1-Super Administrador, 2-Redactor, 3-Editor',
   PRIMARY KEY (`login`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

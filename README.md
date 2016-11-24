@@ -65,10 +65,11 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
 ====================
 /Admin<br/>
         Login.php --> Controlador de usuario<br/>
-                      Valida los datos del usuario para iniciar sesion<br/>  
+                      Valida los datos del usuario para iniciar sesion<br/> 
+        Actividades.php --> Controlador de actividades<br/>
+                            Controla añadir y modificar actividades<br/> 
 Principal.php --> Controlador de entrada<br/>
-Actividades.php --> Controlador de actividades<br/>
-                    Datos para mostrar y añadir actividades<br/>
+
 
 3.2.2. Modelos
 ==============
@@ -113,11 +114,18 @@ Modelo_actividades. Métodos:
                 Borra la actividad.
 
         Actividades de un usuario por orden descendente de fecha
-        public function actividad_usuario_fecha($idusuario){
+        public function actividad_usuario_fecha($idusuario)
             Parámetros entrada:
             $idusuario --> Identificador del usuario del que se van a obtener las actividades
             Salida:
             Array con las actividades
+
+        Datos de una actividad a partir del id de la actividad
+        actividad_id($idactividades)
+            Parámetros entrada:
+            $idactividades --> Identificador de la actividad
+            Salida:
+            Array con los datos de la actividad
 
 Modelo_barrios. Métodos:
 
@@ -250,17 +258,23 @@ Modelo_usuarios. Métodos:
 3.2.3. Vistas
 =============
 admin/<br/>
-      index.php --> Entrada de usuario<br/>
+    actividades/<br/>
+        principal.php --> Muestra actividades de un usuario<br/>
+        add_actividades.php --> Añadir actividades<br/>
+        modificar_actividades.php --> Modificar actividades<br/>
+        principal.php --> Principal tras un login correcto<br/>
+    usuarios/<br/>
       add_usuario.php --> Añadir usuarios<br/>
       desconectar.php --> Desconexion o salida del usuario<br/>
       del_usuario.php --> Eliminar usuario<br/>
       modificar_mis_datos.php --> Modificación de los datos del propio usuario<br/>
-      principal.php --> Principal tras un login correcto<br/>
       ver_mis_datos.php --> Muestra los datos del usuario<br/>
 
-actividades/<br/>
-        principal.php --> Muestra actividades de un usuario<br/>
-        add_actividades.php --> Añadir actividades<br/>
+    footer.php --> Pie de las páginas<br/>
+    header.php --> Cabecera de las páginas<br/>
+    index.php --> Entrada de usuario<br/>
+    menu.php --> Menu<br/>
+    principal.php --><br/> 
 
 3.2.4 Librerias
 ===============
@@ -387,7 +401,7 @@ usuarios
     login varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Login de entrada del usuario, UNICO',
     password varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Password. md5',
     nombre varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre del usuario',
-    idacl int(11) NOT NULL COMMENT 'Identificador de la ACL. 1-Super Administrador, 2-Usuario General, 3-Desactivado, 4-Administrador',
+    idacl int(11) NOT NULL COMMENT 'Identificador de la ACL: 0-Disabled, 1-Super Administrador, 2-Redactor, 3-Editor',
     PRIMARY KEY (`login`)
 
 4. Test/Pruebas
