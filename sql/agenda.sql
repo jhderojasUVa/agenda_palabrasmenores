@@ -37,7 +37,7 @@ CREATE TABLE `actividades` (
   `usuario` varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'login del usuario',
   `publicada` tinyint(1) DEFAULT '0' COMMENT 'Si esta publicada o no la actividad (1- Publicada,  0 - No publicada)',
   PRIMARY KEY (`idactividades`)
-) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +111,7 @@ CREATE TABLE `usuarios` (
   `login` varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Login de entrada del usuario, UNICO',
   `password` varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Password. md5',
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre del usuario',
-  `idacl` int(11) NOT NULL COMMENT 'Identificador de la ACL. 1-Super Administrador, 2-Usuario General, 3-Desactivado, 4-Administrador',
+  `idacl` int(11) NOT NULL COMMENT 'Identificador de la ACL. 0-Disabled 1-Super Administrador, 2-Redactor, 3-Editor',
   PRIMARY KEY (`login`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -133,4 +133,4 @@ CREATE TABLE `usuarios` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-22  3:07:16
+-- Dump completed on 2016-11-24  7:23:09
