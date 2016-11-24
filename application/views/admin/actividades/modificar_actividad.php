@@ -4,29 +4,35 @@
     // Segun el problema mostraremos y rellenaremos lo que haga falta
     // Puedes comentarlo si molesta
   ?>
+ 
   <div class="row">
+    <?  if ($actualizado==1){ ?>
     <!-- todo correcto -->
     <div class="col-md-12">
       <div class="alert alert-success">
         <h3>Perfecto!</h3>
-        <p><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> La actividad <strong>se ha creado con &ecute;xito</strong>.</p>
+        <p><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> La actividad <strong>se ha modificado con &eacute;xito</strong>.</p>
       </div>
     </div>
+    <? } else if($actualizado==1 && (isset($error))){?>
     <!-- existe un problema no grabe, ejemplo la fecha o algo asi -->
     <div class="col-md-12">
       <div class="alert alert-warning">
         <h3>Atenci&oacute;n</h3>
-        <p><span class="glyphicon glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Ha habido algun pequeño error: <strong>definimos el problema</strong>. Pero la actividad se ha grabado.</p>
+        <p><span class="glyphicon glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Ha habido algun pequeño error: <strong><?= $error?></strong>. Pero la actividad se ha grabado.</p>
       </div>
     </div>
+    <? } else if (isset($error)){?>
     <!-- Error!!! -->
     <div class="col-md-12">
       <div class="alert alert-danger">
         <h3>Problemas</h3>
-        <p><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Ha habido algun problema: <strong>definimos el problema</strong>.</p>
+        <p><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Ha habido algun problema: <strong><?= $error?></strong>.</p>
       </div>
     </div>
+     <? } ?>
   </div>
+
   <!-- comenzamos -->
   <div class="row">
     <div class="col-md-12">
@@ -36,9 +42,9 @@
   <div class="row">
     <!-- centramos -->
     <div class="col-md-offset-4 tcol-md-4">
-      <form action="<?=base_url()?>/admin/actividades/mofificar_actividad" method="POST" class="horizontal">
-        <div class="row">
-          <? foreach ($actividades as $fila) { // Solo es una?>
+      <? foreach ($actividades as $fila) { // Solo es una?>
+      <form action="<?=base_url()?>/admin/actividades/modifica_actividad/<?= $fila['idactividades']?>" method="POST" class="horizontal">
+        <div class="row">    
           <!-- cada par esta en un form-group -->
           <input type="hidden" value="1" name="modificar">
           <div class="form-group">
@@ -60,7 +66,7 @@
           <div class="form-group">
             <label for="descripcion" class="col-sm-2 control-label">Descripcion</label>
             <div class="col-sm-10">
-              <textarea class="form-control" name="descripcion" id="descripcion" rows="4" value="<?= $fila['descripcion']?>"></textarea>
+              <textarea class="form-control" name="descripcion" id="descripcion" rows="4" value="<?= $fila['descripcion']?>"><?= $fila['descripcion']?></textarea>
             </div>
           </div>
           <div class="form-group">
@@ -80,7 +86,7 @@
           <div class="form-group">
             <label for="barrio" class="col-sm-2 control-label">Barrio</label>
             <div class="col-sm-10">
-              <select name="barrio" id="idbarrio" class="form-control">
+              <select name="idbarrio" id="barrio" class="form-control">
                   <option  value="<?= $fila['idbarrio']?>"><?= $fila['idbarrio']?></option>
                   <? for ($i=1; $i<5; $i++) { ?>
                   <option value="<?=$i?>"><?=$i?></option>
@@ -92,7 +98,7 @@
           <div class="form-group">
             <label for="seccion" class="col-sm-2 control-label">seccion</label>
             <div class="col-sm-10">
-              <select name="seccion" id="idseccion" class="form-control">
+              <select name="idseccion" id="seccion" class="form-control">
                 <option  value="<?= $fila['idseccion']?>"><?= $fila['idseccion']?></option>
                 <? for ($i=1; $i<5; $i++) { ?>
                   <option value="<?=$i?>"><?=$i?></option>
@@ -108,9 +114,10 @@
             </div>
           </div>
           <!-- el enviar o modificar-->
-          <? } ?>
+
           <button type="submit" class="btn btn-default">Modificar actividad</button>
       </form>
+      <? } ?>
     </div>
   </div>
 </div>

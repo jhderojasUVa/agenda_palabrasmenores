@@ -16,7 +16,7 @@ class Actividades extends CI_Controller {
 
     public function add_actividad() {
         // Controlador para todos los usuarios de creacion de una actividad
-        //
+
         // Datos del usuario de la sesion de usuario
         $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
         $idusuario = $datos_usuario['idsesion'];
@@ -39,36 +39,76 @@ class Actividades extends CI_Controller {
 //?? que tiene que hacer despues en pricipio está para añadir otra actividad
         }
         $this -> load -> view ("admin/header");
-				$this -> load -> view ("admin/menu");
+	$this -> load -> view ("admin/menu");
         $this -> load -> view ("admin/actividades/add_actividad");
         $this -> load -> view ("admin/footer");
     }
 
-		public function modifica_actividad() {
-			// Revisamos si tenemos el id de actividad (por get o por post o por hidden, da igual)
+    public function modifica_actividad($idactividades) {
+        // Controlador para todos los usuarios para modificar una actividad
+        // $idactividades --> id de la actividad que se va a modificar
+        $fallo = 0;
+        $modificar = 0;
+        $pa_la_vista = array();
+        $pa_la_vista['actualizado'] = 0;
+        // Revisamos si tenemos el id de actividad (por get o por post o por hidden, da igual)        
+        if ($idactividades){
+            // Datos del usuario de la sesion de usuario
+            $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
+            $idusuario = $datos_usuario['idsesion']; 
+        } else {
+           $fallo = 1;
+            $pa_la_vista = array(
+                    "error" => "No hay actividad"
+		);
+        }
 
-			// Revisamos si ha modificado, es decir, como te digo abajo si modificar=1
+        // Revisamos si ha modificado, es decir, como te digo abajo si modificar=1
 
-			// Si modificar = 1 hacemos el update
+        // Si modificar = 1 hacemos el update
+        if ($modificar = $this -> input -> POST("modificar")==1 && $fallo==0){
+            // Datos de la actividad del POST
+            $campanya = $this -> input -> POST("campanya");
+            $actividad = $this -> input -> POST("actividad");
+            $descripcion = $this -> input -> POST("descripcion");
+            $organiza = $this -> input -> POST("organiza");
+            $lugar = $this -> input -> POST("lugar");
+            $idbarrio = $this -> input -> POST("idbarrio");
+            $idseccion = $this -> input -> POST("idseccion");
+            $fecha = $this -> input -> POST("fecha");
+            $publicada = $this -> input -> POST("publicada");
+            
+            $this -> modelo_actividades -> update_actividad($idactividades,$campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario,$publicada);
+            $pa_la_vista['actualizado'] = 1;
+        }
+        // Conseguimos los datos por el modelo
+        if ($fallo==0) {
+            $actividades = $this -> modelo_actividades -> actividad_id($idactividades);
+            $pa_la_vista['usuario'] = $datos_usuario;
+            $pa_la_vista['actividades'] = $actividades;	
+        }
+        // Se lo enviamos a las vistas correspondientes
+    
+        // Recuerda que aqui puedes elegir el usar la vista de add_actividad modificandola o hacer una vista nueva
+        // Te lo dejo a tu eleccion
+        // Lo unico es que la vista, cuando modifica ha de llamar a este controlador enviando por hidden un parametro
+        // por ejemplo
+        // <input type="hidden" value="1" name="modificar">
+        
+        $this -> load -> view ("admin/header");
+	$this -> load -> view ("admin/menu");
+        $this -> load -> view ("admin/actividades/modificar_actividad",$pa_la_vista);
+        $this -> load -> view ("admin/footer");
+    }
 
-			// Conseguimos los datos por el modelo
-			// Se lo enviamos a las vistas correspondientes
+    public function buscar_actividad() {
+    // Buscaremos las actividades a traves de un texto en el titulo o en la descripcion
 
-			// Recuerda que aqui puedes elegir el usar la vista de add_actividad modificandola o hacer una vista nueva
-			// Te lo dejo a tu eleccion
-			// Lo unico es que la vista, cuando modifica ha de llamar a este controlador enviando por hidden un parametro
-			// por ejemplo
-			// <input type="hidden" value="1" name="modificar">
-		}
+    // Recogemos la query del formulario (del menu), del q
 
-		public function buscar_actividad() {
-			// Buscaremos las actividades a traves de un texto en el titulo o en la descripcion
+    // Llamamos al modelo que busca por la query (q) en ambos campos con un OR
 
-			// Recogemos la query del formulario (del menu), del q
-
-			// Llamamos al modelo que busca por la query (q) en ambos campos con un OR
-
-			// Llamamos a las vistas con el resultado
-		}
+    // Llamamos a las vistas con el resultado
+    }
 
  }
