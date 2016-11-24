@@ -6,7 +6,7 @@
   ?>
  
   <div class="row">
-    <?  if ($actualizado==1){ ?>
+    <? if ($actualizado==1){ ?>
     <!-- todo correcto -->
     <div class="col-md-12">
       <div class="alert alert-success">

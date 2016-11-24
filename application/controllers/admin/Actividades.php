@@ -50,17 +50,18 @@ class Actividades extends CI_Controller {
         $fallo = 0;
         $modificar = 0;
         $pa_la_vista = array();
+        // Inicializamos para temas de errores
         $pa_la_vista['actualizado'] = 0;
+        $pa_la_vista['usuario'] = array();
+        $pa_la_vista['actividades'] = array();
         // Revisamos si tenemos el id de actividad (por get o por post o por hidden, da igual)        
         if ($idactividades){
             // Datos del usuario de la sesion de usuario
             $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
             $idusuario = $datos_usuario['idsesion']; 
         } else {
-           $fallo = 1;
-            $pa_la_vista = array(
-                    "error" => "No hay actividad"
-		);
+            $fallo = 1;
+            $pa_la_vista['error'] = "No hay actividad";
         }
 
         // Revisamos si ha modificado, es decir, como te digo abajo si modificar=1
