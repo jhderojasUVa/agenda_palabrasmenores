@@ -29,12 +29,17 @@ class Modelo_actividades extends CI_Model {
         $sql = "INSERT INTO actividades (campanya, actividad, descripcion, organiza, lugar, idbarrio, idseccion, fecha, usuario, publicada) VALUES ('" . $campanya . "', '" . $actividad . "', '" . $descripcion . "', '" . $organiza . "', '" . $lugar . "', '" . $idbarrio . "', '" . $idseccion . "', '" . $fecha . "', '" . $usuario . "', '" . $publicada . "')";
         $resultado = $this->db->query($sql);
         // Recuperamos el ID
+        // En de si exite fecha o no la consulta es distinta, porque sale error.
+        // Porque si no tiene fecha al hacer el select no devuelve ninguno,
+        // Aunque con fecha en blanco pueden aparecer varios
+        // OJO si no tiene fecha, pongo la fecha a la que graba por defecto, porque sino la consulta no devuelve ningun registro
+        if ($fecha =="") {$fecha="0000-00-00";}
         $sql="SELECT idactividades FROM actividades WHERE campanya='".$campanya."' AND actividad='".$actividad."' AND descripcion='".$descripcion."' AND organiza='".$organiza."' AND lugar='".$lugar."' AND idbarrio='".$idbarrio."' AND idseccion='".$idseccion."' AND fecha='".$fecha."' AND usuario='".$usuario."' AND publicada='".$publicada."'";
-      	$resultado = $this -> db -> query($sql);
+        $resultado = $this -> db -> query($sql);
       	foreach ($resultado->result() as $row) {
                   $idactividades = $row -> idactividades;
       	}
-	      return $idactividades;
+	return $idactividades;
     }
 
     public function update_actividad ($idactividades, $campanya, $actividad, $descripcion, $organiza, $lugar, $idbarrio, $idseccion, $fecha, $usuario, $publicada) {

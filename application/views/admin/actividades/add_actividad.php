@@ -5,13 +5,15 @@
     // Puedes comentarlo si molesta
   ?>
   <div class="row">
+    <? if ($actualizado==1){ ?>
     <!-- todo correcto -->
     <div class="col-md-12">
       <div class="alert alert-success">
         <h3>Perfecto!</h3>
-        <p><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> La actividad <strong>se ha creado con &ecute;xito</strong>.</p>
+        <p><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> La actividad <strong>se ha creado con &eacute;xito</strong>.</p>
       </div>
     </div>
+    <? } else if($actualizado==1 && (isset($error))){?>
     <!-- existe un problema no grabe, ejemplo la fecha o algo asi -->
     <div class="col-md-12">
       <div class="alert alert-warning">
@@ -19,6 +21,7 @@
         <p><span class="glyphicon glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Ha habido algun pequeño error: <strong>definimos el problema</strong>. Pero la actividad se ha grabado.</p>
       </div>
     </div>
+    <? } else if (isset($error)){?>    
     <!-- Error!!! -->
     <div class="col-md-12">
       <div class="alert alert-danger">
@@ -26,6 +29,7 @@
         <p><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Ha habido algun problema: <strong>definimos el problema</strong>.</p>
       </div>
     </div>
+    <? } ?>
   </div>
   <!-- comenzamos -->
   <div class="row">
@@ -38,6 +42,7 @@
     <div class="col-md-offset-4 tcol-md-4">
       <form action="<?=base_url()?>/admin/actividades/add_actividad" method="POST" class="horizontal">
         <div class="row">
+          <input type="hidden" value="1" name="add">            
           <!-- cada par esta en un form-group -->
           <div class="form-group">
             <!-- el label que tiene lo que ocupa (2) -->
@@ -78,7 +83,7 @@
           <div class="form-group">
             <label for="barrio" class="col-sm-2 control-label">Barrio</label>
             <div class="col-sm-10">
-              <select name="barrio" id="idbarrio" class="form-control">
+              <select name="idbarrio" id="barrio" class="form-control">
                 <? for ($i=1; $i<5; $i++) { ?>
                   <option value="<?=$i?>"><?=$i?></option>
                 <? } ?>
@@ -89,7 +94,7 @@
           <div class="form-group">
             <label for="seccion" class="col-sm-2 control-label">seccion</label>
             <div class="col-sm-10">
-              <select name="seccion" id="idseccion" class="form-control">
+              <select name="idseccion" id="seccion" class="form-control">
                 <? for ($i=1; $i<5; $i++) { ?>
                   <option value="<?=$i?>"><?=$i?></option>
                 <? } ?>
