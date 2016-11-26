@@ -104,6 +104,7 @@ class Modelo_actividades extends CI_Model {
     public function buscar_cajetin($texto){
         // Funcion que devuelve el resultado de la busqueda de un texto en los campos de actividades
         // $texto --> texto que se va a buscar
+        // Campos sobre los que se va a buscar : campanya, actividad, descripcion, organiza, lugar 
         $array_campos = array ('campanya', 'actividad', 'descripcion', 'organiza', 'lugar');
         $sql = "SELECT * FROM actividades WHERE ";
         for ($i = 0; $i < sizeof($array_campos); $i++){
@@ -117,7 +118,8 @@ class Modelo_actividades extends CI_Model {
     
     public function buscar_actividad($array_datos){
         // Funcion que devuelve el resultado de la busaqueda de un texto en los campos de actividades
-        // $array_datos --> array con el texto de los campos por los que se va a buscar
+        // $array_datos --> array con el texto de los campos de actividades por los que se va a buscar
+        // Estos textos corresponden a los campos: campanya, actividad, organiza y fecha
         $array_campos = array ('campanya', 'actividad','organiza', 'fecha');
         $sql="";
         $contador=0;

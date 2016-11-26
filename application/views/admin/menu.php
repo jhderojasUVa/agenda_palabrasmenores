@@ -14,7 +14,7 @@
         <li><a href="<?=base_url()?>/admin/actividades/add_actividad">Nueva Actividad</a></li>
       <!-- las busquedas dejamos el form al controlador -->
       <form class="navbar-form navbar-left" role="search" action="<?=base_url()?>/admin/actividades/buscar_actividad" method="post">        
-        <button type="submit" class="btn btn-default">Buscar Actividad</button>
+        <button type="submit" class="btn btn-default">Buscar Actividades</button>
       </form>        
         <!-- creamos un desplegable para el menu de usuarios -->
         <li class="dropdown" >
