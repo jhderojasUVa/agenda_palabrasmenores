@@ -128,8 +128,8 @@ class Actividades extends CI_Controller {
             $datos_busqueda =  array(
                 $this -> input -> POST("campanya"),
                 $this -> input -> POST("actividad"),
-                $organiza = $this -> input -> POST("organiza"),
-                $fecha = $this -> input -> POST("fecha")
+                $this -> input -> POST("organiza"),
+                $this -> input -> POST("fecha")
             );
             // Llamamos al modelo que busca por los campos AND
             $pa_la_vista['actividades'] = $this -> modelo_actividades -> buscar_actividad($datos_busqueda);       
