@@ -17,7 +17,7 @@ class Actividades extends CI_Controller {
     public function add_actividad() {
         // Controlador para todos los usuarios de creacion de una actividad
         $pa_la_vista = array();
-        // Inicializamos para temas de errores
+        // Inicializamos
         $pa_la_vista['actualizado'] = 0;
         // Datos del usuario de la sesion de usuario
         $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
@@ -49,7 +49,7 @@ class Actividades extends CI_Controller {
         // $idactividades --> id de la actividad que se va a modificar
         $fallo = 0;
         $pa_la_vista = array();
-        // Inicializamos para temas de errores
+        // Inicializamos
         $pa_la_vista['actualizado'] = 0;
         $pa_la_vista['usuario'] = array();
         $pa_la_vista['actividades'] = array();
@@ -83,9 +83,8 @@ class Actividades extends CI_Controller {
         }
         // Conseguimos los datos por el modelo
         if ($fallo==0) {
-            $actividades = $this -> modelo_actividades -> actividad_id($idactividades);
-            $pa_la_vista['usuario'] = $datos_usuario;
-            $pa_la_vista['actividades'] = $actividades;	
+            $pa_la_vista['actividades'] = $this -> modelo_actividades -> actividad_id($idactividades);
+            $pa_la_vista['usuario'] = $datos_usuario;	
         }
         // Se lo enviamos a las vistas correspondientes
     
@@ -102,13 +101,50 @@ class Actividades extends CI_Controller {
     }
 
     public function buscar_actividad() {
-    // Buscaremos las actividades a traves de un texto en el titulo o en la descripcion
-
-    // Recogemos la query del formulario (del menu), del q
-
-    // Llamamos al modelo que busca por la query (q) en ambos campos con un OR
-
-    // Llamamos a las vistas con el resultado
+        // Buscaremos las actividades a traves de un texto en el menu o por un formulario
+        // tipo_busqueda --> 1 si busca por un texto en el cajetin del menu
+        // tipo_busqueda --> 2 si busca desde un formulario
+        // Inicializamos
+        $pa_la_vista = array();
+        // La siguiente linea de momento dejo, por si errores de respuesta 
+        $pa_la_vista['actualizado'] = 0;
+        // Datos del usuario de la sesion de usuario
+        $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
+        $idusuario = $datos_usuario['idsesion'];
+        $pa_la_vista['usuario'] = $datos_usuario;
+        // Recogemos la query del formulario (del menu), del q
+        if ($this -> input -> POST("tipo_busqueda") == 1){
+            $texto = $this -> input -> POST("q");
+            // Llamamos al modelo que busca por la query (q) en ambos campos con un OR
+            $pa_la_vista['actividades'] = $this -> modelo_actividades -> buscar_cajetin($texto);
+            
+            // Llamamos a las vistas con el resultado
+            $this -> load -> view ("admin/header");
+            $this -> load -> view ("admin/menu");     
+            $this -> load -> view ("admin/actividades/buscar_actividad", $pa_la_vista);
+            $this -> load -> view ("admin/footer");
+        // Tipo de busqueda formulario
+        } else if ($this -> input -> POST("tipo_busqueda") == 2){            
+            $datos_busqueda =  array(
+                $this -> input -> POST("campanya"),
+                $this -> input -> POST("actividad"),
+                $organiza = $this -> input -> POST("organiza"),
+                $fecha = $this -> input -> POST("fecha")
+            );
+            // Llamamos al modelo que busca por los campos AND
+            $pa_la_vista['actividades'] = $this -> modelo_actividades -> buscar_actividad($datos_busqueda);       
+            // Llamamos a las vistas con el resultado
+            $this -> load -> view ("admin/header");
+            $this -> load -> view ("admin/menu");     
+            $this -> load -> view ("admin/actividades/buscar_actividad", $pa_la_vista);
+            $this -> load -> view ("admin/footer");
+        } else {
+            // Llamamos al formulario para meter los datos de busqueda
+            $this -> load -> view ("admin/header");
+            $this -> load -> view ("admin/menu");
+            $this -> load -> view ("admin/actividades/formbuscar_actividad",$pa_la_vista);
+            $this -> load -> view ("admin/footer");
+        }    
     }
 
  }

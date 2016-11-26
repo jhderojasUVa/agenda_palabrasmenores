@@ -12,6 +12,10 @@
       <ul class="nav navbar-nav">
         <!-- actividad nueva -->
         <li><a href="<?=base_url()?>/admin/actividades/add_actividad">Nueva Actividad</a></li>
+      <!-- las busquedas dejamos el form al controlador -->
+      <form class="navbar-form navbar-left" role="search" action="<?=base_url()?>/admin/actividades/buscar_actividad" method="post">        
+        <button type="submit" class="btn btn-default">Buscar Actividad</button>
+      </form>        
         <!-- creamos un desplegable para el menu de usuarios -->
         <li class="dropdown" >
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios <span class="caret"></span></a>
@@ -25,8 +29,9 @@
         <li><a href="<?=base_url()?>/admin/Login/salir">Salir</a></li>
       </ul>
       <!-- las busquedas dejamos el form al controlador -->
-      <form class="navbar-form navbar-left" role="search"src="<?=base_url()?>/admin/actividades/principal/buscar_actividad">
-        <div class="form-group">
+      <form class="navbar-form navbar-left" role="search" action="<?=base_url()?>/admin/actividades/buscar_actividad" method="post">
+        <input type="hidden" name="tipo_busqueda" value="1">
+        <div class="form-group">  
           <input type="text" class="form-control" name="q" placeholder="Buscador de actividades">
         </div>
         <button type="submit" class="btn btn-default">Buscar</button>

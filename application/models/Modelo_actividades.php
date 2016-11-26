@@ -56,7 +56,8 @@ class Modelo_actividades extends CI_Model {
         // $usuario       --> login del usuario
         // $publicada     --> Si está o no publicada la actividad
         $sql = "UPDATE actividades SET campanya='".$campanya."', actividad='". $actividad."', descripcion='".$descripcion."', organiza='".$organiza."', lugar='".$lugar."', idbarrio='".$idbarrio."', idseccion='".$idseccion."', fecha='".$fecha."', usuario='".$usuario."', publicada='".$publicada."' WHERE idactividades='".$idactividades."'";
-	      $resultado = $this -> db -> query($sql);
+	$resultado = $this -> db -> query($sql);
+        return true;
     }
 
     public function del_actividad ($idactividades) {
@@ -71,14 +72,15 @@ class Modelo_actividades extends CI_Model {
 
         // Luego borramos los documentos
         // No los borramos del HD
-	      // Se borra desde el controlador
+	// Se borra desde el controlador
 
         $sql="DELETE FROM documentos WHERE idactividad='".$idactividades."'";
         $resultado = $this -> db -> query($sql);
 
         // Borramos la actividad
         $sql = "DELETE FROM actividades WHERE idactividades='".$idactividades."'";
-	      $resultado = $this -> db -> query($sql);
+	$resultado = $this -> db -> query($sql);
+        return true;
     }
     
     public function actividad_usuario_fecha($idusuario){       
@@ -97,7 +99,45 @@ class Modelo_actividades extends CI_Model {
         $sql = "SELECT * FROM actividades WHERE idactividades ='" . $idactividades."'";
         $resultado = $this -> db -> query($sql); 
         return $resultado -> result_array(); // Obtener el array
-    }   
+    }
+    
+    public function buscar_cajetin($texto){
+        // Funcion que devuelve el resultado de la busqueda de un texto en los campos de actividades
+        // $texto --> texto que se va a buscar
+        $array_campos = array ('campanya', 'actividad', 'descripcion', 'organiza', 'lugar');
+        $sql = "SELECT * FROM actividades WHERE ";
+        for ($i = 0; $i < sizeof($array_campos); $i++){
+            $sql.= "$array_campos[$i] LIKE '%$texto%'";
+            if ((sizeof($array_campos)-1) != $i){$sql.=" OR ";}
+        }
+        $sql.= " ORDER BY fecha DESC";
+        $resultado = $this -> db -> query($sql); 
+        return $resultado -> result_array(); // Obtener el array
+    }
+    
+    public function buscar_actividad($array_datos){
+        // Funcion que devuelve el resultado de la busaqueda de un texto en los campos de actividades
+        // $array_datos --> array con el texto de los campos por los que se va a buscar
+        $array_campos = array ('campanya', 'actividad','organiza', 'fecha');
+        $sql="";
+        $contador=0;
+    
+        for ($i = 0; $i < sizeof($array_campos); $i++){
+            if (!empty($array_datos[$i])) {
+                $contador ++;
+                if ($contador == 1) {
+                    $sql = "SELECT * FROM actividades WHERE ";
+                } else {$sql.=" AND ";}
+                $sql.= "$array_campos[$i] LIKE '%$array_datos[$i]%'";    
+            }
+        }
+        if ($contador>0) {$sql.=" ORDER BY fecha DESC";}
+
+        if (($sql)) {
+            $resultado = $this -> db -> query($sql);
+            return $resultado -> result_array(); // Obtener el array 
+        } else return array();
+    }
     
   }
 ?>

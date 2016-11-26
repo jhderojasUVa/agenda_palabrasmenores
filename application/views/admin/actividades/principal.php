@@ -7,15 +7,6 @@
         <h3>Actividades del usuario: <?echo $usuario['nombre']?></h3>
     </div>
   </div>
-
-  <!-- en principio esto ya no hace falta al estar en el menu.php -->
-  <div class="row">
-    <div class="col-md-12">
-        <form action="admin/Actividades/add_actividad" method="POST">
-            <input type="submit" value="nueva actividad">
-        </form>
-    </div>
-  </div>
   <!-- reordenamos todo y lo juntamos -->
   <div class="row">
     <div class="col-md-12">
