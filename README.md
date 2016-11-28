@@ -288,11 +288,11 @@ admin/<br/>
                           Muestra actividades de un usuario<br/>
 
     usuarios/<br/>
-      add_usuario.php --> Añadir usuarios<br/>
-      desconectar.php --> Desconexion o salida del usuario<br/>
-      del_usuario.php --> Eliminar usuario<br/>
-      modificar_mis_datos.php --> Modificación de los datos del propio usuario<br/>
-      ver_mis_datos.php --> Muestra los datos del usuario<br/>
+        add_usuario.php --> Añadir usuarios<br/>
+        desconectar.php --> Desconexion o salida del usuario<br/>
+        del_usuario.php --> Eliminar usuario<br/>
+        modificar_mis_datos.php --> Modificación de los datos del propio usuario<br/>
+        ver_mis_datos.php --> Muestra los datos del usuario<br/>
 
     footer.php --> Pie de las páginas<br/>
     header.php --> Cabecera de las páginas<br/>
