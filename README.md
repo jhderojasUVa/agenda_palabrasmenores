@@ -66,8 +66,10 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
 /Admin<br/>
         Login.php --> Controlador de usuario<br/>
                       Valida los datos del usuario para iniciar sesion<br/> 
-        Actividades.php --> Controlador de actividades<br/>
-                            Controla añadir y modificar actividades<br/> 
+        Actividades.php --> Controlador de actividades:<br/>
+                            Añadir<br/>
+                            Modificar<br/>
+                            Buscar<br/> 
 Principal.php --> Controlador de entrada<br/>
 
 
@@ -121,11 +123,27 @@ Modelo_actividades. Métodos:
             Array con las actividades
 
         Datos de una actividad a partir del id de la actividad
-        actividad_id($idactividades)
+        public function actividad_id($idactividades)
             Parámetros entrada:
             $idactividades --> Identificador de la actividad
             Salida:
             Array con los datos de la actividad
+
+        Devuelve las actividades, resultado de la busqueda de un texto en cualquier campos de actividades sobre el que se va a buscar
+        public function buscar_cajetin($texto)
+        Parámetros entrada:
+            $texto --> texto que se va a buscar
+            Campos sobre los que se va a buscar: campanya, actividad, descripcion, organiza, lugar 
+            Salida:
+            Array con los datos de las actividades ordenadas por fecha descendente.
+
+        Devuelve las actividades, resultado de la busqueda en campos con un determinado texto
+        public function buscar_actividad($array_datos)
+            Parámetros entrada:
+            $array_datos --> array con el texto de los campos de actividades por los que se va a buscar
+            Estos textos corresponden a los campos: campanya, actividad, organiza y fecha
+            Salida:
+            Array con los datos de las actividades ordenadas por fecha descendente.
 
 Modelo_barrios. Métodos:
 
@@ -259,10 +277,13 @@ Modelo_usuarios. Métodos:
 =============
 admin/<br/>
     actividades/<br/>
-        principal.php --> Muestra actividades de un usuario<br/>
         add_actividades.php --> Añadir actividades<br/>
+        buscar_actividad.php --> Muestra el resultado de las búsquedas</br>
+        formbuscar_actividad.php --> Buscar actividades<br/>
         modificar_actividades.php --> Modificar actividades<br/>
         principal.php --> Principal tras un login correcto<br/>
+                          Muestra actividades de un usuario<br/>
+
     usuarios/<br/>
       add_usuario.php --> Añadir usuarios<br/>
       desconectar.php --> Desconexion o salida del usuario<br/>
