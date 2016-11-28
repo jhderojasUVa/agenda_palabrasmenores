@@ -57,7 +57,8 @@ class Actividades extends CI_Controller {
         if ($idactividades){
             // Datos del usuario de la sesion de usuario
             $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
-            $idusuario = $datos_usuario['idsesion']; 
+            $idusuario = $datos_usuario['idsesion'];
+            $pa_la_vista['usuario'] = $datos_usuario;
         } else {
             $fallo = 1;
             $pa_la_vista['error'] = "No hay actividad";
@@ -77,27 +78,40 @@ class Actividades extends CI_Controller {
             $idseccion = $this -> input -> POST("idseccion");
             $fecha = $this -> input -> POST("fecha");
             $publicada = $this -> input -> POST("publicada");
-            
+            // update
             $this -> modelo_actividades -> update_actividad($idactividades,$campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario,$publicada);
-            $pa_la_vista['actualizado'] = 1;
-        }
-        // Conseguimos los datos por el modelo
-        if ($fallo==0) {
-            $pa_la_vista['actividades'] = $this -> modelo_actividades -> actividad_id($idactividades);
-            $pa_la_vista['usuario'] = $datos_usuario;	
-        }
-        // Se lo enviamos a las vistas correspondientes
+            $pa_la_vista['actualizado'] = 1; // OJO de momento lo dejo lo tenía par los errores
+            // Conseguimos los datos por el modelo para enviarlos a la vista principal
+            // Actividades de usuario por fecha descencente
+            $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
+            $pa_la_vista['actividades'] = $actividades;
+            $this -> load -> view ("admin/header");
+            $this -> load -> view ("admin/menu");
+            $this -> load -> view ("admin/actividades/principal",$pa_la_vista);
+            $this -> load -> view ("admin/footer");            
+        } else if ($fallo==0) {
+            // Conseguimos los datos por el modelo
+            $pa_la_vista['actividades'] = $this -> modelo_actividades -> actividad_id($idactividades);	
+            // Se lo enviamos a las vistas correspondientes
     
-        // Recuerda que aqui puedes elegir el usar la vista de add_actividad modificandola o hacer una vista nueva
-        // Te lo dejo a tu eleccion
-        // Lo unico es que la vista, cuando modifica ha de llamar a este controlador enviando por hidden un parametro
-        // por ejemplo
-        // <input type="hidden" value="1" name="modificar">
-        
-        $this -> load -> view ("admin/header");
-	$this -> load -> view ("admin/menu");
-        $this -> load -> view ("admin/actividades/modificar_actividad",$pa_la_vista);
-        $this -> load -> view ("admin/footer");
+            // Recuerda que aqui puedes elegir el usar la vista de add_actividad modificandola o hacer una vista nueva
+            // Te lo dejo a tu eleccion
+            // Lo unico es que la vista, cuando modifica ha de llamar a este controlador enviando por hidden un parametro
+            // por ejemplo
+            // <input type="hidden" value="1" name="modificar">
+            $this -> load -> view ("admin/header");
+            $this -> load -> view ("admin/menu");
+            $this -> load -> view ("admin/actividades/modificar_actividad",$pa_la_vista);
+            $this -> load -> view ("admin/footer");    
+        } else {
+            // Si hay algún error
+            // ?? ver si tiene que ir a modificar_actividad o principal
+            $this -> load -> view ("admin/header");
+            $this -> load -> view ("admin/menu");
+            $this -> load -> view ("admin/actividades/modificar_actividad",$pa_la_vista);
+            $this -> load -> view ("admin/footer");          
+        }
+    
     }
 
     public function buscar_actividad() {
