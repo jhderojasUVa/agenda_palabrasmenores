@@ -43,7 +43,7 @@
     <div class="col-md-offset-4 tcol-md-4">
       <form action="<?=base_url()?>/admin/actividades/buscar_actividad" method="POST" class="horizontal">
         <div class="row">
-        <input type="hidden" name="tipo_busqueda" value="2">            
+          <input type="hidden" name="tipo_busqueda" value="2">            
           <!-- cada par esta en un form-group -->
           <div class="form-group">
             <!-- el label que tiene lo que ocupa (2) -->
@@ -75,6 +75,7 @@
           </div>
           <!-- el enviar o modificar-->
           <button type="submit" class="btn btn-default">Buscar actividad</button>
+        </div>  
       </form>
     </div>
   </div>

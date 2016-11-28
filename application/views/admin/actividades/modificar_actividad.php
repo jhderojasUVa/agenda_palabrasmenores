@@ -44,9 +44,9 @@
     <div class="col-md-offset-4 tcol-md-4">
       <? foreach ($actividades as $fila) { // Solo es una?>
       <form action="<?=base_url()?>/admin/actividades/modifica_actividad/<?= $fila['idactividades']?>" method="POST" class="horizontal">
-        <div class="row">    
-          <!-- cada par esta en un form-group -->
+        <div class="row">  
           <input type="hidden" value="1" name="modificar">
+          <!-- cada par esta en un form-group -->          
           <div class="form-group">
             <!-- el label que tiene lo que ocupa (2) -->
             <label for="campanya" class="col-sm-2 control-label">Campaña</label>
@@ -116,6 +116,7 @@
           <!-- el enviar o modificar-->
 
           <button type="submit" class="btn btn-default">Modificar actividad</button>
+        </div>  
       </form>
       <? } ?>
     </div>

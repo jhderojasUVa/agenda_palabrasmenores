@@ -110,6 +110,7 @@
           </div>
           <!-- el enviar o modificar-->
           <button type="submit" class="btn btn-default">Añadir actividad</button>
+        </div>  
       </form>
     </div>
   </div>
