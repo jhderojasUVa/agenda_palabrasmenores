@@ -64,12 +64,14 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
 3.2.1. Controladores
 ====================
 /Admin<br/>
+
         Login.php --> Controlador de usuario<br/>
                       Valida los datos del usuario para iniciar sesion<br/> 
         Actividades.php --> Controlador de actividades:<br/>
                             Añadir<br/>
                             Modificar<br/>
-                            Buscar<br/> 
+                            Buscar<br/>
+ 
 Principal.php --> Controlador de entrada<br/>
 
 
@@ -276,6 +278,7 @@ Modelo_usuarios. Métodos:
 3.2.3. Vistas
 =============
 admin/<br/>
+
     actividades/<br/>
         add_actividades.php --> Añadir actividades<br/>
         buscar_actividad.php --> Muestra el resultado de las búsquedas</br>
