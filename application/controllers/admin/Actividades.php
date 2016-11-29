@@ -4,8 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Actividades extends CI_Controller {
 
 	/**
-	 * Controlador principal para la trastienda
-  *   el login y datos de usuario
+	 * Controlador para las cosas de las actividades
 
   *  tambien vale para modificar los datos del usuario
 	 */
@@ -16,7 +15,7 @@ class Actividades extends CI_Controller {
 
     public function add_actividad() {
         // Controlador para todos los usuarios de creacion de una actividad
- 
+
         // Comprueba que tenga iniciada sesion.
         if ($this -> libreria_sesiones -> comprobar_session() == true){
             $pa_la_vista = array();
@@ -60,7 +59,7 @@ class Actividades extends CI_Controller {
             $pa_la_vista['actualizado'] = 0;
             $pa_la_vista['usuario'] = array();
             $pa_la_vista['actividades'] = array();
-            // Revisamos si tenemos el id de actividad (por get o por post o por hidden, da igual)        
+            // Revisamos si tenemos el id de actividad (por get o por post o por hidden, da igual)
             if ($idactividades){
                 // Datos del usuario de la sesion de usuario
                 $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
@@ -95,10 +94,10 @@ class Actividades extends CI_Controller {
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/actividades/principal",$pa_la_vista);
-                $this -> load -> view ("admin/footer");            
+                $this -> load -> view ("admin/footer");
             } else if ($fallo==0) {
                 // Conseguimos los datos por el modelo
-                $pa_la_vista['actividades'] = $this -> modelo_actividades -> actividad_id($idactividades);	
+                $pa_la_vista['actividades'] = $this -> modelo_actividades -> actividad_id($idactividades);
                 // Se lo enviamos a las vistas correspondientes
 
                 // Recuerda que aqui puedes elegir el usar la vista de add_actividad modificandola o hacer una vista nueva
@@ -109,28 +108,28 @@ class Actividades extends CI_Controller {
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/actividades/modificar_actividad",$pa_la_vista);
-                $this -> load -> view ("admin/footer");    
+                $this -> load -> view ("admin/footer");
             } else {
                 // Si hay algún error
                 // ?? ver si tiene que ir a modificar_actividad o principal
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/actividades/modificar_actividad",$pa_la_vista);
-                $this -> load -> view ("admin/footer");          
+                $this -> load -> view ("admin/footer");
             }
-        }    
+        }
     }
 
     public function buscar_actividad() {
         // Buscaremos las actividades a traves de un texto en el menu o por un formulario
         // tipo_busqueda --> 1 si busca por un texto en el cajetin del menu
         // tipo_busqueda --> 2 si busca desde un formulario
-        
+
         // Comprueba que tenga iniciada sesion.
         if ($this -> libreria_sesiones -> comprobar_session() == true){
-            // Inicializamos    
+            // Inicializamos
             $pa_la_vista = array();
-            // La siguiente linea de momento dejo, por si errores de respuesta 
+            // La siguiente linea de momento dejo, por si errores de respuesta
             $pa_la_vista['actualizado'] = 0;
             // Datos del usuario de la sesion de usuario
             $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
@@ -144,11 +143,11 @@ class Actividades extends CI_Controller {
 
                 // Llamamos a las vistas con el resultado
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");     
+                $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/actividades/buscar_actividad", $pa_la_vista);
                 $this -> load -> view ("admin/footer");
             // Tipo de busqueda formulario
-            } else if ($this -> input -> POST("tipo_busqueda") == 2){            
+            } else if ($this -> input -> POST("tipo_busqueda") == 2){
                 $datos_busqueda =  array(
                     $this -> input -> POST("campanya"),
                     $this -> input -> POST("actividad"),
@@ -156,10 +155,10 @@ class Actividades extends CI_Controller {
                     $this -> input -> POST("fecha")
                 );
                 // Llamamos al modelo que busca por los campos AND
-                $pa_la_vista['actividades'] = $this -> modelo_actividades -> buscar_actividad($datos_busqueda);       
+                $pa_la_vista['actividades'] = $this -> modelo_actividades -> buscar_actividad($datos_busqueda);
                 // Llamamos a las vistas con el resultado
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");     
+                $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/actividades/buscar_actividad", $pa_la_vista);
                 $this -> load -> view ("admin/footer");
             } else {
@@ -171,5 +170,18 @@ class Actividades extends CI_Controller {
             }
         }
     }
+
+		private function esta_vacio($cadena) {
+			// Funcion que comprueba si esta vacio
+
+			// Retorna true si NO lo esta
+			// Retorna false SI lo esta
+		}
+
+		private function fecha_completa($diamesano, $hora) {
+			// Funcion que devuelve la fecha completa
+
+			return $diamesano." ".$hora;
+		}
 
  }
