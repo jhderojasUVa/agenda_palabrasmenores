@@ -66,11 +66,12 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
 /Admin<br/>
 
         Login.php --> Controlador de usuario<br/>
-                      Valida los datos del usuario para iniciar sesion<br/> 
+                      index: Valida los datos del usuario para iniciar sesion<br/>
+                      salir: Salir de la sesion<br/>
         Actividades.php --> Controlador de actividades:<br/>
-                            Añadir<br/>
-                            Modificar<br/>
-                            Buscar<br/>
+                            add_actividad: Añadir<br/>
+                            modifica_actividad: Modificar<br/>
+                            buscar_actividad: Buscar<br/>
  
 Principal.php --> Controlador de entrada<br/>
 

@@ -143,4 +143,19 @@ class Login extends CI_Controller {
       // Recordar recoger los errores y se los enviamos a la vista tambien
      $this -> load -> view ("admin/del_usuario");
    }
+    public function salir() {
+        // Controlador para salir de la sesion
+        $pa_la_vista = array();
+//OJO ?? Si hay que poner algún mensaje cuando se descoecta         
+        if ($this -> libreria_sesiones -> comprobar_session() == true){
+            // El usuario esta registrado y lo desregistramos
+            $this -> libreria_sesiones -> des_registrar();
+        }
+        
+        // Lo enviamos a la vista index
+        $this -> load -> view ("admin/header");
+        $this -> load -> view ("admin/index", $pa_la_vista);
+        $this -> load -> view ("admin/footer");
+    }
+
  }
