@@ -9,7 +9,7 @@ class Modelo_usuarios extends CI_Model {
 		// Cargamos la base de datos
 		$this -> load -> database();
                 // Cargamos la libreria-sesiones
-                //$this -> load -> library("libreria_sesiones");                
+                //$this -> load -> library("libreria_sesiones");
     }
 
     public function add_usuario ($login, $password, $nombre, $idacl) {
@@ -77,8 +77,8 @@ class Modelo_usuarios extends CI_Model {
         $sql = "DELETE FROM usuarios WHERE login='" . $login."'";
         $resultado = $this -> db -> query($sql);
     }
-    
-    public function checkusuario($login, $password){       
+
+    public function checkusuario($login, $password){
         // Revisa dentro de la base de datos si existe el usuario y si esta habilitado
         // $login --> login del usuario que se va a chequear
         // $password --> password del usuario que se va a chequear
@@ -86,11 +86,11 @@ class Modelo_usuarios extends CI_Model {
         // 0 - no existe usuario y password
         // 1 - existe y es correcto
         // 2 - existe y deshabilitado
-         
+
         $chek=0;
         $sql = "SELECT login, password, nombre, idacl FROM usuarios WHERE login='" . $login."' AND password='".$password."'";
         $resultado = $this -> db -> query($sql);
-        
+
         foreach ($resultado->result() as $row) {
                 $chek=1;
                 $login = $row -> login;
@@ -101,16 +101,21 @@ class Modelo_usuarios extends CI_Model {
                 if ($idacl==2){
                    // Si idacl=2 El usuario está deshabilitado
                    $chek=2;
-                }            
+                }
       	}
-        if ($chek==1) {            
-            // Registamos al usuario 
-            // Con la libreria-sesiones             
+        if ($chek==1) {
+            // Registamos al usuario
+            // Con la libreria-sesiones
             $this -> libreria_sesiones -> registrar(TRUE, $login);
-            $this -> libreria_sesiones -> mete_datos_sesion($login, TRUE, $login, $nombre, $idacl);             
+            $this -> libreria_sesiones -> mete_datos_sesion($login, TRUE, $login, $nombre, $idacl);
         }
         return $chek; // 0, 1, 2
     }
-    
-  } 
-  
+
+    public function acl_usuario($idusuario) {
+      // Devuelve el tipo de ACL de usuario que tiene y lo devuelve
+      // Sumo Pontifice, Redactor, Editor o Disabled (3, 2, 1, 0)
+
+    }
+
+  }
