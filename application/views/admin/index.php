@@ -39,7 +39,7 @@
   <div class="row">
     <!-- centramos -->
     <div class="col-md-offset-3 col-md-5 col-md-offset-4">
-        <form action="login" method="POST">
+        <form action="<?=base_url()?>/login" method="POST">
             <div class="row">
                 <!-- cada par esta en un form-group -->
                 <div class="form-group">

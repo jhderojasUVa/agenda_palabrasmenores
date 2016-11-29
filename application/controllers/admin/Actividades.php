@@ -44,6 +44,11 @@ class Actividades extends CI_Controller {
             $this -> load -> view ("admin/menu");
             $this -> load -> view ("admin/actividades/add_actividad",$pa_la_vista);
             $this -> load -> view ("admin/footer");
+        } else {
+            //Enviamos al inicio
+            $this -> load -> view ("admin/header");
+            $this -> load -> view ("admin/index");
+            $this -> load -> view ("admin/footer");
         }
     }
 
@@ -117,6 +122,11 @@ class Actividades extends CI_Controller {
                 $this -> load -> view ("admin/actividades/modificar_actividad",$pa_la_vista);
                 $this -> load -> view ("admin/footer");
             }
+        } else {
+            //Enviamos al inicio
+            $this -> load -> view ("admin/header");
+            $this -> load -> view ("admin/index");
+            $this -> load -> view ("admin/footer");
         }
     }
 
@@ -168,7 +178,13 @@ class Actividades extends CI_Controller {
                 $this -> load -> view ("admin/actividades/formbuscar_actividad",$pa_la_vista);
                 $this -> load -> view ("admin/footer");
             }
+        } else {
+            //Enviamos al inicio
+            $this -> load -> view ("admin/header");
+            $this -> load -> view ("admin/index");
+            $this -> load -> view ("admin/footer");
         }
+        
     }
 
 		private function esta_vacio($cadena) {
