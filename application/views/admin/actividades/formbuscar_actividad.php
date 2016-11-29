@@ -40,7 +40,7 @@
   </div>
   <div class="row">
     <!-- centramos -->
-    <div class="col-md-offset-4 tcol-md-4">
+    <div class="col-md-offset-4 col-md-4">
       <form action="<?=base_url()?>/admin/actividades/buscar_actividad" method="POST" class="horizontal">
         <div class="row">
           <input type="hidden" name="tipo_busqueda" value="2">            

@@ -14,7 +14,6 @@
         <li><a href="<?=base_url()?>/admin/actividades/add_actividad">Nueva Actividad</a></li>
         <!-- Ahora que ya sabemos usar los menus podemos dejarlo mas bonito -->
         <li><a href="<?=base_url()?>/admin/actividades/buscar_actividad">Buscar Actividades</a></li>
-      </ul>
       <!--
 
       MANDA EL ENLACE DIRECTO

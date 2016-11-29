@@ -41,7 +41,7 @@
   </div>
   <div class="row">
     <!-- centramos -->
-    <div class="col-md-offset-4 tcol-md-4">
+    <div class="col-md-offset-4 col-md-4">
       <? foreach ($actividades as $fila) { // Solo es una?>
       <form action="<?=base_url()?>/admin/actividades/modifica_actividad/<?= $fila['idactividades']?>" method="POST" class="horizontal">
         <div class="row">  
