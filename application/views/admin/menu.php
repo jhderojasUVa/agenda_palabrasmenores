@@ -12,10 +12,17 @@
       <ul class="nav navbar-nav">
         <!-- actividad nueva -->
         <li><a href="<?=base_url()?>/admin/actividades/add_actividad">Nueva Actividad</a></li>
-      <!-- las busquedas dejamos el form al controlador -->
-      <form class="navbar-form navbar-left" role="search" action="<?=base_url()?>/admin/actividades/buscar_actividad" method="post">        
+        <!-- Ahora que ya sabemos usar los menus podemos dejarlo mas bonito -->
+        <li><a href="<?=base_url()?>/admin/actividades/buscar_actividad">Buscar Actividades</a></li>
+      </ul>
+      <!--
+
+      MANDA EL ENLACE DIRECTO
+
+      <form class="navbar-form navbar-left" role="search" action="<?=base_url()?>/admin/actividades/buscar_actividad" method="post">
         <button type="submit" class="btn btn-default">Buscar Actividades</button>
-      </form>        
+      </form>
+      -->
         <!-- creamos un desplegable para el menu de usuarios -->
         <li class="dropdown" >
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios <span class="caret"></span></a>
@@ -25,13 +32,39 @@
             <li><a href="#">Buscar usuario</a></li>
           </ul>
         </li>
+        <?
+          // Si la ACL del usuario es valida con un if se muestra
+        ?>
+        <!-- barrios -->
+        <li class="dropdown" >
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Barrios <span class="caret"></span></a>
+          <!-- contenido del desplegable -->
+          <ul class="dropdown-menu">
+            <li><a href="#">A&ntilde;adir barrio</a></li>
+            <li><a href="#">Buscar barrio</a></li>
+          </ul>
+        </li>
+        <? // fin del if ?>
+        <?
+          // Si la ACLS del usuario es valida con un if se muestra
+        ?>
+        <!-- secciones -->
+        <li class="dropdown" >
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Secciones <span class="caret"></span></a>
+          <!-- contenido del desplegable -->
+          <ul class="dropdown-menu">
+            <li><a href="#">A&ntilde;adir seccion</a></li>
+            <li><a href="#">Buscar seccion</a></li>
+          </ul>
+        </li>
+        <? // fin del if ?>
         <!-- la opcion de salir -->
         <li><a href="<?=base_url()?>/admin/Login/salir">Salir</a></li>
       </ul>
       <!-- las busquedas dejamos el form al controlador -->
       <form class="navbar-form navbar-left" role="search" action="<?=base_url()?>/admin/actividades/buscar_actividad" method="post">
         <input type="hidden" name="tipo_busqueda" value="1">
-        <div class="form-group">  
+        <div class="form-group">
           <input type="text" class="form-control" name="q" placeholder="Buscador de actividades">
         </div>
         <button type="submit" class="btn btn-default">Buscar</button>
