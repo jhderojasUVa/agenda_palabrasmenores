@@ -18,10 +18,18 @@ function comprueba_input($form, $input) {
   // Con . va un class
   if ($form) {
     // Si hay un form
-    $contenido = $("#".$form" input[type='".$input"]'").value();
+    if ($input!="textarea") {
+      $contenido = $("#".$form." input[type='".$input"]'").value();
+    } else {
+      $contenido = $("#".$form." textarea").value();
+    }
   } else {
     // Sino cogemos el form que haya
-    $contenido = $("form input[type='".$input"]'").value();
+    if ($input!="textarea") {
+      $contenido = $("form input[type='".$input"]'").value();
+    } else {
+      $contenido = $("form textarea").value();
+    }
   }
   // Revisamos si hay algo metido
   if (esta_vacio($contenido) == true) {
