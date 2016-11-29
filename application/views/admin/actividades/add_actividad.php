@@ -21,7 +21,7 @@
         <p><span class="glyphicon glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Ha habido algun pequeño error: <strong>definimos el problema</strong>. Pero la actividad se ha grabado.</p>
       </div>
     </div>
-    <? } else if (isset($error)){?>    
+    <? } else if (isset($error)){?>
     <!-- Error!!! -->
     <div class="col-md-12">
       <div class="alert alert-danger">
@@ -39,10 +39,10 @@
   </div>
   <div class="row">
     <!-- centramos -->
-    <div class="col-md-offset-4 tcol-md-4">
+    <div class="col-md-offset-4 col-md-4">
       <form action="<?=base_url()?>/admin/actividades/add_actividad" method="POST" class="horizontal">
         <div class="row">
-          <input type="hidden" value="1" name="add">            
+          <input type="hidden" value="1" name="add">
           <!-- cada par esta en un form-group -->
           <div class="form-group">
             <!-- el label que tiene lo que ocupa (2) -->
@@ -110,7 +110,7 @@
           </div>
           <!-- el enviar o modificar-->
           <button type="submit" class="btn btn-default">Añadir actividad</button>
-        </div>  
+        </div>
       </form>
     </div>
   </div>

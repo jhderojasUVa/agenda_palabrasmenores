@@ -13,5 +13,21 @@ function esta_vacio($cadena) {
 function comprueba_input($form, $input) {
   // Funcion que comprueba un input de un formulario
 
-  $("")
+  // Buscamos por el DOM el elemento
+  // Con # va un id
+  // Con . va un class
+  if ($form) {
+    // Si hay un form
+    $contenido = $("#".$form" input[type='".$input"]'").value();
+  } else {
+    // Sino cogemos el form que haya
+    $contenido = $("form input[type='".$input"]'").value();
+  }
+  // Revisamos si hay algo metido
+  if (esta_vacio($contenido) == true) {
+    return true;
+  } else {
+    return false;
+  }
+
 }
