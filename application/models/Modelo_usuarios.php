@@ -131,7 +131,7 @@ class Modelo_usuarios extends CI_Model {
 
     public function buscar_usuario($array_datos){
         // Funcion que devuelve los usuarios, resultado de la busqueda en campos con un determinado texto
-        // $array_datos --> array con el texto de los campos de actividades por los que se va a buscar
+        // $array_datos --> array con el texto de los campos de usuarios por los que se va a buscar
         // Estos textos corresponden a los campos: login, nombre
         $array_campos = array ('login', 'nombre');
         $sql="";
