@@ -93,6 +93,8 @@ class Login extends CI_Controller {
      $this -> load -> vire ("admin/ver_mis_datos");
    }
 
+// ??? CREO QUE QUITAR, PORQUE ESTA EN Usuarios
+// El usuario no va a poder cambiar nada   
    public function modificar_mis_datos() {
      // Controlador para modificar los datos que el usuario puede modificar, obviamente
 
@@ -108,23 +110,6 @@ class Login extends CI_Controller {
 
       // Recordar recoger los errores y se los enviamos a la vista tambien
      $this -> load -> view ("admin/modificar_mis_datos");
-   }
-
-   public function add_usuario() {
-     // Controlador para los super admin de creacion de usuarios
-
-     // Comprobamos los ACLs en la sesion
-
-     // Vemos si ha mandado datos por POST o no
-
-     // Si se ha enviado llamamos al modelo y añadimos al usuario
-
-     // Sino mostramos la vista
-
-     // Envie o no datos, sacamos la lista de usuarios para enviarsela al modelo
-
-      // Recordar recoger los errores y se los enviamos a la vista tambien
-     $this -> load -> view ("admin/add_usuario");
    }
 
    public function del_usuario() {
@@ -143,10 +128,11 @@ class Login extends CI_Controller {
       // Recordar recoger los errores y se los enviamos a la vista tambien
      $this -> load -> view ("admin/del_usuario");
    }
+   
     public function salir() {
         // Controlador para salir de la sesion
         $pa_la_vista = array();
-//OJO ?? Si hay que poner algún mensaje cuando se descoecta         
+//OJO ?? Si hay que poner algún mensaje cuando se desconecta         
         if ($this -> libreria_sesiones -> comprobar_session() == true){
             // El usuario esta registrado y lo desregistramos
             $this -> libreria_sesiones -> des_registrar();

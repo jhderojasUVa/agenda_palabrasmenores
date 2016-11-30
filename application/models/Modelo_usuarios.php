@@ -42,6 +42,7 @@ class Modelo_usuarios extends CI_Model {
 
         $sql = "UPDATE usuarios SET password='" . $password . "', nombre='" . $nombre . "', idacl='". $idacl."' WHERE login='" . $login."'";
         $resultado = $this -> db -> query($sql);
+        return true;
     }
 
     public function del_usuario ($login) {
@@ -76,6 +77,7 @@ class Modelo_usuarios extends CI_Model {
         // Y por ultimo el usuario
         $sql = "DELETE FROM usuarios WHERE login='" . $login."'";
         $resultado = $this -> db -> query($sql);
+        return true;
     }
 
     public function checkusuario($login, $password){
@@ -117,5 +119,38 @@ class Modelo_usuarios extends CI_Model {
       // Sumo Pontifice, Redactor, Editor o Disabled (3, 2, 1, 0)
 
     }
+    
+    public function usuario_id($login){       
+        // Funcion que devuelve unusuario a partir del login
+        // $login --> login del usuario      
+       
+        $sql = "SELECT * FROM usuarios WHERE login ='" . $login."'";
+        $resultado = $this -> db -> query($sql); 
+        return $resultado -> result_array(); // Obtener el array
+    }
 
+    public function buscar_usuario($array_datos){
+        // Funcion que devuelve los usuarios, resultado de la busqueda en campos con un determinado texto
+        // $array_datos --> array con el texto de los campos de actividades por los que se va a buscar
+        // Estos textos corresponden a los campos: login, nombre
+        $array_campos = array ('login', 'nombre');
+        $sql="";
+        $contador=0;
+    
+        for ($i = 0; $i < sizeof($array_campos); $i++){
+            if (!empty($array_datos[$i])) {
+                $contador ++;
+                if ($contador == 1) {
+                    $sql = "SELECT * FROM usuarios WHERE ";
+                } else {$sql.=" AND ";}
+                $sql.= "$array_campos[$i] LIKE '%$array_datos[$i]%'";    
+            }
+        }
+        if ($contador>0) {$sql.=" ORDER BY nombre";}
+
+        if (($sql)) {
+            $resultado = $this -> db -> query($sql);
+            return $resultado -> result_array(); // Obtener el array 
+        } else return array();
+    }    
   }

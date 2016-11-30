@@ -27,8 +27,8 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios <span class="caret"></span></a>
           <!-- contenido del desplegable -->
           <ul class="dropdown-menu">
-            <li><a href="#">A&ntilde;adir usuario</a></li>
-            <li><a href="#">Buscar usuario</a></li>
+            <li><a href="<?=base_url()?>/admin/usuarios/add_usuario">A&ntilde;adir usuario</a></li>
+            <li><a href="<?=base_url()?>/admin/usuarios/buscar_usuario">Buscar usuario</a></li>
           </ul>
         </li>
         <?
