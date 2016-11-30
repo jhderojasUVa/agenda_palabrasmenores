@@ -72,6 +72,10 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
                             add_actividad: Añadir<br/>
                             modifica_actividad: Modificar<br/>
                             buscar_actividad: Buscar<br/>
+        Usuarios.php --> Controlador de usuarios:<br/>
+                            add_usuario: Añadir<br/>
+                            modifica_usuario: Modificar<br/>
+                            buscar_usuario: Buscar<br/>
  
 Principal.php --> Controlador de entrada<br/>
 
@@ -132,7 +136,7 @@ Modelo_actividades. Métodos:
             Salida:
             Array con los datos de la actividad
 
-        Devuelve las actividades, resultado de la busqueda de un texto en cualquier campos de actividades sobre el que se va a buscar
+        Devuelve las actividades, resultado de la busqueda de un texto en cualquier campos de actividades sobre el que se va a buscar, ordenadas por fecha descendente
         public function buscar_cajetin($texto)
         Parámetros entrada:
             $texto --> texto que se va a buscar
@@ -140,7 +144,7 @@ Modelo_actividades. Métodos:
             Salida:
             Array con los datos de las actividades ordenadas por fecha descendente.
 
-        Devuelve las actividades, resultado de la busqueda en campos con un determinado texto
+        Devuelve las actividades, resultado de la busqueda en campos con un determinado texto, ordenadas por fecha descendente
         public function buscar_actividad($array_datos)
             Parámetros entrada:
             $array_datos --> array con el texto de los campos de actividades por los que se va a buscar
@@ -276,6 +280,21 @@ Modelo_usuarios. Métodos:
             1 --> existe y es correcto
             2 --> existe y deshabilitado
 
+        Datos de un usuario a partir del login del usuario
+        public function usuario_id($login){       
+            Parámetros entrada:
+            $login --> login del usuario
+            Salida:
+            Array con los datos del usuario
+
+        Devuelve los usuarios, resultado de la busqueda en campos con un determinado texto, ordenados por nombre
+        public function buscar_usuario($array_datos)
+            Parámetros entrada:
+            $array_datos --> array con el texto de los campos de usuarios por los que se va a buscar
+            Estos textos corresponden a los campos: login, nombre
+            Salida:
+            Array con los datos de los usuarios ordenados por nombre.
+
 3.2.3. Vistas
 =============
 admin/<br/>
@@ -283,17 +302,17 @@ admin/<br/>
     actividades/<br/>
         add_actividades.php --> Añadir actividades<br/>
         buscar_actividad.php --> Muestra el resultado de las búsquedas</br>
-        formbuscar_actividad.php --> Buscar actividades<br/>
-        modificar_actividades.php --> Modificar actividades<br/>
+        formbuscar_actividad.php --> Formulario para buscar actividades<br/>
+        modificar_actividad.php --> Modificar actividades<br/>
         principal.php --> Principal tras un login correcto<br/>
                           Muestra actividades de un usuario<br/>
 
     usuarios/<br/>
         add_usuario.php --> Añadir usuarios<br/>
+        buscar_usuario.php --> Muestra el resultado de las búsquedas</br>
         desconectar.php --> Desconexion o salida del usuario<br/>
-        del_usuario.php --> Eliminar usuario<br/>
-        modificar_mis_datos.php --> Modificación de los datos del propio usuario<br/>
-        ver_mis_datos.php --> Muestra los datos del usuario<br/>
+        formbuscar_usuario.php --> Formulario para buscar usuarios<br/>
+        modificar_usuarios.php --> Modificar usuario<br/>
 
     footer.php --> Pie de las páginas<br/>
     header.php --> Cabecera de las páginas<br/>
