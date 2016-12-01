@@ -52,8 +52,8 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Secciones <span class="caret"></span></a>
           <!-- contenido del desplegable -->
           <ul class="dropdown-menu">
-            <li><a href="#">A&ntilde;adir seccion</a></li>
-            <li><a href="#">Buscar seccion</a></li>
+            <li><a href="<?=base_url()?>/admin/secciones/add_seccion">A&ntilde;adir seccion</a></li>
+            <li><a href="<?=base_url()?>/admin/secciones/buscar_seccion">Buscar seccion</a></li>
           </ul>
         </li>
         <? // fin del if ?>

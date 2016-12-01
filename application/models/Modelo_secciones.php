@@ -68,4 +68,40 @@ class Modelo_secciones extends CI_Model {
         $sql = "DELETE FROM secciones WHERE idsecciones='" . $idsecciones."'";
         $resultado = $this -> db -> query($sql);
     }
-  }
+
+
+    public function seccion_id($idsecciones){       
+        // Funcion que devuelve un seccion a partir del id
+        // $idsecciones --> id del seccion      
+       
+        $sql = "SELECT * FROM secciones WHERE idsecciones ='" . $idsecciones."'";
+        $resultado = $this -> db -> query($sql); 
+        return $resultado -> result_array(); // Obtener el array
+    }
+ 
+    public function buscar_seccion($array_datos){
+        // Funcion que devuelve las secciones, resultado de la busqueda en campos con un determinado texto
+        // $array_datos --> array con el texto de los campos de secciones por los que se va a buscar
+        // Estos textos corresponden a los campos: nombre
+        $array_campos = array ('nombre');
+        $sql="";
+        $contador=0;
+    
+        for ($i = 0; $i < sizeof($array_campos); $i++){
+            if (!empty($array_datos[$i])) {
+                $contador ++;
+                if ($contador == 1) {
+                    $sql = "SELECT * FROM secciones WHERE ";
+                } else {$sql.=" AND ";}
+                $sql.= "$array_campos[$i] LIKE '%$array_datos[$i]%'";    
+            }
+        }
+        if ($contador>0) {$sql.=" ORDER BY nombre";}
+
+        if (($sql)) {
+            $resultado = $this -> db -> query($sql);
+            return $resultado -> result_array(); // Obtener el array 
+        } else return array();
+    } 
+    
+}
