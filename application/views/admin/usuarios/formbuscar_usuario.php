@@ -11,7 +11,7 @@
     <div class="col-md-12">
       <div class="alert alert-success">
         <h3>Perfecto!</h3>
-        <p><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> La actividad <strong>se ha creado con &eacute;xito</strong>.</p>
+        <p><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> La usuario <strong>se ha creado con &eacute;xito</strong>.</p>
       </div>
     </div>
     <? } else if($actualizado==1 && (isset($error))){?>
@@ -19,7 +19,7 @@
     <div class="col-md-12">
       <div class="alert alert-warning">
         <h3>Atenci&oacute;n</h3>
-        <p><span class="glyphicon glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Ha habido algun pequeño error: <strong>definimos el problema</strong>. Pero la actividad se ha grabado.</p>
+        <p><span class="glyphicon glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Ha habido algun pequeño error: <strong>definimos el problema</strong>. Pero la usuario se ha grabado.</p>
       </div>
     </div>
     <? } else if (isset($error)){?>    
@@ -67,4 +67,4 @@
     </div>
   </div>
 </div>
-<!-- Final Contenido de la página de formulario de buscar actividad -->
+<!-- Final Contenido de la página de formulario de buscar usuario -->

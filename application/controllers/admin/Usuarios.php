@@ -39,7 +39,7 @@ class Usuarios extends CI_Controller {
 // SI VUEL VE A AÑADIR, HABRÍA QUE INICIALIZAR LAS VARIABLES
 // POR SI DAN A ACTUALIZAR LA PÁGINA QUE NO VUELVA A INTERTAR GRABAR Y SALGAN
 // ERRORES O GRABE.
-                }
+            }
             // Sino mostramos la vista
 
             // Envie o no datos, sacamos la lista de usuarios para enviarsela al modelo

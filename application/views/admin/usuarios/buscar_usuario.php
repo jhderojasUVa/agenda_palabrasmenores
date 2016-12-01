@@ -1,4 +1,4 @@
-<!-- mostrara el resultado de la busqueda con un enlace para poder editar la actividad -->
+<!-- mostrara el resultado de la busqueda con un enlace para poder editar la usuario -->
 
 <div class="container">
   <div class="row">

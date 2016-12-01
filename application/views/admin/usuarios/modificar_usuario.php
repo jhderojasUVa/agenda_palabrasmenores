@@ -1,4 +1,4 @@
-<!-- Inicio Contenido de la página para modificar un suario-->
+<!-- Inicio Contenido de la página para modificar un usuario-->
 <div class="container">
   <? // Si hay algun mensaje se lo ponemos al usuario aqui arriba
     // Segun el problema mostraremos y rellenaremos lo que haga falta
@@ -18,7 +18,7 @@
     <div class="col-md-12">
       <div class="alert alert-warning">
         <h3>Atenci&oacute;n</h3>
-        <p><span class="glyphicon glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Ha habido algun pequeño error: <strong>definimos el problema</strong>. Pero la actividad se ha grabado.</p>
+        <p><span class="glyphicon glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Ha habido algun pequeño error: <strong>definimos el problema</strong>. Pero la usuario se ha grabado.</p>
       </div>
     </div>
     <? } else if (isset($error)){?>
@@ -91,5 +91,5 @@
     </div>
   </div>
 </div>
-<!-- Final Contenido de la página de nueva actividad-->
+<!-- Final Contenido de la página de modificar usuario-->
 

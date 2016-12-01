@@ -121,7 +121,7 @@ class Modelo_usuarios extends CI_Model {
     }
     
     public function usuario_id($login){       
-        // Funcion que devuelve unusuario a partir del login
+        // Funcion que devuelve un usuario a partir del login
         // $login --> login del usuario      
        
         $sql = "SELECT * FROM usuarios WHERE login ='" . $login."'";

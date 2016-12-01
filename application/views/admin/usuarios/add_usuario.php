@@ -1,4 +1,4 @@
-<!-- Inicio Contenido de la página de nueva actividad-->
+<!-- Inicio Contenido de la página de nuevo usuario-->
 <div class="container">
   <? // Si hay algun mensaje se lo ponemos al usuario aqui arriba
     // Segun el problema mostraremos y rellenaremos lo que haga falta
@@ -89,5 +89,5 @@
     </div>
   </div>
 </div>
-<!-- Final Contenido de la página de nueva actividad-->
+<!-- Final Contenido de la página de nuevo usuario-->
 
