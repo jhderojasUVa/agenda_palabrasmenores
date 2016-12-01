@@ -39,8 +39,8 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Barrios <span class="caret"></span></a>
           <!-- contenido del desplegable -->
           <ul class="dropdown-menu">
-            <li><a href="#">A&ntilde;adir barrio</a></li>
-            <li><a href="#">Buscar barrio</a></li>
+            <li><a href="<?=base_url()?>/admin/barrios/add_barrio">A&ntilde;adir barrio</a></li>
+            <li><a href="<?=base_url()?>/admin/barrios/buscar_barrio">Buscar barrio</a></li>
           </ul>
         </li>
         <? // fin del if ?>

@@ -68,4 +68,39 @@ class Modelo_barrios extends CI_Model {
         $sql = "DELETE FROM barrios WHERE idbarrios='" . $idbarrios."'";
         $resultado = $this -> db -> query($sql);
     }
+
+    public function barrio_id($idbarrios){       
+        // Funcion que devuelve un barrio a partir del id
+        // $idbarrios --> id del barrio      
+       
+        $sql = "SELECT * FROM barrios WHERE idbarrios ='" . $idbarrios."'";
+        $resultado = $this -> db -> query($sql); 
+        return $resultado -> result_array(); // Obtener el array
+    }
+    
+    public function buscar_barrio($array_datos){
+        // Funcion que devuelve los barrios, resultado de la busqueda en campos con un determinado texto
+        // $array_datos --> array con el texto de los campos de barrios por los que se va a buscar
+        // Estos textos corresponden a los campos: nombre
+        $array_campos = array ('nombre');
+        $sql="";
+        $contador=0;
+    
+        for ($i = 0; $i < sizeof($array_campos); $i++){
+            if (!empty($array_datos[$i])) {
+                $contador ++;
+                if ($contador == 1) {
+                    $sql = "SELECT * FROM barrios WHERE ";
+                } else {$sql.=" AND ";}
+                $sql.= "$array_campos[$i] LIKE '%$array_datos[$i]%'";    
+            }
+        }
+        if ($contador>0) {$sql.=" ORDER BY nombre";}
+
+        if (($sql)) {
+            $resultado = $this -> db -> query($sql);
+            return $resultado -> result_array(); // Obtener el array 
+        } else return array();
+    } 
+    
   }
