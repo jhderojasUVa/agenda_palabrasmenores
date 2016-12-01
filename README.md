@@ -65,13 +65,24 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
 ====================
 /Admin<br/>
 
-        Login.php --> Controlador de usuario<br/>
+        Login.php --> Controlador de sesion<br/>
                       index: Valida los datos del usuario para iniciar sesion<br/>
                       salir: Salir de la sesion<br/>
         Actividades.php --> Controlador de actividades:<br/>
                             add_actividad: Añadir<br/>
                             modifica_actividad: Modificar<br/>
                             buscar_actividad: Buscar<br/>
+
+        Barrios.php --> Controlador de barrios:<br/>
+                            add_barrio: Añadir<br/>
+                            modifica_barrio: Modificar<br/>
+                            buscar_barrio: Buscar<br/>
+
+        Secciones.php --> Controlador de secciones:<br/>
+                            add_seccion: Añadir<br/>
+                            modifica_seccion: Modificar<br/>
+                            buscar_seccion: Buscar<br/>
+
         Usuarios.php --> Controlador de usuarios:<br/>
                             add_usuario: Añadir<br/>
                             modifica_usuario: Modificar<br/>
@@ -175,6 +186,21 @@ Modelo_barrios. Métodos:
                 Borra del ficheros actividades, las actividades del barrio.
                 Borra el barrio.
 
+        Datos de un barrio a partir del id
+        public function barrio_id($idbarrios)       
+            Parámetros entrada:
+            $idbarrios --> id del barrio
+            Salida:
+            Array con los datos del barrio
+
+        Devuelve los barrios, resultado de la busqueda en campos con un determinado texto, ordenados por nombre
+        public function buscar_barrio($array_datos){
+            Parámetros entrada:
+            $array_datos --> array con el texto de los campos de barrios por los que se va a buscar
+            Estos textos corresponden a los campos: nombre
+            Salida:
+            Array con los datos de los barrios ordenados por nombre.
+
 Modelo_documentos. Métodos:
 
         Añadir un documento a la actividad
@@ -242,6 +268,21 @@ Modelo_secciones. Métodos:
                 Borra del ficheros actividades, las actividades de la seccion.
                 Borra la seccion.
 
+        Datos de una seccion a partir del id
+        public function seccion_id($idsecciones)       
+            Parámetros entrada:
+            $idsecciones --> id de la seccion
+            Salida:
+            Array con los datos de la seccion
+
+        Devuelve las secciones, resultado de la busqueda en campos con un determinado texto, ordenados por nombre
+        public function buscar_seccion($array_datos){
+            Parámetros entrada:
+            $array_datos --> array con el texto de los campos de secciones por los que se va a buscar
+            Estos textos corresponden a los campos: nombre
+            Salida:
+            Array con los datos de las secciones ordenados por nombre.
+
 Modelo_usuarios. Métodos:
 
         Añadir un usuario
@@ -306,6 +347,18 @@ admin/<br/>
         modificar_actividad.php --> Modificar actividades<br/>
         principal.php --> Principal tras un login correcto<br/>
                           Muestra actividades de un usuario<br/>
+
+    barrios/<br/>
+        add_barrio.php --> Añadir barrios<br/>
+        buscar_barrio.php --> Muestra el resultado de las búsquedas</br>
+        formbuscar_barrio.php --> Formulario para buscar barrios<br/>
+        modificar_barrio.php --> Modificar barrio<br/>
+
+    secciones/<br/>
+        add_seccion.php --> Añadir secciones<br/>
+        buscar_seccion.php --> Muestra el resultado de las búsquedas</br>
+        formbuscar_seccion.php --> Formulario para buscar secciones<br/>
+        modificar_seccion.php --> Modificar seccion<br/>
 
     usuarios/<br/>
         add_usuario.php --> Añadir usuarios<br/>
