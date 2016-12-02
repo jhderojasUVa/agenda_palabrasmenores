@@ -103,5 +103,12 @@ class Modelo_secciones extends CI_Model {
             return $resultado -> result_array(); // Obtener el array 
         } else return array();
     } 
-    
+
+    public function devuelve_secciones(){       
+        // Funcion que devuelve todas las secciones     
+       
+        $sql = "SELECT * FROM secciones ORDER BY nombre";
+        $resultado = $this -> db -> query($sql); 
+        return $resultado -> result_array(); // Obtener el array
+    }     
 }

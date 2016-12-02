@@ -21,6 +21,10 @@ class Actividades extends CI_Controller {
             $pa_la_vista = array();
             // Inicializamos
             $pa_la_vista['actualizado'] = 0;
+            // Obtiene todos los barrios
+            $pa_la_vista['barrios'] = $this -> modelo_barrios -> devuelve_barrios();
+            // Obtiene todos las secciones
+            $pa_la_vista['secciones'] = $this -> modelo_secciones -> devuelve_secciones();
             // Datos del usuario de la sesion de usuario
             $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
             $idusuario = $datos_usuario['idsesion'];
@@ -64,6 +68,10 @@ class Actividades extends CI_Controller {
             $pa_la_vista['actualizado'] = 0;
             $pa_la_vista['usuario'] = array();
             $pa_la_vista['actividades'] = array();
+            // Obtiene todos los barrios
+            $pa_la_vista['barrios'] = $this -> modelo_barrios -> devuelve_barrios();
+            // Obtiene todos las secciones
+            $pa_la_vista['secciones'] = $this -> modelo_secciones -> devuelve_secciones();
             // Revisamos si tenemos el id de actividad (por get o por post o por hidden, da igual)
             if ($idactividades){
                 // Datos del usuario de la sesion de usuario

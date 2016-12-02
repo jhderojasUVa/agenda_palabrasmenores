@@ -87,9 +87,12 @@
             <label for="barrio" class="col-sm-2 control-label">Barrio</label>
             <div class="col-sm-10">
               <select name="idbarrio" id="barrio" class="form-control">
-                  <option  value="<?= $fila['idbarrio']?>"><?= $fila['idbarrio']?></option>
-                  <? for ($i=1; $i<5; $i++) { ?>
-                  <option value="<?=$i?>"><?=$i?></option>
+                <? foreach ($barrios as $row) { ?>
+                    <? if ($fila['idbarrio'] == $row['idbarrios']) { ?>
+                        <option value="<?= $row['idbarrios']?>" selected="selected"><?= $row['nombre']?></option>
+                    <? } else {?>   
+                        <option value="<?= $row['idbarrios']?>"><?= $row['nombre']?></option>
+                    <? } ?>
                 <? } ?>
               </select>
             </div>
@@ -99,9 +102,12 @@
             <label for="seccion" class="col-sm-2 control-label">seccion</label>
             <div class="col-sm-10">
               <select name="idseccion" id="seccion" class="form-control">
-                <option  value="<?= $fila['idseccion']?>"><?= $fila['idseccion']?></option>
-                <? for ($i=1; $i<5; $i++) { ?>
-                  <option value="<?=$i?>"><?=$i?></option>
+                <? foreach ($secciones as $row) { ?>
+                    <? if ($fila['idseccion'] == $row['idsecciones']) { ?>
+                        <option value="<?= $row['idsecciones']?>" selected="selected"><?= $row['nombre']?></option>
+                    <? } else {?>   
+                        <option value="<?= $row['idsecciones']?>"><?= $row['nombre']?></option>
+                    <? } ?>
                 <? } ?>
               </select>
             </div>

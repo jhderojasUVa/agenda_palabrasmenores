@@ -101,6 +101,14 @@ class Modelo_barrios extends CI_Model {
             $resultado = $this -> db -> query($sql);
             return $resultado -> result_array(); // Obtener el array 
         } else return array();
-    } 
+    }
+    
+    public function devuelve_barrios(){       
+        // Funcion que devuelve todos los barrios     
+       
+        $sql = "SELECT * FROM barrios ORDER BY nombre";
+        $resultado = $this -> db -> query($sql); 
+        return $resultado -> result_array(); // Obtener el array
+    }   
     
   }
