@@ -12,17 +12,6 @@ class Libreria_fechas {
                 $this->CI =& get_instance();
         }
 
-        public function foo()
-        {
-                $this->CI->load->helper('url');
-                redirect();
-        }
-
-        public function bar()
-        {
-                echo $this->CI->config->item('base_url');
-        }
-
         public function comprueba_fecha($fecha, $para_que) {
           // Funcion que comprueba si la fecha es correcta o no
           // devuelve true si esta bien y false si no
@@ -41,18 +30,18 @@ class Libreria_fechas {
           } elseif (preg_match("/^(d){1,4}\/(d){1,2}\/(d){1,2}+$/i",$fecha) {
             // Es para web
           }
-           * 
+           *
            */
-                   
-            if (preg_match("/^\d{1,4}-\d{1,2}-\d{1,2}+$/i",$fecha)) {              
+
+            if (preg_match("/^\d{1,4}-\d{1,2}-\d{1,2}+$/i",$fecha)) {
                 // Es para bd
             } elseif (preg_match("/^\d{1,4}\/\d{1,2}\/\d{1,2}+$/i",$fecha)) {
                 // Es para web
-            } else { 
+            } else {
                 // La fecha es vete a saber
-                return false; 
+                return false;
             }
-            
+
 
           // Si lo es continuamos y la desgranamos
           $nueva_fecha = divide_fecha($fecha);
@@ -109,5 +98,14 @@ class Libreria_fechas {
         public function fecha_actual(){
           // Funcion que devuelve la fecha actual
           return date("d/m/Y H:i");
+        }
+
+        public function dias_del_mes($mes) {
+          // Devuelve el numero total de dias de del mes
+        }
+
+        public function de_la_fecha_30_dias($fecha) {
+          // Devuelve, por orden, a partir de la $fecha
+          // Los numeros de los siguientes 30 días
         }
 }

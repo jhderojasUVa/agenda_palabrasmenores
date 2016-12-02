@@ -24,7 +24,7 @@ class Modelo_actividades extends CI_Model {
         // $idseccion   --> ID de la seccion a la que pertenece la actividad
         // $fecha       --> Fecha y Hora de comienzo de la actividad
         // $usuario     --> login del usuario
-        // $publicada   --> Si está o no publicada la actividad, al crearla vendrá con valor 0 
+        // $publicada   --> Si está o no publicada la actividad, al crearla vendrá con valor 0
 
         $sql = "INSERT INTO actividades (campanya, actividad, descripcion, organiza, lugar, idbarrio, idseccion, fecha, usuario, publicada) VALUES ('" . $campanya . "', '" . $actividad . "', '" . $descripcion . "', '" . $organiza . "', '" . $lugar . "', '" . $idbarrio . "', '" . $idseccion . "', '" . $fecha . "', '" . $usuario . "', '" . $publicada . "')";
         $resultado = $this->db->query($sql);
@@ -82,29 +82,29 @@ class Modelo_actividades extends CI_Model {
 	$resultado = $this -> db -> query($sql);
         return true;
     }
-    
-    public function actividad_usuario_fecha($idusuario){       
+
+    public function actividad_usuario_fecha($idusuario){
         // Funcion que devuelve las actividades de un usuario por orden descendente de fecha
-        // $idusuario --> Identificador del usuario      
-       
+        // $idusuario --> Identificador del usuario
+
         $sql = "SELECT * FROM actividades WHERE usuario ='" . $idusuario."' ORDER BY fecha DESC";
-        $resultado = $this -> db -> query($sql); 
-        return $resultado -> result_array(); // Obtener el array
-    } 
-    
-    public function actividad_id($idactividades){       
-        // Funcion que devuelve una actividad a partir del id de actividades
-        // $idactividades --> Identificador de la actividad      
-       
-        $sql = "SELECT * FROM actividades WHERE idactividades ='" . $idactividades."'";
-        $resultado = $this -> db -> query($sql); 
+        $resultado = $this -> db -> query($sql);
         return $resultado -> result_array(); // Obtener el array
     }
-    
+
+    public function actividad_id($idactividades){
+        // Funcion que devuelve una actividad a partir del id de actividades
+        // $idactividades --> Identificador de la actividad
+
+        $sql = "SELECT * FROM actividades WHERE idactividades ='" . $idactividades."'";
+        $resultado = $this -> db -> query($sql);
+        return $resultado -> result_array(); // Obtener el array
+    }
+
     public function buscar_cajetin($texto){
         // Funcion que devuelve las actividades, resultado de la busqueda de un texto en cualquier campos de actividades sobre el que se va a buscar
         // $texto --> texto que se va a buscar
-        // Campos sobre los que se va a buscar : campanya, actividad, descripcion, organiza, lugar 
+        // Campos sobre los que se va a buscar : campanya, actividad, descripcion, organiza, lugar
         $array_campos = array ('campanya', 'actividad', 'descripcion', 'organiza', 'lugar');
         $sql = "SELECT * FROM actividades WHERE ";
         for ($i = 0; $i < sizeof($array_campos); $i++){
@@ -112,10 +112,10 @@ class Modelo_actividades extends CI_Model {
             if ((sizeof($array_campos)-1) != $i){$sql.=" OR ";}
         }
         $sql.= " ORDER BY fecha DESC";
-        $resultado = $this -> db -> query($sql); 
+        $resultado = $this -> db -> query($sql);
         return $resultado -> result_array(); // Obtener el array
     }
-    
+
     public function buscar_actividad($array_datos){
         // Funcion que devuelve las actividades, resultado de la busqueda en campos con un determinado texto
         // $array_datos --> array con el texto de los campos de actividades por los que se va a buscar
@@ -123,23 +123,33 @@ class Modelo_actividades extends CI_Model {
         $array_campos = array ('campanya', 'actividad','organiza', 'fecha');
         $sql="";
         $contador=0;
-    
+
         for ($i = 0; $i < sizeof($array_campos); $i++){
             if (!empty($array_datos[$i])) {
                 $contador ++;
                 if ($contador == 1) {
                     $sql = "SELECT * FROM actividades WHERE ";
                 } else {$sql.=" AND ";}
-                $sql.= "$array_campos[$i] LIKE '%$array_datos[$i]%'";    
+                $sql.= "$array_campos[$i] LIKE '%$array_datos[$i]%'";
             }
         }
         if ($contador>0) {$sql.=" ORDER BY fecha DESC";}
 
         if (($sql)) {
             $resultado = $this -> db -> query($sql);
-            return $resultado -> result_array(); // Obtener el array 
+            return $resultado -> result_array(); // Obtener el array
         } else return array();
     }
-    
+
+    public function mostrar_actividad_dia($fecha, $que_mostramos) {
+      // Devuelve la actividad y los datos de la actividad
+      // Si $que_mostramos = 0 (lo basico)
+      // Si $que_mostramos = 1 (todos los datos)
+    }
+
+    public function mostrar_desde_hasta($fecha_inicio, $fecha_fin) {
+      // Devuelve las actividades desde la fecha de inicio hasta la fecha de fin
+    }
+
   }
 ?>
