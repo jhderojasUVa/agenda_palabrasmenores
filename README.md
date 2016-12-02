@@ -201,6 +201,13 @@ Modelo_barrios. Métodos:
             Salida:
             Array con los datos de los barrios ordenados por nombre.
 
+        Devuelve todos los barrios ordenados por nombre
+        public function devuelve_barrios()      
+            Parámetros entrada:
+            Ninguno
+            Salida:
+            Array con los datos de todos los barrios
+
 Modelo_documentos. Métodos:
 
         Añadir un documento a la actividad
@@ -282,6 +289,13 @@ Modelo_secciones. Métodos:
             Estos textos corresponden a los campos: nombre
             Salida:
             Array con los datos de las secciones ordenados por nombre.
+
+        Devuelve todas las secciones ordenados por nombre
+        public function devuelve_secciones()      
+            Parámetros entrada:
+            Ninguno
+            Salida:
+            Array con los datos de todas las secciones
 
 Modelo_usuarios. Métodos:
 
