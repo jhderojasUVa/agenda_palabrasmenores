@@ -18,6 +18,10 @@ class Actividades extends CI_Controller {
 
         // Comprueba que tenga iniciada sesion.
         if ($this -> libreria_sesiones -> comprobar_session() == true){
+
+						// Retornar la ACL del usuario
+						$acl = $this -> session -> acl;
+
             $pa_la_vista = array();
             // Inicializamos
             $pa_la_vista['actualizado'] = 0;
@@ -38,14 +42,24 @@ class Actividades extends CI_Controller {
                 $idbarrio = $this -> input -> POST("idbarrio");
                 $idseccion = $this -> input -> POST("idseccion");
                 $fecha = $this -> input -> POST("fecha");
-                $publicada = 0;
+								// Cambiar eso a 0 o a 1 segun la ACL
+								// A recordar:
+								// Sumo Pontifice = 1
+								// Redactor = 2
+								// Editor = 3
+								// Disabled = 0
+								if ($acl != 1 && $acl != 2) {
+                	$publicada = 0;
+								} else {
+									$publicada = 1
+								}
                 // Si se ha enviado llamamos al modelo y añadimos la actividad
                 $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario,$publicada);
                 $pa_la_vista['actualizado'] = 1;
             }
 
             $this -> load -> view ("admin/header");
-            $this -> load -> view ("admin/menu");
+            $this -> load -> view ("admin/menu", $acl);
             $this -> load -> view ("admin/actividades/add_actividad",$pa_la_vista);
             $this -> load -> view ("admin/footer");
         } else {
@@ -89,6 +103,9 @@ class Actividades extends CI_Controller {
             if ($this -> input -> POST("modificar")==1 && $fallo==0){
                 // Datos de la actividad del POST
                 $campanya = $this -> input -> POST("campanya");
+								if (!esta_vacio($campanya)) {
+									$error = 1;
+								}
                 $actividad = $this -> input -> POST("actividad");
                 $descripcion = $this -> input -> POST("descripcion");
                 $organiza = $this -> input -> POST("organiza");
@@ -192,12 +209,22 @@ class Actividades extends CI_Controller {
             $this -> load -> view ("admin/index");
             $this -> load -> view ("admin/footer");
         }
-        
+
     }
+
+		public function publicar() {
+			// COJA EL ID
+			// PUBLIQUE la actividad
+		}
 
 		private function esta_vacio($cadena) {
 			// Funcion que comprueba si esta vacio
 
+			if ($cadena!="") {
+				return true;
+			} else {
+				return false;
+			}
 			// Retorna true si NO lo esta
 			// Retorna false SI lo esta
 		}

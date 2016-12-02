@@ -21,6 +21,7 @@ class Libreria_sesiones {
         public function comprobar_session() {
           // Funcion que comprueba si esta registrado o no
           // devuevle 0 si no y 1 si esta, vamos true o false
+
           if ($this -> CI -> session -> registrado) {
             return true;
           } else {
@@ -36,7 +37,7 @@ class Libreria_sesiones {
           // $idusuario = si lo registramos hay que meter el login, obviamente
 
           if ($estado == TRUE) {
-            // Le registramos            
+            // Le registramos
             $this -> CI -> session -> registrado = TRUE;
             $this -> CI -> session -> idusuario = $idusuario;
             return true;
@@ -61,14 +62,14 @@ class Libreria_sesiones {
                   'idsesion',
                   'login',
                   'nombre',
-                  'acl'                  
+                  'acl'
                   );
 
             $this -> CI -> session -> unset_userdata( $array_desregistrar);
-            
-            // Destruye la sesion 
-            $this -> CI -> session -> sess_destroy(); 
-            
+
+            // Destruye la sesion
+            $this -> CI -> session -> sess_destroy();
+
             return true;
           } else {
             // Woops algo ha ido mal
@@ -95,7 +96,7 @@ class Libreria_sesiones {
           // $registrado = TRUE o FALSE, autoexplicativo
           // $login = Pues el login del usuario
           // $nombre = el nombre real del pollopera
-          // $acl = el identificador de acl              
+          // $acl = el identificador de acl
 
           // La idea de esta funcion es que tras comprobar y registrarlo
           // la llamamos y metemos los datos del usuario completos

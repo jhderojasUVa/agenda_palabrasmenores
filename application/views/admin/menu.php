@@ -33,6 +33,8 @@
         </li>
         <?
           // Si la ACL del usuario es valida con un if se muestra
+          // Si $acl=1,2
+          if ($acl == 1) {
         ?>
         <!-- barrios -->
         <li class="dropdown" >
@@ -40,10 +42,10 @@
           <!-- contenido del desplegable -->
           <ul class="dropdown-menu">
             <li><a href="<?=base_url()?>/admin/barrios/add_barrio">A&ntilde;adir barrio</a></li>
-            <li><a href="<?=base_url()?>/admin/barrios/buscar_barrio">Buscar barrio</a></li>
+          }   <li><a href="<?=base_url()?>/admin/barrios/buscar_barrio">Buscar barrio</a></li>
           </ul>
         </li>
-        <? // fin del if ?>
+        <? } // fin del if ?>
         <?
           // Si la ACLS del usuario es valida con un if se muestra
         ?>
