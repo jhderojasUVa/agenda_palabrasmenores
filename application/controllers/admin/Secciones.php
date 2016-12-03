@@ -28,15 +28,24 @@ class Secciones extends CI_Controller {
                 $nombre = $this -> input -> POST("nombre");              
                 // Si se ha enviado llamamos al modelo y añadimos la seccion
                 $this -> modelo_secciones -> add_seccion($nombre);
-                $pa_la_vista['actualizado'] = 1; 
+                // Sacamos los datos para ir a la principal de actividades
+                // Asi evitamos que actuliacen la pagina y se grabe uno nuevo
+                // Sacamos los datos de actividades del modelo
+                $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
+                $pa_la_vista['actualizado'] = 1;
+                $pa_la_vista['usuario'] = $datos_usuario;
+                $pa_la_vista['actividades'] = $actividades;                
+                $this -> load -> view ("admin/header");
+                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/actividades/principal",$pa_la_vista);
+                $this -> load -> view ("admin/footer"); 
+            } else {
+                // Enviamos a la vista para meter los datos de la seccion
+                $this -> load -> view ("admin/header");
+                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/secciones/add_seccion",$pa_la_vista);
+                $this -> load -> view ("admin/footer");
             }
-            // Sino mostramos la vista
-
-            // Envie o no datos, sacamos la lista de secciones para enviarsela al modelo
-            $this -> load -> view ("admin/header");
-            $this -> load -> view ("admin/menu");
-            $this -> load -> view ("admin/secciones/add_seccion",$pa_la_vista);
-            $this -> load -> view ("admin/footer");
         } else {
             //Enviamos al inicio
             $this -> load -> view ("admin/header");
@@ -46,9 +55,8 @@ class Secciones extends CI_Controller {
 
     }
 
-    public function modifica_seccion($idsecciones) {
+    public function modifica_seccion() {
         // Controlador para los super admin de modificacion de secciones
-        // $idsecciones --> Id de la seccion que se va a modificar
 
         // Comprueba que tenga iniciada sesion.
         if ($this -> libreria_sesiones -> comprobar_session() == true){
@@ -61,6 +69,7 @@ class Secciones extends CI_Controller {
             // Datos de la seccion que se va a modificar
             $pa_la_vista['secciones'] = array();
             // Revisamos si tenemos el id de la seccion (por get o por post o por hidden, da igual)
+            $idsecciones = $this -> input -> post_get('idsecciones');
             if ($idsecciones){
                 // Datos del usuario de la sesion de usuario
                 $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
@@ -76,18 +85,14 @@ class Secciones extends CI_Controller {
             // Si modificar = 1 hacemos el update
             if ($this -> input -> POST("modificar")==1 && $fallo==0){
                 // Datos del seccion del POST
-                $idsecciones = $this -> input -> POST("idsecciones");
                 $nombre = $this -> input -> POST("nombre");
                 // update
                 $this -> modelo_secciones -> update_seccion($idsecciones, $nombre);
                 $pa_la_vista['actualizado'] = 1; // OJO de momento lo dejo lo tenía par los errores
-                // Conseguimos los datos por el modelo para enviarlos a la vista principal
-                // Buscamos la seccion
-                $datos_busqueda =  array(
-                    $this -> input -> POST("nombre")
-                );
-                $pa_la_vista['secciones'] = $this -> modelo_secciones -> buscar_seccion($datos_busqueda);
-
+                // Conseguimos los datos por el modelo para enviarlos a la vista de buscar
+                // Buscamos la seccion    
+                $pa_la_vista['secciones'] = $this -> modelo_secciones -> buscar_cajetin($nombre);
+                // Enviamos a la vista
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista);
@@ -108,7 +113,7 @@ class Secciones extends CI_Controller {
                 $this -> load -> view ("admin/footer");
             } else {
                 // Si hay algún error
-// ?? ver si tiene que ir a modificar_seccion
+                $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/secciones/modificar_seccion",$pa_la_vista);
                 $this -> load -> view ("admin/footer");
@@ -123,7 +128,9 @@ class Secciones extends CI_Controller {
     
     public function buscar_seccion() {
         // Buscaremos las secciones a traves un formulario
-
+        // En el formulario está metido un cajetin
+        // Es como busqueda por OR, si no tiene nada en el nombre devuelve todas las secciones
+        
         // Comprueba que tenga iniciada sesion.
         if ($this -> libreria_sesiones -> comprobar_session() == true){
             // Inicializamos
@@ -135,13 +142,11 @@ class Secciones extends CI_Controller {
             $idusuario = $datos_usuario['idsesion'];
             $pa_la_vista['usuario'] = $datos_usuario;
 
-            // Tipo de busqueda formulario
-            if ($this -> input -> POST("tipo_busqueda") == 2){
-                $datos_busqueda =  array(    
-                    $this -> input -> POST("nombre")
-                );
-                // Llamamos al modelo que busca por los campos AND
-                $pa_la_vista['secciones'] = $this -> modelo_secciones -> buscar_seccion($datos_busqueda);
+            // Tipo de busqueda por cajetin
+            if ($this -> input -> POST("tipo_busqueda") == 1){
+                $texto = $this -> input -> POST("q");
+                // Llamamos al modelo que busca por los campos OR
+                $pa_la_vista['secciones'] = $this -> modelo_secciones -> buscar_cajetin($texto);;
                 // Llamamos a las vistas con el resultado
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");

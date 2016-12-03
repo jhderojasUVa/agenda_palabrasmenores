@@ -41,10 +41,9 @@
     <!-- centramos -->
     <div class="col-md-offset-4 col-md-4">
       <? foreach ($secciones as $fila) { // Solo es una?>        
-      <form action="<?=base_url()?>/admin/secciones/modifica_seccion/<?= $fila['idsecciones']?>" method="POST" class="horizontal">
+      <form action="<?=base_url()?>/admin/secciones/modifica_seccion" method="POST" class="horizontal">
         <div class="row">
           <input type="hidden" value="1" name="modificar">
-<!-- OJO PREGUNTAR-->
           <input type="hidden" name="idsecciones" value="<?= $fila['idsecciones']?>">
           <!-- cada par esta en un form-group -->
           <div class="form-group">

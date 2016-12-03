@@ -17,11 +17,11 @@
         <? foreach ($secciones as $fila) { ?>
         <tr>
           <td>
-            <a href="<?=base_url()?>/admin/Secciones/modifica_seccion/<?=$fila["idsecciones"]?>"><?=$fila["nombre"]?></a>
+            <a href="<?=base_url()?>/admin/Secciones/modifica_seccion/?idsecciones=<?=$fila["idsecciones"]?>"><?=$fila["nombre"]?></a>
           </td>
           <td>
             <span class="text-center">
-              <a href="<?=base_url()?>/admin/Secciones/modifica_seccion/<?=$fila["idsecciones"]?>">Modificar</a>
+              <a href="<?=base_url()?>/admin/Secciones/modifica_seccion/?idsecciones=<?=$fila["idsecciones"]?>">Modificar</a>
               <a href="#">Borrar</a>
             <span>
           </td>

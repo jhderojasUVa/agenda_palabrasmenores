@@ -79,6 +79,9 @@ class Modelo_secciones extends CI_Model {
         return $resultado -> result_array(); // Obtener el array
     }
  
+    // buscar_seccion no lo estamos utilizando
+    // lo cambiamos para hacerlo como buscar_cajetin
+    // lo dejo por si acaso
     public function buscar_seccion($array_datos){
         // Funcion que devuelve las secciones, resultado de la busqueda en campos con un determinado texto
         // $array_datos --> array con el texto de los campos de secciones por los que se va a buscar
@@ -97,7 +100,6 @@ class Modelo_secciones extends CI_Model {
             }
         }
         if ($contador>0) {$sql.=" ORDER BY nombre";}
-
         if (($sql)) {
             $resultado = $this -> db -> query($sql);
             return $resultado -> result_array(); // Obtener el array 
@@ -111,4 +113,20 @@ class Modelo_secciones extends CI_Model {
         $resultado = $this -> db -> query($sql); 
         return $resultado -> result_array(); // Obtener el array
     }     
+
+    public function buscar_cajetin($texto){
+        // Funcion que devuelve las secciones, resultado de la busqueda de un texto en cualquier campos de secciones sobre el que se va a buscar
+        // $texto --> texto que se va a buscar
+        // Campos sobre los que se va a buscar : nombre
+        $array_campos = array ('nombre');
+        $sql = "SELECT * FROM secciones WHERE ";
+        for ($i = 0; $i < sizeof($array_campos); $i++){
+            $sql.= "$array_campos[$i] LIKE '%$texto%'";
+            if ((sizeof($array_campos)-1) != $i){$sql.=" OR ";}
+        }
+        $sql.= " ORDER BY nombre";
+        $resultado = $this -> db -> query($sql);
+        return $resultado -> result_array(); // Obtener el array
+    }    
+  
 }
