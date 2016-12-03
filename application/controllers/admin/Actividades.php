@@ -40,6 +40,7 @@ class Actividades extends CI_Controller {
                 $organiza = $this -> input -> POST("organiza");
                 $lugar = $this -> input -> POST("lugar");
                 $idbarrio = $this -> input -> POST("idbarrio");
+<<<<<<< HEAD
                 $idseccion = $this -> input -> POST("idseccion");
                 $fecha = $this -> input -> POST("fecha");
 								// Cambiar eso a 0 o a 1 segun la ACL
@@ -53,6 +54,11 @@ class Actividades extends CI_Controller {
 								} else {
 									$publicada = 1
 								}
+=======
+                $idseccion = $this -> input -> POST("idseccion");    
+                $fecha = $this -> input -> POST("fecha")." ".$this -> input -> POST("hora");
+                $publicada = 0;
+>>>>>>> origin/master
                 // Si se ha enviado llamamos al modelo y añadimos la actividad
                 $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario,$publicada);
                 $pa_la_vista['actualizado'] = 1;
@@ -113,7 +119,7 @@ class Actividades extends CI_Controller {
                 $lugar = $this -> input -> POST("lugar");
                 $idbarrio = $this -> input -> POST("idbarrio");
                 $idseccion = $this -> input -> POST("idseccion");
-                $fecha = $this -> input -> POST("fecha");
+                $fecha = $this -> input -> POST("fecha")." ".$this -> input -> POST("hora");
                 $publicada = $this -> input -> POST("publicada");
                 // update
                 $this -> modelo_actividades -> update_actividad($idactividades,$campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario,$publicada);
@@ -188,7 +194,7 @@ class Actividades extends CI_Controller {
                     $this -> input -> POST("campanya"),
                     $this -> input -> POST("actividad"),
                     $this -> input -> POST("organiza"),
-                    $this -> input -> POST("fecha")
+                    $this -> input -> POST("fecha")." ".$this -> input -> POST("hora")
                 );
                 // Llamamos al modelo que busca por los campos AND
                 $pa_la_vista['actividades'] = $this -> modelo_actividades -> buscar_actividad($datos_busqueda);

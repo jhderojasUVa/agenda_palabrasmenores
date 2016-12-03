@@ -113,15 +113,25 @@
               </select>
             </div>
           </div>
+          <?php $fecha_hora= explode(" ", $fila['fecha']);
+            $fecha=$fecha_hora[0];
+            $hora=$fecha_hora[1];
+          ?>
           <!-- formateamos las fechas -->
           <div class="form-group">
-            <label for="fecha" class="col-sm-2 control-label">Fecha del acto</label>
+            <label for="fecha" class="col-sm-2 control-label">Fecha</label>
             <div class="col-sm-10">
-              <input type="datetime" id="fecha" class="form-control" name="fecha" placeholder="2016-10-09" value="<?= $fila['fecha']?>">
+              <input type="date" id="fecha" class="form-control" name="fecha" placeholder="2016-10-09" value="<?= $fecha?>">
+            </div>
+          </div>
+          <!-- formateamos las horas -->
+          <div class="form-group">
+            <label for="hora" class="col-sm-2 control-label">Hora</label>
+            <div class="col-sm-10">
+              <input type="time" id="hora" class="form-control" name="hora" placeholder="22:30:00" value="<?= $hora?>">
             </div>
           </div>
           <!-- el enviar o modificar-->
-
           <button type="submit" class="btn btn-default">Modificar actividad</button>
         </div>
       </form>
