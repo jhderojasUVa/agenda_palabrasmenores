@@ -77,7 +77,9 @@ class Modelo_barrios extends CI_Model {
         $resultado = $this -> db -> query($sql); 
         return $resultado -> result_array(); // Obtener el array
     }
-    
+    // buscar_barrio no lo estamos utilizando
+    // lo cambiamos para hacerlo como buscar_cajetin
+    // lo dejo por si acaso
     public function buscar_barrio($array_datos){
         // Funcion que devuelve los barrios, resultado de la busqueda en campos con un determinado texto
         // $array_datos --> array con el texto de los campos de barrios por los que se va a buscar
@@ -111,4 +113,19 @@ class Modelo_barrios extends CI_Model {
         return $resultado -> result_array(); // Obtener el array
     }   
     
-  }
+    public function buscar_cajetin($texto){
+        // Funcion que devuelve los barrios, resultado de la busqueda de un texto en cualquier campos de barrios sobre el que se va a buscar
+        // $texto --> texto que se va a buscar
+        // Campos sobre los que se va a buscar : nombre
+        $array_campos = array ('nombre');
+        $sql = "SELECT * FROM barrios WHERE ";
+        for ($i = 0; $i < sizeof($array_campos); $i++){
+            $sql.= "$array_campos[$i] LIKE '%$texto%'";
+            if ((sizeof($array_campos)-1) != $i){$sql.=" OR ";}
+        }
+        $sql.= " ORDER BY nombre";
+        $resultado = $this -> db -> query($sql);
+        return $resultado -> result_array(); // Obtener el array
+    }
+    
+}

@@ -43,16 +43,17 @@
     <div class="col-md-offset-4 col-md-4">
       <form action="<?=base_url()?>/admin/barrios/buscar_barrio" method="POST" class="horizontal">
         <div class="row">
-          <input type="hidden" name="tipo_busqueda" value="2">            
-          <!-- cada par esta en un form-group -->
-          <div class="form-group">
-            <label for="nombre" class="col-sm-2 control-label">Nombre</label>
-            <div class="col-sm-10">
-              <input type="text" name="nombre" class="form-control" placeholder="Nombre del barrio" id="nombre">
-            </div>
-          </div> 
-          <!-- el enviar o modificar-->
-          <button type="submit" class="btn btn-default">Buscar barrio</button>
+            <!-- aunque es vista por formulario, se comporta como busqueda por cajetin  -->            
+            <!-- por eso pasamos tipo de busqueda 1 -->
+            <input type="hidden" name="tipo_busqueda" value="1">           
+            <!-- cada par esta en un form-group -->
+            <div class="form-group">
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="q" placeholder="Buscador de barrios">
+                </div>
+                <!-- el enviar o modificar-->
+                <button type="submit" class="btn btn-default" class="col-sm-4">Buscar</button>
+            </div>    
         </div>  
       </form>
     </div>

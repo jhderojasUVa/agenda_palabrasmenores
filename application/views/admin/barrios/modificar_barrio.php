@@ -44,7 +44,6 @@
       <form action="<?=base_url()?>/admin/barrios/modifica_barrio/<?= $fila['idbarrios']?>" method="POST" class="horizontal">
         <div class="row">
           <input type="hidden" value="1" name="modificar">
-<!-- OJO PREGUNTAR-->
           <input type="hidden" name="idbarrios" value="<?= $fila['idbarrios']?>">
           <!-- cada par esta en un form-group -->
           <div class="form-group">

@@ -17,11 +17,11 @@
         <? foreach ($barrios as $fila) { ?>
         <tr>
           <td>
-            <a href="<?=base_url()?>/admin/Barrios/modifica_barrio/<?=$fila["idbarrios"]?>"><?=$fila["nombre"]?></a>
+            <a href="<?=base_url()?>/admin/Barrios/modifica_barrio/?idbarrios=<?=$fila["idbarrios"]?>"><?=$fila["nombre"]?></a>
           </td>
           <td>
             <span class="text-center">
-              <a href="<?=base_url()?>/admin/Barrios/modifica_barrio/<?=$fila["idbarrios"]?>">Modificar</a>
+              <a href="<?=base_url()?>/admin/Barrios/modifica_barrio/?idbarrios=<?=$fila["idbarrios"]?>">Modificar</a>
               <a href="#">Borrar</a>
             <span>
           </td>
