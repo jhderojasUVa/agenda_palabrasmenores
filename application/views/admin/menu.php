@@ -34,6 +34,8 @@
         <?
           // Si la ACL del usuario es valida con un if se muestra
           // Si $acl=1,2
+// OJO de momento para que no de error inicializo $acl=1
+          $acl=1;  
           if ($acl == 1) {
         ?>
         <!-- barrios -->
@@ -42,7 +44,7 @@
           <!-- contenido del desplegable -->
           <ul class="dropdown-menu">
             <li><a href="<?=base_url()?>/admin/barrios/add_barrio">A&ntilde;adir barrio</a></li>
-          }   <li><a href="<?=base_url()?>/admin/barrios/buscar_barrio">Buscar barrio</a></li>
+            <li><a href="<?=base_url()?>/admin/barrios/buscar_barrio">Buscar barrio</a></li>
           </ul>
         </li>
         <? } // fin del if ?>

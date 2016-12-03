@@ -40,7 +40,6 @@ class Actividades extends CI_Controller {
                 $organiza = $this -> input -> POST("organiza");
                 $lugar = $this -> input -> POST("lugar");
                 $idbarrio = $this -> input -> POST("idbarrio");
-<<<<<<< HEAD
                 $idseccion = $this -> input -> POST("idseccion");
                 $fecha = $this -> input -> POST("fecha");
 								// Cambiar eso a 0 o a 1 segun la ACL
@@ -52,13 +51,12 @@ class Actividades extends CI_Controller {
 								if ($acl != 1 && $acl != 2) {
                 	$publicada = 0;
 								} else {
-									$publicada = 1
+									$publicada = 1;
 								}
-=======
+
                 $idseccion = $this -> input -> POST("idseccion");    
                 $fecha = $this -> input -> POST("fecha")." ".$this -> input -> POST("hora");
                 $publicada = 0;
->>>>>>> origin/master
                 // Si se ha enviado llamamos al modelo y añadimos la actividad
                 $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario,$publicada);
                 $pa_la_vista['actualizado'] = 1;
@@ -109,10 +107,11 @@ class Actividades extends CI_Controller {
             if ($this -> input -> POST("modificar")==1 && $fallo==0){
                 // Datos de la actividad del POST
                 $campanya = $this -> input -> POST("campanya");
-								if (!esta_vacio($campanya)) {
-									$error = 1;
-								}
-								$idactiviad = $this -> input -> POST("idactividad");
+// OJO de momento lo quito para que no de error
+                //if (!esta_vacio($campanya)) {
+                //    $error = 1;
+		//}
+		$idactiviad = $this -> input -> POST("idactividad");
                 $actividad = $this -> input -> POST("actividad");
                 $descripcion = $this -> input -> POST("descripcion");
                 $organiza = $this -> input -> POST("organiza");
