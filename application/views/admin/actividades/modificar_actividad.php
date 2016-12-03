@@ -4,7 +4,7 @@
     // Segun el problema mostraremos y rellenaremos lo que haga falta
     // Puedes comentarlo si molesta
   ?>
- 
+
   <div class="row">
     <? if ($actualizado==1){ ?>
     <!-- todo correcto -->
@@ -44,9 +44,10 @@
     <div class="col-md-offset-4 col-md-4">
       <? foreach ($actividades as $fila) { // Solo es una?>
       <form action="<?=base_url()?>/admin/actividades/modifica_actividad/<?= $fila['idactividades']?>" method="POST" class="horizontal">
-        <div class="row">  
+        <div class="row">
           <input type="hidden" value="1" name="modificar">
-          <!-- cada par esta en un form-group -->          
+          <input type="hidden" value="<?=$fila['idactividades']?>" name="idactividad">
+          <!-- cada par esta en un form-group -->
           <div class="form-group">
             <!-- el label que tiene lo que ocupa (2) -->
             <label for="campanya" class="col-sm-2 control-label">Campaña</label>
@@ -90,7 +91,7 @@
                 <? foreach ($barrios as $row) { ?>
                     <? if ($fila['idbarrio'] == $row['idbarrios']) { ?>
                         <option value="<?= $row['idbarrios']?>" selected="selected"><?= $row['nombre']?></option>
-                    <? } else {?>   
+                    <? } else {?>
                         <option value="<?= $row['idbarrios']?>"><?= $row['nombre']?></option>
                     <? } ?>
                 <? } ?>
@@ -105,7 +106,7 @@
                 <? foreach ($secciones as $row) { ?>
                     <? if ($fila['idseccion'] == $row['idsecciones']) { ?>
                         <option value="<?= $row['idsecciones']?>" selected="selected"><?= $row['nombre']?></option>
-                    <? } else {?>   
+                    <? } else {?>
                         <option value="<?= $row['idsecciones']?>"><?= $row['nombre']?></option>
                     <? } ?>
                 <? } ?>
@@ -122,7 +123,7 @@
           <!-- el enviar o modificar-->
 
           <button type="submit" class="btn btn-default">Modificar actividad</button>
-        </div>  
+        </div>
       </form>
       <? } ?>
     </div>

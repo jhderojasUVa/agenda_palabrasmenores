@@ -4,17 +4,33 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script>
   // Con esto evitamos que el submit haga algo, le quitamos el evento
-  $("form").submit(function(event) {
-    event.preventDefault();
+  $(document).ready(function(){
+    $("form").submit(function(event) {
+      // Pongo error a 1 para que no haga el submit, no es por nada
+      error = 1;
+      event.preventDefault();
+      if (error==1) {
+        $(".resultado").html("LAS CAGAO HAY ERRORES");
+      }
+      else {
+        $this.submit();
+      }
+    });
+
+    $("a").click(function(event) {
+      alert("Has dado a un enlace!. Recuerda quitarme o comentarme para que funcione!");
+      event.preventDefault();
+    });
   });
 
   // Funciones chorracas tontas para ver los seleccionadores de elementos
-  function cambia_id(elemento){
-    $("#"+elemento).html("¡CAMBIADO el ID #"+elemento"!");
+  function cambia_id(elemento) {
+    $("#"+elemento).html("¡CAMBIADO el ID #"+elemento+"!").css("background-color", "#00ff00");;
+    //$("#"+elemento).html("¡CAMBIADO el ID #"+elemento"!");
   }
 
-  function cambia_class(elemento){
-    $("#"+elemento).html("¡CAMBIADO el CLASS ."+elemento"!");
+  function cambia_class(elemento) {
+    $("."+elemento).html("¡CAMBIADO el CLASS ."+elemento+"!");
   }
 
   function cambia_p() {
@@ -42,6 +58,7 @@
     <p class="cosa">Esto esta dentro de un class</p>
     <p>Esto no esta en un class</p>
     <p class="otra_cosa">Esto es otro class diferente</p>
+    $("html body div#elemento_id .otra_cosa")
   </div>
   <br /><u>Menu de cambios con javascript</u><br />
   <a href="javascript:cambia_id('elemento_id');">esto cambia el id si me das</a><br />

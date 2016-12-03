@@ -73,7 +73,7 @@ class Actividades extends CI_Controller {
     public function modifica_actividad($idactividades) {
         // Controlador para todos los usuarios para modificar una actividad
         // $idactividades --> id de la actividad que se va a modificar
-
+				$idactividad = $this -> input -> post_get("idactividad");
         // Comprueba que tenga iniciada sesion.
         if ($this -> libreria_sesiones -> comprobar_session() == true){
             $fallo = 0;
@@ -106,6 +106,7 @@ class Actividades extends CI_Controller {
 								if (!esta_vacio($campanya)) {
 									$error = 1;
 								}
+								$idactiviad = $this -> input -> POST("idactividad");
                 $actividad = $this -> input -> POST("actividad");
                 $descripcion = $this -> input -> POST("descripcion");
                 $organiza = $this -> input -> POST("organiza");
