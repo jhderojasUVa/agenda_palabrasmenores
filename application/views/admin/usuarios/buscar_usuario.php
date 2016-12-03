@@ -18,14 +18,14 @@
         <? foreach ($usuarios as $fila) { ?>
         <tr>
           <td>
-            <a href="<?=base_url()?>/admin/Usuarios/modifica_usuario/<?=$fila["login"]?>"><?=$fila["login"]?></a>
+            <a href="<?=base_url()?>/admin/Usuarios/modifica_usuario/?login=<?=$fila["login"]?>"><?=$fila["login"]?></a>
           </td>
           <td>
             <?=$fila["nombre"]?>
           </td>
           <td>
             <span class="text-center">
-              <a href="<?=base_url()?>/admin/Usuarios/modifica_usuario/<?=$fila["login"]?>">Modificar</a>
+              <a href="<?=base_url()?>/admin/Usuarios/modifica_usuario/?login=<?=$fila["login"]?>">Modificar</a>
               <a href="#">Borrar</a>
             <span>
           </td>

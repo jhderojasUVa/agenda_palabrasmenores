@@ -153,4 +153,19 @@ class Modelo_usuarios extends CI_Model {
             return $resultado -> result_array(); // Obtener el array 
         } else return array();
     }    
-  }
+
+        public function buscar_cajetin($texto){
+        // Funcion que devuelve los usuarios, resultado de la busqueda de un texto en cualquier campos de usuarios sobre el que se va a buscar
+        // $texto --> texto que se va a buscar
+        // Campos sobre los que se va a buscar : login, nombre
+        $array_campos = array ('login', 'nombre');
+        $sql = "SELECT * FROM usuarios WHERE ";
+        for ($i = 0; $i < sizeof($array_campos); $i++){
+            $sql.= "$array_campos[$i] LIKE '%$texto%'";
+            if ((sizeof($array_campos)-1) != $i){$sql.=" OR ";}
+        }
+        $sql.= " ORDER BY nombre";
+        $resultado = $this -> db -> query($sql);
+        return $resultado -> result_array(); // Obtener el array
+    }
+}

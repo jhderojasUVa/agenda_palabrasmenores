@@ -41,16 +41,15 @@
     <!-- centramos -->
     <div class="col-md-offset-4 col-md-4">
       <? foreach ($usuarios as $fila) { // Solo es una?>        
-      <form action="<?=base_url()?>/admin/usuarios/modifica_usuario/<?= $fila['login']?>" method="POST" class="horizontal">
+      <form action="<?=base_url()?>/admin/usuarios/modifica_usuario" method="POST" class="horizontal">
         <div class="row">
           <input type="hidden" value="1" name="modificar">
+          <input type="hidden" name="login" value="<?= $fila['login']?>">
           <!-- cada par esta en un form-group -->
           <div class="form-group">
             <!-- el label que tiene lo que ocupa (2) -->
             <label class="col-sm-2 control-label">Login</label>
             <label for="login" class="col-sm-10 control-label"><?= $fila['login']?></label>
-<!-- OJO ??? -->
-            <input type="hidden" name="login" value="<?= $fila['login']?>">
           </div>
           <!-- y a repetir el proceso -->
           <div class="form-group">

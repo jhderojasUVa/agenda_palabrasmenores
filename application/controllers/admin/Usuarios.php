@@ -34,20 +34,24 @@ class Usuarios extends CI_Controller {
 // OJO COMPROBAR QUE LAS CONTRASEÑA Y REPETIR CONTRASEÑA COINCIDAN                
                 // Si se ha enviado llamamos al modelo y añadimos al usuario
                 $this -> modelo_usuarios -> add_usuario($login, $password, $nombre, $idacl);
-                $pa_la_vista['actualizado'] = 1; 
-// OJO VER DONDE TIENE QUE IR, SI AL INICIO O
-// SI VUEL VE A AÑADIR, HABRÍA QUE INICIALIZAR LAS VARIABLES
-// POR SI DAN A ACTUALIZAR LA PÁGINA QUE NO VUELVA A INTERTAR GRABAR Y SALGAN
-// ERRORES O GRABE.
+                // Sacamos los datos para ir a la principal de actividades
+                // Asi evitamos que actuliacen la pagina y se grabe uno nuevo
+                // Sacamos los datos de actividades del modelo
+                $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
+                $pa_la_vista['actualizado'] = 1;
+                $pa_la_vista['usuario'] = $datos_usuario;
+                $pa_la_vista['actividades'] = $actividades;                
+                $this -> load -> view ("admin/header");
+                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/actividades/principal",$pa_la_vista);
+                $this -> load -> view ("admin/footer");
+            } else {
+                // Enviamos a la vista para meter los datos de usuario
+                $this -> load -> view ("admin/header");
+                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/usuarios/add_usuario",$pa_la_vista);
+                $this -> load -> view ("admin/footer");
             }
-            // Sino mostramos la vista
-
-            // Envie o no datos, sacamos la lista de usuarios para enviarsela al modelo
-
-            $this -> load -> view ("admin/header");
-            $this -> load -> view ("admin/menu");
-            $this -> load -> view ("admin/usuarios/add_usuario",$pa_la_vista);
-            $this -> load -> view ("admin/footer");
         } else {
             //Enviamos al inicio
             $this -> load -> view ("admin/header");
@@ -57,9 +61,8 @@ class Usuarios extends CI_Controller {
 
     }
 
-    public function modifica_usuario($login) {
+    public function modifica_usuario() {
         // Controlador para los super admin de modificacion de usuarios
-        // $login --> login del usuario que se va a modificar
 
         // Comprueba que tenga iniciada sesion.
         if ($this -> libreria_sesiones -> comprobar_session() == true){
@@ -72,6 +75,7 @@ class Usuarios extends CI_Controller {
             // Datos del usuario que se va a modificar
             $pa_la_vista['usuarios'] = array();
             // Revisamos si tenemos el id de usuario (por get o por post o por hidden, da igual)
+            $login = $this -> input -> post_get('login');            
             if ($login){
                 // Datos del usuario de la sesion de usuario
                 $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
@@ -87,8 +91,6 @@ class Usuarios extends CI_Controller {
             // Si modificar = 1 hacemos el update
             if ($this -> input -> POST("modificar")==1 && $fallo==0){
                 // Datos del usuario del POST
-// OJO CON ESTE LOGIN
-                $login = $this -> input -> POST("login");
                 $password = $this -> input -> POST("password");
                 $rpassword = $this -> input -> POST("rpassword");
                 $nombre = $this -> input -> POST("nombre");
@@ -105,7 +107,6 @@ class Usuarios extends CI_Controller {
                 // Conseguimos los datos por el modelo para enviarlos a la vista principal
                 // Buscamos al usuario
                 $datos_busqueda =  array(
-// OJO EN FUNCION DEL LOGIN DE ANTES
                     $this -> input -> POST("login"),
                     $this -> input -> POST("nombre")
                 );
@@ -131,7 +132,7 @@ class Usuarios extends CI_Controller {
                 $this -> load -> view ("admin/footer");
             } else {
                 // Si hay algún error
-// ?? ver si tiene que ir a modificar_usuario
+                $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/usuarios/modificar_usuario",$pa_la_vista);
                 $this -> load -> view ("admin/footer");
@@ -160,12 +161,21 @@ class Usuarios extends CI_Controller {
 
             // Tipo de busqueda formulario
             if ($this -> input -> POST("tipo_busqueda") == 2){
-                $datos_busqueda =  array(
-                    $this -> input -> POST("login"),
-                    $this -> input -> POST("nombre")
-                );
-                // Llamamos al modelo que busca por los campos AND
-                $pa_la_vista['usuarios'] = $this -> modelo_usuarios -> buscar_usuario($datos_busqueda);
+                // Comprueba si no ha metido nada en login y nombre
+                // Hace una busqueda por OR con texto vacio
+                // Para que devuelva todos los usuarios
+                if ($this -> input -> POST("login") == "" AND $this -> input -> POST("nombre") ==""){
+                    $texto="";
+                    // Llamamos al modelo que busca por los campos OR 
+                    $pa_la_vista['usuarios'] = $this -> modelo_usuarios -> buscar_cajetin($texto);                    
+                } else {
+                    $datos_busqueda =  array(
+                        $this -> input -> POST("login"),
+                        $this -> input -> POST("nombre")
+                    );
+                    // Llamamos al modelo que busca por los campos AND
+                    $pa_la_vista['usuarios'] = $this -> modelo_usuarios -> buscar_usuario($datos_busqueda);
+                }     
                 // Llamamos a las vistas con el resultado
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
