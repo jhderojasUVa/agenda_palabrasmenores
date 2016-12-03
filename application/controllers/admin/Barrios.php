@@ -58,7 +58,6 @@ class Barrios extends CI_Controller {
 
     public function modifica_barrio() {
         // Controlador para los super admin de modificacion de barrios
-        // $idbarrios --> Id del barrio que se va a modificar
 
         // Comprueba que tenga iniciada sesion.
         if ($this -> libreria_sesiones -> comprobar_session() == true){
@@ -91,9 +90,9 @@ class Barrios extends CI_Controller {
                 // update
                 $this -> modelo_barrios -> update_barrio($idbarrios, $nombre);
                 $pa_la_vista['actualizado'] = 1; // OJO de momento lo dejo lo tenía par los errores
-                // Conseguimos los datos por el modelo para enviarlos a la vista principal
+                // Conseguimos los datos por el modelo para enviarlos a la vista de buscar
                 // Buscamos al barrio
-                $pa_la_vista['barrios'] = $this -> modelo_barrios -> buscar_barrio($nombre);
+                $pa_la_vista['barrios'] = $this -> modelo_barrios -> buscar_cajetin($nombre);
                 // Enviamos a la vista    
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
@@ -130,6 +129,8 @@ class Barrios extends CI_Controller {
     
     public function buscar_barrio() {
         // Buscaremos los barrios a traves un formulario
+        // En el formulario está metido un cajetin
+        // Es como busqueda por OR, si no tiene nada en el nombre devuelve todos los barrios
 
         // Comprueba que tenga iniciada sesion.
         if ($this -> libreria_sesiones -> comprobar_session() == true){
@@ -142,8 +143,7 @@ class Barrios extends CI_Controller {
             $idusuario = $datos_usuario['idsesion'];
             $pa_la_vista['usuario'] = $datos_usuario;
 
-            // Tipo de busqueda formulario,en el formulario está metido un cajetin
-            // Es como vista por OR, si no tiene nada en nombre devuelve todos los barrios
+            // Tipo de busqueda por cajetin
             if ($this -> input -> POST("tipo_busqueda") == 1){
                 $texto = $this -> input -> POST("q");
                 // Llamamos al modelo que busca por los campos OR

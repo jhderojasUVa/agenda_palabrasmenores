@@ -41,7 +41,7 @@
     <!-- centramos -->
     <div class="col-md-offset-4 col-md-4">
       <? foreach ($barrios as $fila) { // Solo es una?>        
-      <form action="<?=base_url()?>/admin/barrios/modifica_barrio/<?= $fila['idbarrios']?>" method="POST" class="horizontal">
+      <form action="<?=base_url()?>/admin/barrios/modifica_barrio" method="POST" class="horizontal">
         <div class="row">
           <input type="hidden" value="1" name="modificar">
           <input type="hidden" name="idbarrios" value="<?= $fila['idbarrios']?>">
