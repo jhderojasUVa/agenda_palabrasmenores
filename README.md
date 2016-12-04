@@ -200,6 +200,15 @@ Modelo_barrios. Métodos:
             Estos textos corresponden a los campos: nombre
             Salida:
             Array con los datos de los barrios ordenados por nombre.
+            NOTA: No se está utilizando
+
+        Devuelve los barrios, resultado de la busqueda de un texto en cualquier campos de barrios sobre el que se va a buscar, ordenadas por nombre
+        public function buscar_cajetin($texto)
+        Parámetros entrada:
+            $texto --> texto que se va a buscar
+            Campos sobre los que se va a buscar: nombre 
+            Salida:
+            Array con los datos de los barrios ordenados por nombres.
 
         Devuelve todos los barrios ordenados por nombre
         public function devuelve_barrios()      
@@ -289,6 +298,15 @@ Modelo_secciones. Métodos:
             Estos textos corresponden a los campos: nombre
             Salida:
             Array con los datos de las secciones ordenados por nombre.
+            NOTA: No se está utilizando
+
+        Devuelve las secciones, resultado de la busqueda de un texto en cualquier campos de secciones sobre el que se va a buscar, ordenadas por nombre
+        public function buscar_cajetin($texto)
+        Parámetros entrada:
+            $texto --> texto que se va a buscar
+            Campos sobre los que se va a buscar: nombre 
+            Salida:
+            Array con los datos de los barrios ordenados por nombres.
 
         Devuelve todas las secciones ordenados por nombre
         public function devuelve_secciones()      
@@ -349,6 +367,14 @@ Modelo_usuarios. Métodos:
             Estos textos corresponden a los campos: login, nombre
             Salida:
             Array con los datos de los usuarios ordenados por nombre.
+
+        Devuelve los usuarios, resultado de la busqueda de un texto en cualquier campos de usuarios sobre el que se va a buscar, ordenadas por nombre
+        public function buscar_cajetin($texto)
+        Parámetros entrada:
+            $texto --> texto que se va a buscar
+            Campos sobre los que se va a buscar: login, nombre 
+            Salida:
+            Array con los datos de los usuarios ordenados por nombres.
 
 3.2.3. Vistas
 =============
