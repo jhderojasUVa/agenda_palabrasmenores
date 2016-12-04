@@ -21,7 +21,7 @@
         <? foreach ($actividades as $fila) { ?>
         <tr>
           <td>
-            <a href="<?=base_url()?>/admin/Actividades/modifica_actividad/<?=$fila["idactividades"]?>"><?=$fila["actividad"]?></a>
+            <a href="<?=base_url()?>/admin/Actividades/modifica_actividad/?idactividades=<?=$fila["idactividades"]?>"><?=$fila["actividad"]?></a>
           </td>
           <td>
             <?=$fila["campanya"]?>
@@ -34,7 +34,7 @@
           </td>
           <td>
             <span class="text-center">
-              <a href="<?=base_url()?>/admin/Actividades/modifica_actividad/<?=$fila["idactividades"]?>">Modificar</a>
+              <a href="<?=base_url()?>/admin/Actividades/modifica_actividad/?idactividades=<?=$fila["idactividades"]?>">Modificar</a>
               <a href="#">Borrar</a>
             <span>
           </td>

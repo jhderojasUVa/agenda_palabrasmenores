@@ -43,24 +43,24 @@
     <!-- centramos -->
     <div class="col-md-offset-4 col-md-4">
       <? foreach ($actividades as $fila) { // Solo es una?>
-      <form action="<?=base_url()?>/admin/actividades/modifica_actividad/<?= $fila['idactividades']?>" method="POST" class="horizontal">
+      <form action="<?=base_url()?>/admin/actividades/modifica_actividad" method="POST" class="horizontal">
         <div class="row">
           <input type="hidden" value="1" name="modificar">
-          <input type="hidden" value="<?=$fila['idactividades']?>" name="idactividad">
+          <input type="hidden" value="<?=$fila['idactividades']?>" name="idactividades">
           <!-- cada par esta en un form-group -->
+          <div class="form-group">
+            <label for="actividad" class="col-sm-2 control-label">Actividad</label>
+            <div class="col-sm-10">
+              <input type="text" name="actividad" class="form-control" placeholder="Nombre de la actividad" id="actividad" value="<?= $fila['actividad']?>">
+            </div>
+          </div>
+          <!-- y a repetir el proceso -->
           <div class="form-group">
             <!-- el label que tiene lo que ocupa (2) -->
             <label for="campanya" class="col-sm-2 control-label">Campaña</label>
             <!-- el input que se mete en una celda -->
             <div class="col-sm-10">
                 <input type="text" name="campanya" class="form-control" placeholder="Campaña de la actividad" id="campanya" value="<?= $fila['campanya']?>">
-            </div>
-          </div>
-          <!-- y a repetir el proceso -->
-          <div class="form-group">
-            <label for="actividad" class="col-sm-2 control-label">Actividad</label>
-            <div class="col-sm-10">
-              <input type="text" name="actividad" class="form-control" placeholder="Nombre de la actividad" id="actividad" value="<?= $fila['actividad']?>">
             </div>
           </div>
           <!-- para la descripcion usamos un text area -->
