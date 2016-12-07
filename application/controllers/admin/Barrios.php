@@ -29,10 +29,9 @@ class Barrios extends CI_Controller {
                 $nombre = $this -> input -> POST("nombre");              
                 // Si se ha enviado llamamos al modelo y añadimos al barrio
                 $this -> modelo_barrios -> add_barrio($nombre);
-
                 // Mostramos los últimos 5 barrios
                 $numero = 5;
-                $pa_la_vista['barrios'] = $this -> modelo_barrios -> devuelve_ultimos_barrios($numero); 
+                $pa_la_vista['barrios'] = $this -> modelo_barrios -> ultimos_barrios($numero); 
                 $pa_la_vista['cabecera'] = true;
                 $pa_la_vista['actualizado'] = 1;
                 $pa_la_vista['usuario'] = $datos_usuario;               
@@ -43,10 +42,10 @@ class Barrios extends CI_Controller {
             } else {
                 // Obtenemos los últimos barrios
                 $numero = 5;
-                $pa_la_vista_barrios ['barrios'] = $this -> modelo_barrios -> devuelve_ultimos_barrios($numero); 
-                $pa_la_vista_barrios ['cabecera'] = false;
+                $pa_la_vista_barrios['barrios'] = $this -> modelo_barrios -> ultimos_barrios($numero); 
+                $pa_la_vista_barrios['cabecera'] = false;
                 // Enviamos a la vista para meter los datos del barrio
-                
+                // Y enviamos a la vista para mostrar los 5 ultimos barrios
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/barrios/add_barrio",$pa_la_vista);

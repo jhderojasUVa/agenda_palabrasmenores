@@ -28,22 +28,27 @@ class Secciones extends CI_Controller {
                 $nombre = $this -> input -> POST("nombre");              
                 // Si se ha enviado llamamos al modelo y añadimos la seccion
                 $this -> modelo_secciones -> add_seccion($nombre);
-                // Sacamos los datos para ir a la principal de actividades
-                // Asi evitamos que actuliacen la pagina y se grabe uno nuevo
-                // Sacamos los datos de actividades del modelo
-                $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
+                // Mostramos las últimas 5 secciones
+                $numero = 5;
+                $pa_la_vista['secciones'] = $this -> modelo_secciones -> ultimas_secciones($numero); 
+                $pa_la_vista['cabecera'] = true;        
                 $pa_la_vista['actualizado'] = 1;
-                $pa_la_vista['usuario'] = $datos_usuario;
-                $pa_la_vista['actividades'] = $actividades;                
+                $pa_la_vista['usuario'] = $datos_usuario;                     
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
-                $this -> load -> view ("admin/actividades/principal",$pa_la_vista);
+                $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista);
                 $this -> load -> view ("admin/footer"); 
             } else {
+                // Obtenemos las últimas 5 secciones
+                $numero = 5;
+                $pa_la_vista_secciones['secciones'] = $this -> modelo_secciones -> ultimas_secciones($numero); 
+                $pa_la_vista_secciones['cabecera'] = false;                
                 // Enviamos a la vista para meter los datos de la seccion
+                // Y enviamos a la vista para mostrar las 5 ultimas secciones
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/secciones/add_seccion",$pa_la_vista);
+                $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista_secciones);
                 $this -> load -> view ("admin/footer");
             }
         } else {
@@ -92,6 +97,7 @@ class Secciones extends CI_Controller {
                 // Conseguimos los datos por el modelo para enviarlos a la vista de buscar
                 // Buscamos la seccion    
                 $pa_la_vista['secciones'] = $this -> modelo_secciones -> buscar_cajetin($nombre);
+                $pa_la_vista ['cabecera'] = true;
                 // Enviamos a la vista
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
@@ -147,6 +153,7 @@ class Secciones extends CI_Controller {
                 $texto = $this -> input -> POST("q");
                 // Llamamos al modelo que busca por los campos OR
                 $pa_la_vista['secciones'] = $this -> modelo_secciones -> buscar_cajetin($texto);;
+                $pa_la_vista ['cabecera'] = true;
                 // Llamamos a las vistas con el resultado
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");

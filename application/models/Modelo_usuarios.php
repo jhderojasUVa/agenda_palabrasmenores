@@ -168,4 +168,12 @@ class Modelo_usuarios extends CI_Model {
         $resultado = $this -> db -> query($sql);
         return $resultado -> result_array(); // Obtener el array
     }
+    
+        public function ultimos_usuarios($numero){       
+        // Funcion que devuelve los últimos usuarios ordenados por login   
+        // $numero --> Numero de usuarios a devolver
+        $sql = "SELECT * FROM usuarios ORDER BY login DESC LIMIT ".$numero;
+        $resultado = $this -> db -> query($sql); 
+        return $resultado -> result_array(); // Obtener el array
+    }
 }

@@ -128,5 +128,12 @@ class Modelo_secciones extends CI_Model {
         $resultado = $this -> db -> query($sql);
         return $resultado -> result_array(); // Obtener el array
     }    
-  
+    public function ultimas_secciones($numero){       
+        // Funcion que devuelve las últimas secciones     
+        // $numero --> Numero de secciones a devolver
+        $sql = "SELECT * FROM secciones ORDER BY idsecciones DESC LIMIT ".$numero;
+        $resultado = $this -> db -> query($sql); 
+        return $resultado -> result_array(); // Obtener el array
+    }  
+ 
 }

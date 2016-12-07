@@ -34,22 +34,27 @@ class Usuarios extends CI_Controller {
 // OJO COMPROBAR QUE LAS CONTRASEÑA Y REPETIR CONTRASEÑA COINCIDAN                
                 // Si se ha enviado llamamos al modelo y añadimos al usuario
                 $this -> modelo_usuarios -> add_usuario($login, $password, $nombre, $idacl);
-                // Sacamos los datos para ir a la principal de actividades
-                // Asi evitamos que actuliacen la pagina y se grabe uno nuevo
-                // Sacamos los datos de actividades del modelo
-                $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
+                // Mostramos los ultimos 5 usuarios por login
+                $numero = 5;
+                $pa_la_vista['usuarios'] = $this -> modelo_usuarios -> ultimos_usuarios($numero); 
+                $pa_la_vista['cabecera'] = true;
                 $pa_la_vista['actualizado'] = 1;
-                $pa_la_vista['usuario'] = $datos_usuario;
-                $pa_la_vista['actividades'] = $actividades;                
+                $pa_la_vista['usuario'] = $datos_usuario;                
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
-                $this -> load -> view ("admin/actividades/principal",$pa_la_vista);
+                $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista);
                 $this -> load -> view ("admin/footer");
             } else {
-                // Enviamos a la vista para meter los datos de usuario
+                // Mostramos los ultimos 5 usuarios por login
+                $numero = 5;
+                $pa_la_vista_usuarios['usuarios'] = $this -> modelo_usuarios -> ultimos_usuarios($numero); 
+                $pa_la_vista_usuarios['cabecera'] = false;                
+                // Enviamos a la vista para meter los datos del usuario
+                // Y enviamos a la vista para mostrar los 5 ultimos usuarios
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/usuarios/add_usuario",$pa_la_vista);
+                $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista_usuarios);
                 $this -> load -> view ("admin/footer");
             }
         } else {
@@ -111,7 +116,7 @@ class Usuarios extends CI_Controller {
                     $this -> input -> POST("nombre")
                 );
                 $pa_la_vista['usuarios'] = $this -> modelo_usuarios -> buscar_usuario($datos_busqueda);
-
+                $pa_la_vista ['cabecera'] = true;
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista);
@@ -175,7 +180,8 @@ class Usuarios extends CI_Controller {
                     );
                     // Llamamos al modelo que busca por los campos AND
                     $pa_la_vista['usuarios'] = $this -> modelo_usuarios -> buscar_usuario($datos_busqueda);
-                }     
+                }
+                $pa_la_vista ['cabecera'] = true;
                 // Llamamos a las vistas con el resultado
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
