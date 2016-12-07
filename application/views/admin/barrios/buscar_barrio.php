@@ -1,11 +1,13 @@
 <!-- mostrara el resultado de la busqueda con un enlace para poder editar la barrio -->
 
 <div class="container">
+  <? if ($cabecera) { ?> 
   <div class="row">
     <div class="col-md-offset-3 col-md-6">
         <h3>Resultado de la búsqueda de barrios realizada por: <?echo $usuario['nombre']?></h3>
     </div>
   </div>
+  <? } ?>
   <!-- reordenamos todo y lo juntamos -->
   <div class="row">
     <div class="col-md-12">

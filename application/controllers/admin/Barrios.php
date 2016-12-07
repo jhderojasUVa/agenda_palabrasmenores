@@ -29,22 +29,28 @@ class Barrios extends CI_Controller {
                 $nombre = $this -> input -> POST("nombre");              
                 // Si se ha enviado llamamos al modelo y añadimos al barrio
                 $this -> modelo_barrios -> add_barrio($nombre);
-                // Sacamos los datos para ir a la principal de actividades
-                // Asi evitamos que actuliacen la pagina y se grabe uno nuevo
-                // Sacamos los datos de actividades del modelo
-                $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
+
+                // Mostramos los últimos 5 barrios
+                $numero = 5;
+                $pa_la_vista['barrios'] = $this -> modelo_barrios -> devuelve_ultimos_barrios($numero); 
+                $pa_la_vista['cabecera'] = true;
                 $pa_la_vista['actualizado'] = 1;
-                $pa_la_vista['usuario'] = $datos_usuario;
-                $pa_la_vista['actividades'] = $actividades;                
+                $pa_la_vista['usuario'] = $datos_usuario;               
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
-                $this -> load -> view ("admin/actividades/principal",$pa_la_vista);
+                $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista);
                 $this -> load -> view ("admin/footer");
             } else {
+                // Obtenemos los últimos barrios
+                $numero = 5;
+                $pa_la_vista_barrios ['barrios'] = $this -> modelo_barrios -> devuelve_ultimos_barrios($numero); 
+                $pa_la_vista_barrios ['cabecera'] = false;
                 // Enviamos a la vista para meter los datos del barrio
+                
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/barrios/add_barrio",$pa_la_vista);
+                $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista_barrios);
                 $this -> load -> view ("admin/footer");
             }
         } else {
@@ -93,6 +99,7 @@ class Barrios extends CI_Controller {
                 // Conseguimos los datos por el modelo para enviarlos a la vista de buscar
                 // Buscamos al barrio
                 $pa_la_vista['barrios'] = $this -> modelo_barrios -> buscar_cajetin($nombre);
+                $pa_la_vista ['cabecera'] = true;
                 // Enviamos a la vista    
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
@@ -148,6 +155,7 @@ class Barrios extends CI_Controller {
                 $texto = $this -> input -> POST("q");
                 // Llamamos al modelo que busca por los campos OR
                 $pa_la_vista['barrios'] = $this -> modelo_barrios -> buscar_cajetin($texto);
+                $pa_la_vista['cabecera'] = true;
                 // Llamamos a las vistas con el resultado
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");

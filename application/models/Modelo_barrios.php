@@ -128,4 +128,12 @@ class Modelo_barrios extends CI_Model {
         return $resultado -> result_array(); // Obtener el array
     }
     
+    public function devuelve_ultimos_barrios($numero){       
+        // Funcion que devuelve los últimos los barrios     
+        // $numero --> Numero de barrios a mostrar
+        $sql = "SELECT * FROM barrios ORDER BY idbarrios DESC LIMIT ".$numero;
+        $resultado = $this -> db -> query($sql); 
+        return $resultado -> result_array(); // Obtener el array
+    }  
+    
 }
