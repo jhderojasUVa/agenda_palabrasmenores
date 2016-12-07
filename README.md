@@ -216,6 +216,13 @@ Modelo_barrios. Métodos:
             Ninguno
             Salida:
             Array con los datos de todos los barrios
+    
+        Devuelve los ultimos barrios    
+        public function ultimos_barrios($numero)       
+            Parámetros entrada:
+            $numero --> Numero de barrios a devolver
+            Salida:
+            Array con los datos de los ultimos barrios
 
 Modelo_documentos. Métodos:
 
@@ -314,6 +321,13 @@ Modelo_secciones. Métodos:
             Ninguno
             Salida:
             Array con los datos de todas las secciones
+
+        Devuelve las ultimas secciones    
+        public function ultimas_seccioness($numero)       
+            Parámetros entrada:
+            $numero --> Numero de secciones a devolver
+            Salida:
+            Array con los datos de las ultimas secciones
 
 Modelo_usuarios. Métodos:
 
