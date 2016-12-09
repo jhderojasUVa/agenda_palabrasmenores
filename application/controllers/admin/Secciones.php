@@ -17,32 +17,50 @@ class Secciones extends CI_Controller {
         // Controlador para los super admin de creacion de secciones
         // Recordar recoger los errores y se los enviamos a la vista tambien
         if ($this -> libreria_sesiones -> comprobar_session() == true){
-            $pa_la_vista = array();
+            $fallo = 0;
+            $pa_la_vista['error'] = "";
             $pa_la_vista['actualizado'] = 0;
+            $pa_la_vista_secciones['cabecera'] = false;
+            // Numero de los ultimas secciones que va a mostrar
+            $num_secciones = 5;            
             // Datos del usuario de la sesion de usuario
             $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
             $idusuario = $datos_usuario['idsesion'];
             // Comprobamos los ACLs en la sesion
             // Vemos si ha mandado datos por POST o no
             if ($this -> input -> POST("add")==1) {
-                $nombre = $this -> input -> POST("nombre");              
-                // Si se ha enviado llamamos al modelo y añadimos la seccion
-                $this -> modelo_secciones -> add_seccion($nombre);
-                // Mostramos las últimas 5 secciones
-                $numero = 5;
-                $pa_la_vista['secciones'] = $this -> modelo_secciones -> ultimas_secciones($numero); 
-                $pa_la_vista['cabecera'] = true;        
-                $pa_la_vista['actualizado'] = 1;
-                $pa_la_vista['usuario'] = $datos_usuario;                     
-                $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
-                $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista);
-                $this -> load -> view ("admin/footer"); 
+                $nombre = $this -> input -> POST("nombre");
+                // Comprueba si el nombre no está vacio
+                if (!$this -> esta_vacio($nombre)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'] = "El nombre no puede estar vacío";
+		}
+                if ($fallo == 0) {
+                    // Si se ha enviado llamamos al modelo y añadimos la seccion
+                    $this -> modelo_secciones -> add_seccion($nombre);
+                    $pa_la_vista['actualizado'] = 1; // Lo dejo de momento, no se está utilizando
+                    // Mostramos las últimas secciones
+                    $pa_la_vista_secciones['secciones'] = $this -> modelo_secciones -> ultimas_secciones($num_secciones); 
+                    $pa_la_vista_secciones['cabecera'] = true; 
+                    $pa_la_vista_secciones['usuario'] = $datos_usuario;                     
+                    $this -> load -> view ("admin/header");
+                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista_secciones);
+                    $this -> load -> view ("admin/footer"); 
+                } else {
+                    // Obtenemos las últimas secciones
+                    $pa_la_vista_secciones['secciones'] = $this -> modelo_secciones -> ultimas_secciones($num_secciones);
+                    // Enviamos a la vista para meter los datos de la seccion
+                    // Y enviamos a la vista para mostrar las 5 ultimas secciones
+                    $this -> load -> view ("admin/header");
+                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/secciones/add_seccion",$pa_la_vista);
+                    $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista_secciones);
+                    $this -> load -> view ("admin/footer");                    
+                }    
             } else {
-                // Obtenemos las últimas 5 secciones
-                $numero = 5;
-                $pa_la_vista_secciones['secciones'] = $this -> modelo_secciones -> ultimas_secciones($numero); 
-                $pa_la_vista_secciones['cabecera'] = false;                
+                // Obtenemos las últimas secciones
+                $pa_la_vista_secciones['secciones'] = $this -> modelo_secciones -> ultimas_secciones($num_secciones);
                 // Enviamos a la vista para meter los datos de la seccion
                 // Y enviamos a la vista para mostrar las 5 ultimas secciones
                 $this -> load -> view ("admin/header");
@@ -173,4 +191,18 @@ class Secciones extends CI_Controller {
             $this -> load -> view ("admin/footer");
         }
     }    
- }
+
+    
+    private function esta_vacio($cadena) {
+        // Funcion que comprueba si esta vacio
+        // $cadena --> Campo que va a comprobar
+        
+        if ($cadena!="") {
+            return true; // NO esta vacio
+        } else {
+            return false; // SI esta vacio
+        }    
+    }
+    
+    
+}

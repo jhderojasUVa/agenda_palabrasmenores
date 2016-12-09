@@ -201,4 +201,16 @@ class Usuarios extends CI_Controller {
             $this -> load -> view ("admin/footer");
         }
     }    
- }
+    
+    private function esta_vacio($cadena) {
+        // Funcion que comprueba si esta vacio
+        // $cadena --> Campo que va a comprobar
+        
+        if ($cadena!="") {
+            return true; // NO esta vacio
+        } else {
+            return false; // SI esta vacio
+        }    
+    }
+  
+}

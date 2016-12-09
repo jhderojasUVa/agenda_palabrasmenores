@@ -5,7 +5,7 @@
     // Puedes comentarlo si molesta
   ?>
   <div class="row">
-    <? if ($actualizado==1){ ?>
+    <? if ($actualizado == 1 && $error == ""){ ?>
     <!-- todo correcto -->
     <div class="col-md-12">
       <div class="alert alert-success">
@@ -13,7 +13,7 @@
         <p><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> El barrio <strong>se ha creado con &eacute;xito</strong>.</p>
       </div>
     </div>
-    <? } else if($actualizado==1 && (isset($error))){?>
+    <? } else if ($actualizado == 1 && $error != "") {?>
     <!-- existe un problema no grabe, ejemplo la fecha o algo asi -->
     <div class="col-md-12">
       <div class="alert alert-warning">
@@ -21,12 +21,12 @@
         <p><span class="glyphicon glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Ha habido algun pequeño error: <strong>definimos el problema</strong>. Pero la actividad se ha grabado.</p>
       </div>
     </div>
-    <? } else if (isset($error)){?>
+    <? } else if ($error != ""){ ?>
     <!-- Error!!! -->
     <div class="col-md-12">
       <div class="alert alert-danger">
         <h3>Problemas</h3>
-        <p><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Ha habido algun problema: <strong>definimos el problema</strong>.</p>
+        <p><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Ha habido algun problema: <strong><? echo $error ?></strong>.</p>
       </div>
     </div>
     <? } ?>

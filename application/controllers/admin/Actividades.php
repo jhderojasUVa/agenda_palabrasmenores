@@ -266,17 +266,16 @@ class Actividades extends CI_Controller {
         
     }
 
-		private function esta_vacio($cadena) {
-			// Funcion que comprueba si esta vacio
-
-			if ($cadena!="") {
-				return true;
-			} else {
-				return false;
-			}
-			// Retorna true si NO lo esta
-			// Retorna false SI lo esta
-		}
+    private function esta_vacio($cadena) {
+        // Funcion que comprueba si esta vacio
+        // $cadena --> Campo que va a comprobar
+        
+        if ($cadena!="") {
+            return true; // NO esta vacio
+        } else {
+            return false; // SI esta vacio
+        }
+    }
 
 		private function fecha_completa($diamesano, $hora) {
 			// Funcion que devuelve la fecha completa

@@ -73,21 +73,33 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
                             modifica_actividad: Modificar<br/>
                             buscar_actividad: Buscar<br/>
                             publicar: Publicar o despublicar una actividad<br/>
+                            Funciones Privadas:<br/>
+                            esta_vacio: retorna true si un campo no esta vacio<br/>
+                                        retorna false si un campo si esta vacio<br/>
 
         Barrios.php --> Controlador de barrios:<br/>
                             add_barrio: Añadir<br/>
                             modifica_barrio: Modificar<br/>
                             buscar_barrio: Buscar<br/>
+                            Funciones Privadas:<br/>
+                            esta_vacio: retorna true si un campo no esta vacio<br/>
+                                        retorna false si un campo si esta vacio<br/>
 
         Secciones.php --> Controlador de secciones:<br/>
                             add_seccion: Añadir<br/>
                             modifica_seccion: Modificar<br/>
                             buscar_seccion: Buscar<br/>
+                            Funciones Privadas:<br/>
+                            esta_vacio: retorna true si un campo no esta vacio<br/>
+                                        retorna false si un campo si esta vacio<br/>
 
         Usuarios.php --> Controlador de usuarios:<br/>
                             add_usuario: Añadir<br/>
                             modifica_usuario: Modificar<br/>
                             buscar_usuario: Buscar<br/>
+                            Funciones Privadas:<br/>
+                            esta_vacio: retorna true si un campo no esta vacio<br/>
+                                        retorna false si un campo si esta vacio<br/>
  
 Principal.php --> Controlador de entrada<br/>
 
