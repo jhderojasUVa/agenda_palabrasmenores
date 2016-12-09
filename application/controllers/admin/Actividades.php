@@ -217,10 +217,54 @@ class Actividades extends CI_Controller {
 
     }
 
-		public function publicar() {
-			// COJA EL ID
-			// PUBLIQUE la actividad
-		}
+    public function publicar() {
+        // Comprueba que tenga iniciada sesion.
+        if ($this -> libreria_sesiones -> comprobar_session() == true){
+            $fallo = 0;
+            $pa_la_vista = array();
+            // Inicializamos
+            $pa_la_vista['actualizado'] = 0;
+            $pa_la_vista['usuario'] = array();
+            $pa_la_vista['actividades'] = array();
+            // Revisamos si tenemos el id de actividad
+            $idactividades = $this -> input -> post_get("idactividades");
+            if ($idactividades){
+                // Datos del usuario de la sesion de usuario
+                $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
+                $idusuario = $datos_usuario['idsesion'];
+                $pa_la_vista['usuario'] = $datos_usuario;
+                // Conseguimos los datos de la actividad por el modelo
+                $actividad = $this -> modelo_actividades -> actividad_id($idactividades);
+                $publicada = 0; // inicializar a despublicada
+                foreach ($actividad as $fila) {
+                    // Si está despublicada publica
+                    if ($fila['publicada']==0) $publicada = 1;
+                }
+                // PUBLIQUE la actividad
+                $this -> modelo_actividades -> publicar_actividad($idactividades, $publicada);
+                $pa_la_vista['actualizado'] = 1; // OJO de momento lo dejo lo tenía par los errores
+            } else {
+                $fallo = 1;
+                $pa_la_vista['error'] = "No hay actividad";
+            }
+            // Conseguimos los datos por el modelo para enviarlos a la vista principal
+            // Actividades de usuario por fecha descencente
+// ?? En principio lo paso a la vista principal de actividades
+// ?? Pero puede venir de buscar_actividad            
+            $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
+            $pa_la_vista['actividades'] = $actividades;
+            $this -> load -> view ("admin/header");
+            $this -> load -> view ("admin/menu");
+            $this -> load -> view ("admin/actividades/principal",$pa_la_vista);
+            $this -> load -> view ("admin/footer");
+        } else {
+            //Enviamos al inicio
+            $this -> load -> view ("admin/header");
+            $this -> load -> view ("admin/index");
+            $this -> load -> view ("admin/footer");
+        }
+        
+    }
 
 		private function esta_vacio($cadena) {
 			// Funcion que comprueba si esta vacio

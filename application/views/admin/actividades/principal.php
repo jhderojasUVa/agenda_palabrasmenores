@@ -36,7 +36,12 @@
             <span class="text-center">
               <a href="<?=base_url()?>/admin/Actividades/modifica_actividad/?idactividades=<?=$fila["idactividades"]?>">Modificar</a>
               <a href="#">Borrar</a>
-            <span>
+              <? if ($fila["publicada"]==1) {?> 
+                <a href="<?=base_url()?>/admin/Actividades/publicar/?idactividades=<?=$fila["idactividades"]?>">Despublicar</a>
+              <? } else {?> 
+                <a href="<?=base_url()?>/admin/Actividades/publicar/?idactividades=<?=$fila["idactividades"]?>">Publicar</a>
+              <? } ?>
+             <span>
           </td>
         </tr>
         <? } ?>

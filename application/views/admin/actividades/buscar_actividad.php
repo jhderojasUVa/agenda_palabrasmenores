@@ -13,8 +13,8 @@
         <tr>
           <th>Actividad</th>
           <th>Campaña</th>
-          <th>Organiza</th>
           <th>Fecha</th>
+          <th>Publicada</th>
           <th>Acciones</th>
         </tr>
         <? foreach ($actividades as $fila) { ?>
@@ -26,15 +26,20 @@
             <?=$fila["campanya"]?>
           </td>
           <td>
-            <?=$fila["organiza"]?>
+            <?=$fila["fecha"]?>
           </td>
           <td>
-            <?=$fila["fecha"]?>
+            <? if ($fila["publicada"]==1) { echo "Si"; } else { echo "No";} ?>
           </td>
           <td>
             <span class="text-center">
               <a href="<?=base_url()?>/admin/Actividades/modifica_actividad/?idactividades=<?=$fila["idactividades"]?>">Modificar</a>
               <a href="#">Borrar</a>
+              <? if ($fila["publicada"]==1) {?> 
+                <a href="<?=base_url()?>/admin/Actividades/publicar/?idactividades=<?=$fila["idactividades"]?>">Despublicar</a>
+              <? } else {?> 
+                <a href="<?=base_url()?>/admin/Actividades/publicar/?idactividades=<?=$fila["idactividades"]?>">Publicar</a>
+              <? } ?>
             <span>
           </td>
         </tr>
