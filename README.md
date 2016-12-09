@@ -72,6 +72,7 @@ Necesario un servidor LAMP tipico (Apache + PHP + MySQL).
                             add_actividad: Añadir<br/>
                             modifica_actividad: Modificar<br/>
                             buscar_actividad: Buscar<br/>
+                            publicar: Publicar o despublicar una actividad<br/>
 
         Barrios.php --> Controlador de barrios:<br/>
                             add_barrio: Añadir<br/>
@@ -103,7 +104,7 @@ Modelo_actividades. Métodos:
             $descripcion --> Descripcion de la actividad
             $organiza    --> Nombre del organizador u organizadores
             $lugar       --> Direccion donde tiene lugar
-            $idbarrio    --> ID del barrrio donde se realiza la actividad
+            $idbarrio    --> ID del barrio donde se realiza la actividad
             $idseccion   --> ID de la seccion a la que pertenece la actividad
             $fecha       --> Fecha y Hora de comienzo de la actividad
             $usuario     --> login del usuario                
@@ -149,7 +150,7 @@ Modelo_actividades. Métodos:
 
         Devuelve las actividades, resultado de la busqueda de un texto en cualquier campos de actividades sobre el que se va a buscar, ordenadas por fecha descendente
         public function buscar_cajetin($texto)
-        Parámetros entrada:
+            Parámetros entrada:
             $texto --> texto que se va a buscar
             Campos sobre los que se va a buscar: campanya, actividad, descripcion, organiza, lugar 
             Salida:
@@ -162,6 +163,14 @@ Modelo_actividades. Métodos:
             Estos textos corresponden a los campos: campanya, actividad, organiza y fecha
             Salida:
             Array con los datos de las actividades ordenadas por fecha descendente.
+
+        Publica o Despublica una actividad
+        public function publicar_actividad($idactividades, $publicada)
+            Parámetros entrada:
+            $idactividades --> ID de la actividad que se quiere cambiar el valor de publicada
+            $publicada     --> 0 - Si despublica, 1 - si publica
+            Salida:
+            true
 
 Modelo_barrios. Métodos:
 
@@ -309,7 +318,7 @@ Modelo_secciones. Métodos:
 
         Devuelve las secciones, resultado de la busqueda de un texto en cualquier campos de secciones sobre el que se va a buscar, ordenadas por nombre
         public function buscar_cajetin($texto)
-        Parámetros entrada:
+            Parámetros entrada:
             $texto --> texto que se va a buscar
             Campos sobre los que se va a buscar: nombre 
             Salida:
@@ -384,7 +393,7 @@ Modelo_usuarios. Métodos:
 
         Devuelve los usuarios, resultado de la busqueda de un texto en cualquier campos de usuarios sobre el que se va a buscar, ordenadas por nombre
         public function buscar_cajetin($texto)
-        Parámetros entrada:
+            Parámetros entrada:
             $texto --> texto que se va a buscar
             Campos sobre los que se va a buscar: login, nombre 
             Salida:
