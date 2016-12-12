@@ -5,7 +5,7 @@
     // Puedes comentarlo si molesta
   ?>
   <div class="row">
-    <? if ($actualizado==1){ ?>
+    <? if ($actualizado==1 && $error[0] == ""){ ?>
     <!-- todo correcto -->
     <div class="col-md-12">
       <div class="alert alert-success">
@@ -13,21 +13,26 @@
         <p><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> El usuario <strong>se ha creado con &eacute;xito</strong>.</p>
       </div>
     </div>
-    <? } else if($actualizado==1 && (isset($error))){?>
+    <? } else if($actualizado==1 && $error[0] != ""){?>
     <!-- existe un problema no grabe, ejemplo la fecha o algo asi -->
     <div class="col-md-12">
       <div class="alert alert-warning">
         <h3>Atenci&oacute;n</h3>
-        <p><span class="glyphicon glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Ha habido algun pequeño error: <strong>definimos el problema</strong>. Pero la actividad se ha grabado.</p>
+        <? foreach ($error as $fila) { ?>        
+        <p><span class="glyphicon glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Ha habido algun pequeño error: <strong><? echo $fila ?></strong>. Pero la actividad se ha grabado.</p>
+        <? } ?> 
       </div>
     </div>
-    <? } else if (isset($error)){?>
+    <? } else if ($error[0] != ""){?>
     <!-- Error!!! -->
+    <!-- Mostramos todos los errores posibles -->
     <div class="col-md-12">
-      <div class="alert alert-danger">
-        <h3>Problemas</h3>
-        <p><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Ha habido algun problema: <strong>definimos el problema</strong>.</p>
-      </div>
+        <div class="alert alert-danger">
+            <h3>Problemas</h3>
+            <? foreach ($error as $fila) { ?>
+            <p><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Ha habido algun problema: <strong><? echo $fila ?></strong>.</p>
+            <? } ?>              
+        </div>
     </div>
     <? } ?>
   </div>
@@ -49,26 +54,26 @@
             <label for="login" class="col-sm-2 control-label">Login</label>
             <!-- el input que se mete en una celda -->
             <div class="col-sm-10">
-                <input type="text" name="login" class="form-control" placeholder="Login del usuario" id="login">
+                <input type="text" name="login" class="form-control" placeholder="Login del usuario" id="login" value='<?= $this -> input -> POST("login")?>'>
             </div>
           </div>
           <!-- y a repetir el proceso -->
           <div class="form-group">
             <label for="password" class="col-sm-2 control-label">Contraseña</label>
             <div class="col-sm-10">
-              <input type="password" name="password" class="form-control" placeholder="Contraseña" id="password">
+              <input type="password" name="password" class="form-control" placeholder="Contraseña" id="password" value='<?= $this -> input -> POST("password")?>'>
             </div>
           </div>          
           <div class="form-group">
             <label for="rpassword" class="col-sm-2 control-label">Repetir</label>
             <div class="col-sm-10">
-              <input type="password" name="rpassword" class="form-control" placeholder="Contraseña" id="rpassword">
+              <input type="password" name="rpassword" class="form-control" placeholder="Contraseña" id="rpassword" value='<?= $this -> input -> POST("rpassword")?>'>
             </div>
           </div>
           <div class="form-group">
             <label for="nombre" class="col-sm-2 control-label">Nombre</label>
             <div class="col-sm-10">
-              <input type="text" name="nombre" class="form-control" placeholder="Nombre del usuario" id="nombre">
+              <input type="text" name="nombre" class="form-control" placeholder="Nombre del usuario" id="nombre" value='<?= $this -> input -> POST("nombre")?>'>
             </div>
           </div>
           <div class="form-group">
@@ -76,6 +81,9 @@
             <div class="col-sm-10">
               <select name="idacl" id="idacl" class="form-control">
                   <? $tipo = array ("Deshabilitado", "Super Administrador", "Redactor", "Editor");?>
+                  <? if ($this -> input -> POST("idacl") != "") {?>
+                  <option value="<?= $this -> input -> POST("idacl")?>"><?=$tipo[$this -> input -> POST("idacl")]?></option>
+                  <? } ?>
                   <? for ($i=sizeof($tipo)-1; $i>=0; $i--) { ?>
                     <option value="<?=$i?>"><?=$tipo[$i]?></option>
                   <? } ?>             

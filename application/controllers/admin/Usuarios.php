@@ -18,8 +18,12 @@ class Usuarios extends CI_Controller {
 
         // Recordar recoger los errores y se los enviamos a la vista tambien
         if ($this -> libreria_sesiones -> comprobar_session() == true){
-            $pa_la_vista = array();
+            $fallo = 0;
+            $num_error=0;
+            $pa_la_vista['error'] = array ();
+            $pa_la_vista['error'][$num_error] = "";
             $pa_la_vista['actualizado'] = 0;
+
             // Datos del usuario de la sesion de usuario
             $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
             $idusuario = $datos_usuario['idsesion'];
@@ -31,19 +35,72 @@ class Usuarios extends CI_Controller {
                 $rpassword = $this -> input -> POST("rpassword");
                 $nombre = $this -> input -> POST("nombre");
                 $idacl = $this -> input -> POST("idacl");
-// OJO COMPROBAR QUE LAS CONTRASEÑA Y REPETIR CONTRASEÑA COINCIDAN                
-                // Si se ha enviado llamamos al modelo y añadimos al usuario
-                $this -> modelo_usuarios -> add_usuario($login, $password, $nombre, $idacl);
-                // Mostramos los ultimos 5 usuarios por login
-                $numero = 5;
-                $pa_la_vista['usuarios'] = $this -> modelo_usuarios -> ultimos_usuarios($numero); 
-                $pa_la_vista['cabecera'] = true;
-                $pa_la_vista['actualizado'] = 1;
-                $pa_la_vista['usuario'] = $datos_usuario;                
-                $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
-                $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista);
-                $this -> load -> view ("admin/footer");
+                // Comprueba si existe el usuario
+                if ($this -> modelo_usuarios -> usuario_id($login)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'][$num_error] = "El usuario ya existe";
+                    $num_error ++;
+                } else {
+                    // Si el usuario no existe
+                    // Comprobar los campos                
+                    if (!$this -> esta_vacio($login)) {
+                        $fallo = 1;
+                        $pa_la_vista['error'][$num_error] = "El login no puede estar vacío";    
+                        $num_error ++;
+                    }
+                    if (!$this -> esta_vacio($password)) {
+                        $fallo = 1;
+                        $pa_la_vista['error'][$num_error] = "La contraseña no puede estar vacía";    
+                        $num_error ++;
+                    }
+                    if (!$this -> esta_vacio($rpassword)) {
+                        $fallo = 1;
+                        $pa_la_vista['error'][$num_error] = "Repetir contraseña no puede estar vacío";    
+                        $num_error ++;
+                    }
+                    if (!$this -> esta_vacio($nombre)) {
+                        $fallo = 1;
+                        $pa_la_vista['error'][$num_error] = "El nombre no puede estar vacío";    
+                        $num_error ++;
+                    }
+                    if (!$this -> esta_vacio($idacl)) {
+                        $fallo = 1;
+                        $pa_la_vista['error'][$num_error] = "El tipo no puede estar vacío";    
+                        $num_error ++;
+                    }
+                    // Comprobar que contraseña y repetir contraseña sean iguales
+                    if ($password != $rpassword) {
+                        $fallo = 1;
+                        $pa_la_vista['error'][$num_error] = "No coincide contraseña y repetir contraseña";    
+                        $num_error ++;
+                    }
+                }
+                if ( $fallo == 0) {
+                    // Si se ha enviado llamamos al modelo y añadimos al usuario
+                    $this -> modelo_usuarios -> add_usuario($login, md5($password), $nombre, $idacl);
+                    // Mostramos los ultimos 5 usuarios por login
+                    $numero = 5;
+                    $pa_la_vista['usuarios'] = $this -> modelo_usuarios -> ultimos_usuarios($numero); 
+                    $pa_la_vista['cabecera'] = true;
+                    $pa_la_vista['actualizado'] = 1;
+                    $pa_la_vista['usuario'] = $datos_usuario;                
+                    $this -> load -> view ("admin/header");
+                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista);
+                    $this -> load -> view ("admin/footer");
+                } else {              
+                    // Mostramos los ultimos 5 usuarios por login
+                    $numero = 5;
+                    $pa_la_vista_usuarios['usuarios'] = $this -> modelo_usuarios -> ultimos_usuarios($numero); 
+                    $pa_la_vista_usuarios['cabecera'] = false;                
+                    // Enviamos a la vista para meter los datos del usuario
+                    // Y enviamos a la vista para mostrar los 5 ultimos usuarios
+                    $this -> load -> view ("admin/header");
+                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/usuarios/add_usuario",$pa_la_vista);
+                    $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista_usuarios);
+                    $this -> load -> view ("admin/footer");                
+                }
             } else {
                 // Mostramos los ultimos 5 usuarios por login
                 $numero = 5;
@@ -212,5 +269,5 @@ class Usuarios extends CI_Controller {
             return false; // SI esta vacio
         }    
     }
-  
+    
 }
