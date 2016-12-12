@@ -85,8 +85,7 @@ class Barrios extends CI_Controller {
         // Comprueba que tenga iniciada sesion.
         if ($this -> libreria_sesiones -> comprobar_session() == true){
             $fallo = 0;
-            $pa_la_vista = array();
-            // Inicializamos
+            $pa_la_vista['error'] = "";
             $pa_la_vista['actualizado'] = 0;
             // Datos del usuario que hace la modificacion
             $pa_la_vista['usuario'] = array();
@@ -110,18 +109,33 @@ class Barrios extends CI_Controller {
             if ($this -> input -> POST("modificar")==1 && $fallo==0){
                 // Datos del barrio del POST
                 $nombre = $this -> input -> POST("nombre");
-                // update
-                $this -> modelo_barrios -> update_barrio($idbarrios, $nombre);
-                $pa_la_vista['actualizado'] = 1; // OJO de momento lo dejo lo tenía par los errores
-                // Conseguimos los datos por el modelo para enviarlos a la vista de buscar
-                // Buscamos al barrio
-                $pa_la_vista['barrios'] = $this -> modelo_barrios -> buscar_cajetin($nombre);
-                $pa_la_vista ['cabecera'] = true;
-                // Enviamos a la vista    
-                $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
-                $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista);
-                $this -> load -> view ("admin/footer");
+                // Comprueba si el nombre no está vacio
+                if (!$this -> esta_vacio($nombre)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'] = "El nombre no puede estar vacío";
+		}
+                if ($fallo == 0){
+                    // update
+                    $this -> modelo_barrios -> update_barrio($idbarrios, $nombre);
+                    $pa_la_vista['actualizado'] = 1; // OJO de momento lo dejo lo tenía par los errores
+                    // Conseguimos los datos por el modelo para enviarlos a la vista de buscar
+                    // Buscamos al barrio
+                    $pa_la_vista['barrios'] = $this -> modelo_barrios -> buscar_cajetin($nombre);
+                    $pa_la_vista ['cabecera'] = true;
+                    // Enviamos a la vista    
+                    $this -> load -> view ("admin/header");
+                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista);
+                    $this -> load -> view ("admin/footer");
+                } else {
+                    // Conseguimos los datos por el modelo
+                    $pa_la_vista['barrios'] = $this -> modelo_barrios -> barrio_id($idbarrios);
+                    //enviamos a la vista
+                    $this -> load -> view ("admin/header");
+                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/barrios/modificar_barrio",$pa_la_vista);
+                    $this -> load -> view ("admin/footer");   
+                }
             } else if ($fallo==0) {
                 // Conseguimos los datos por el modelo
                 $pa_la_vista['barrios'] = $this -> modelo_barrios -> barrio_id($idbarrios);

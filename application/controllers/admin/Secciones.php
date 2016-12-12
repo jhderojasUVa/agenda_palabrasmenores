@@ -85,7 +85,7 @@ class Secciones extends CI_Controller {
         if ($this -> libreria_sesiones -> comprobar_session() == true){
             $fallo = 0;
             $pa_la_vista = array();
-            // Inicializamos
+            $pa_la_vista['error'] = "";
             $pa_la_vista['actualizado'] = 0;
             // Datos del usuario que hace la modificacion
             $pa_la_vista['usuario'] = array();
@@ -109,18 +109,33 @@ class Secciones extends CI_Controller {
             if ($this -> input -> POST("modificar")==1 && $fallo==0){
                 // Datos del seccion del POST
                 $nombre = $this -> input -> POST("nombre");
-                // update
-                $this -> modelo_secciones -> update_seccion($idsecciones, $nombre);
-                $pa_la_vista['actualizado'] = 1; // OJO de momento lo dejo lo tenía par los errores
-                // Conseguimos los datos por el modelo para enviarlos a la vista de buscar
-                // Buscamos la seccion    
-                $pa_la_vista['secciones'] = $this -> modelo_secciones -> buscar_cajetin($nombre);
-                $pa_la_vista ['cabecera'] = true;
-                // Enviamos a la vista
-                $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
-                $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista);
-                $this -> load -> view ("admin/footer");
+                // Comprueba si el nombre no está vacio
+                if (!$this -> esta_vacio($nombre)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'] = "El nombre no puede estar vacío";
+		}
+                if ($fallo == 0){ 
+                    // update
+                    $this -> modelo_secciones -> update_seccion($idsecciones, $nombre);
+                    $pa_la_vista['actualizado'] = 1; // OJO de momento lo dejo lo tenía par los errores
+                    // Conseguimos los datos por el modelo para enviarlos a la vista de buscar
+                    // Buscamos la seccion    
+                    $pa_la_vista['secciones'] = $this -> modelo_secciones -> buscar_cajetin($nombre);
+                    $pa_la_vista ['cabecera'] = true;
+                    // Enviamos a la vista
+                    $this -> load -> view ("admin/header");
+                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista);
+                    $this -> load -> view ("admin/footer");
+                } else {
+                    // Conseguimos los datos por el modelo
+                    $pa_la_vista['secciones'] = $this -> modelo_secciones -> seccion_id($idsecciones);                    
+                    //enviamos a la vista
+                    $this -> load -> view ("admin/header");
+                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/secciones/modificar_seccion",$pa_la_vista);
+                    $this -> load -> view ("admin/footer");
+                }
             } else if ($fallo==0) {
                 // Conseguimos los datos por el modelo
                 $pa_la_vista['secciones'] = $this -> modelo_secciones -> seccion_id($idsecciones);
