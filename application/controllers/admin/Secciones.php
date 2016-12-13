@@ -47,18 +47,10 @@ class Secciones extends CI_Controller {
                     $this -> load -> view ("admin/menu");
                     $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista_secciones);
                     $this -> load -> view ("admin/footer"); 
-                } else {
-                    // Obtenemos las últimas secciones
-                    $pa_la_vista_secciones['secciones'] = $this -> modelo_secciones -> ultimas_secciones($num_secciones);
-                    // Enviamos a la vista para meter los datos de la seccion
-                    // Y enviamos a la vista para mostrar las 5 ultimas secciones
-                    $this -> load -> view ("admin/header");
-                    $this -> load -> view ("admin/menu");
-                    $this -> load -> view ("admin/secciones/add_seccion",$pa_la_vista);
-                    $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista_secciones);
-                    $this -> load -> view ("admin/footer");                    
-                }    
-            } else {
+                } 
+            }
+           // Si no viene de añadir o ha habido error al añadir
+            if ($this -> input -> POST("add")!=1 || $fallo == 1) {            
                 // Obtenemos las últimas secciones
                 $pa_la_vista_secciones['secciones'] = $this -> modelo_secciones -> ultimas_secciones($num_secciones);
                 // Enviamos a la vista para meter los datos de la seccion
@@ -91,6 +83,9 @@ class Secciones extends CI_Controller {
             $pa_la_vista['usuario'] = array();
             // Datos de la seccion que se va a modificar
             $pa_la_vista['secciones'] = array();
+            $pa_la_vista_secciones['cabecera'] = false;
+            // Numero de los ultimas secciones que va a mostrar
+            $num_secciones = 5;  
             // Revisamos si tenemos el id de la seccion (por get o por post o por hidden, da igual)
             $idsecciones = $this -> input -> post_get('idsecciones');
             if ($idsecciones){
@@ -127,18 +122,13 @@ class Secciones extends CI_Controller {
                     $this -> load -> view ("admin/menu");
                     $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista);
                     $this -> load -> view ("admin/footer");
-                } else {
-                    // Conseguimos los datos por el modelo
-                    $pa_la_vista['secciones'] = $this -> modelo_secciones -> seccion_id($idsecciones);                    
-                    //enviamos a la vista
-                    $this -> load -> view ("admin/header");
-                    $this -> load -> view ("admin/menu");
-                    $this -> load -> view ("admin/secciones/modificar_seccion",$pa_la_vista);
-                    $this -> load -> view ("admin/footer");
                 }
-            } else if ($fallo==0) {
+            }   
+            if ($this -> input -> POST("modificar")!=1 || $fallo == 1){
                 // Conseguimos los datos por el modelo
                 $pa_la_vista['secciones'] = $this -> modelo_secciones -> seccion_id($idsecciones);
+                // Obenemos las ultimas secciones
+                $pa_la_vista_secciones['secciones'] = $this -> modelo_secciones -> ultimas_secciones($num_secciones); 
                 // Se lo enviamos a las vistas correspondientes
 
                 // Recuerda que aqui puedes elegir el usar la vista de add_seccion modificandola o hacer una vista nueva
@@ -149,12 +139,7 @@ class Secciones extends CI_Controller {
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/secciones/modificar_seccion",$pa_la_vista);
-                $this -> load -> view ("admin/footer");
-            } else {
-                // Si hay algún error
-                $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
-                $this -> load -> view ("admin/secciones/modificar_seccion",$pa_la_vista);
+                $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista_secciones);
                 $this -> load -> view ("admin/footer");
             }
         } else {

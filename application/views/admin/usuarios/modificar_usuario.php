@@ -5,7 +5,7 @@
     // Puedes comentarlo si molesta
   ?>
   <div class="row">
-    <? if ($actualizado==1){ ?>
+    <? if ($actualizado==1 && $error[0] == ""){ ?>
     <!-- todo correcto -->
     <div class="col-md-12">
       <div class="alert alert-success">
@@ -13,7 +13,7 @@
         <p><span class="glyphicon glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> El usuario <strong>se ha modificado con &eacute;xito</strong>.</p>
       </div>
     </div>
-    <? } else if($actualizado==1 && (isset($error))){?>
+    <? } else if($actualizado==1 && $error[0] != ""){?>
     <!-- existe un problema no grabe, ejemplo la fecha o algo asi -->
     <div class="col-md-12">
       <div class="alert alert-warning">
@@ -21,12 +21,14 @@
         <p><span class="glyphicon glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Ha habido algun pequeño error: <strong>definimos el problema</strong>. Pero la usuario se ha grabado.</p>
       </div>
     </div>
-    <? } else if (isset($error)){?>
+    <? } else if ($error[0] != ""){?>
     <!-- Error!!! -->
     <div class="col-md-12">
       <div class="alert alert-danger">
         <h3>Problemas</h3>
-        <p><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Ha habido algun problema: <strong>definimos el problema</strong>.</p>
+        <? foreach ($error as $fila) { ?>
+        <p><span class="glyphicon glyphicon glyphicon-thumbs-down" aria-hidden="true"></span> Ha habido algun problema: <strong><? echo $fila ?></strong>.</p>
+        <? } ?> 
       </div>
     </div>
     <? } ?>

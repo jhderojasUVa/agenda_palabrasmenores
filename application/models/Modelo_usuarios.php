@@ -39,8 +39,14 @@ class Modelo_usuarios extends CI_Model {
         // $password --> Password, md5
         // $nombre   --> Nombre del usuario
         // $idacl    --> Identificador de la ACL. 1-Administrador, 2-Usuario, 3-Desactivado
-
-        $sql = "UPDATE usuarios SET password='" . $password . "', nombre='" . $nombre . "', idacl='". $idacl."' WHERE login='" . $login."'";
+        
+        // Si ha modificado la contraseña
+        if (!empty($password)) {
+            $sql = "UPDATE usuarios SET password='" . $password . "', nombre='" . $nombre . "', idacl='". $idacl."' WHERE login='" . $login."'";
+        } else {
+            $sql = "UPDATE usuarios SET nombre='" . $nombre . "', idacl='". $idacl."' WHERE login='" . $login."'";    
+        }
+        
         $resultado = $this -> db -> query($sql);
         return true;
     }

@@ -47,19 +47,11 @@ class Barrios extends CI_Controller {
                     $this -> load -> view ("admin/header");
                     $this -> load -> view ("admin/menu");
                     $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista_barrios);
-                    $this -> load -> view ("admin/footer");                    
-                } else {
-                    // Obtenemos los últimos barrios
-                    $pa_la_vista_barrios['barrios'] = $this -> modelo_barrios -> ultimos_barrios($num_barrios); 
-                    // Enviamos a la vista para meter los datos del barrio
-                    // Y enviamos a la vista para mostrar los ultimos barrios
-                    $this -> load -> view ("admin/header");
-                    $this -> load -> view ("admin/menu");
-                    $this -> load -> view ("admin/barrios/add_barrio",$pa_la_vista);
-                    $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista_barrios);
-                    $this -> load -> view ("admin/footer");                    
+                    $this -> load -> view ("admin/footer"); 
                 }
-            } else {
+            }    
+            // Si no viene de añadir o ha habido error al añadir
+            if ($this -> input -> POST("add")!=1 || $fallo == 1) {
                 // Obtenemos los últimos barrios
                 $pa_la_vista_barrios['barrios'] = $this -> modelo_barrios -> ultimos_barrios($num_barrios); 
                 // Enviamos a la vista para meter los datos del barrio
@@ -91,6 +83,9 @@ class Barrios extends CI_Controller {
             $pa_la_vista['usuario'] = array();
             // Datos del barrio que se va a modificar
             $pa_la_vista['barrios'] = array();
+            // Numero de los ultimos barrios que va a mostrar
+            $num_barrios = 5;
+            $pa_la_vista_barrios['cabecera'] = false;
             // Revisamos si tenemos el id de barrio (por get o por post o por hidden, da igual)
             $idbarrios = $this -> input -> post_get('idbarrios');
             if ($idbarrios){
@@ -102,7 +97,6 @@ class Barrios extends CI_Controller {
                 $fallo = 1;
                 $pa_la_vista['error'] = "No hay barrio";
             }
-
             // Revisamos si ha modificado, es decir, como te digo abajo si modificar=1
 
             // Si modificar = 1 hacemos el update
@@ -126,19 +120,14 @@ class Barrios extends CI_Controller {
                     $this -> load -> view ("admin/header");
                     $this -> load -> view ("admin/menu");
                     $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista);
-                    $this -> load -> view ("admin/footer");
-                } else {
-                    // Conseguimos los datos por el modelo
-                    $pa_la_vista['barrios'] = $this -> modelo_barrios -> barrio_id($idbarrios);
-                    //enviamos a la vista
-                    $this -> load -> view ("admin/header");
-                    $this -> load -> view ("admin/menu");
-                    $this -> load -> view ("admin/barrios/modificar_barrio",$pa_la_vista);
                     $this -> load -> view ("admin/footer");   
                 }
-            } else if ($fallo==0) {
+            }
+            if ($this -> input -> POST("modificar")!=1 || $fallo == 1){
                 // Conseguimos los datos por el modelo
                 $pa_la_vista['barrios'] = $this -> modelo_barrios -> barrio_id($idbarrios);
+                // Obtenemos los ultimos barrios
+                $pa_la_vista_barrios['barrios'] = $this -> modelo_barrios -> ultimos_barrios($num_barrios); 
                 // Se lo enviamos a las vistas correspondientes
 
                 // Recuerda que aqui puedes elegir el usar la vista de add_barrio modificandola o hacer una vista nueva
@@ -149,12 +138,7 @@ class Barrios extends CI_Controller {
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/barrios/modificar_barrio",$pa_la_vista);
-                $this -> load -> view ("admin/footer");
-            } else {
-                // Si hay algún error
-                $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
-                $this -> load -> view ("admin/barrios/modificar_barrio",$pa_la_vista);
+                $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista_barrios);                
                 $this -> load -> view ("admin/footer");
             }
         } else {
