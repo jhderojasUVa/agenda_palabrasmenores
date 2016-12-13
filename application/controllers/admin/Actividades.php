@@ -18,12 +18,14 @@ class Actividades extends CI_Controller {
 
         // Comprueba que tenga iniciada sesion.
         if ($this -> libreria_sesiones -> comprobar_session() == true){
-
-						// Retornar la ACL del usuario
-						$acl = $this -> session -> acl;
-
-            $pa_la_vista = array();
+            // Retornar la ACL del usuario
+            $acl = $this -> session -> acl;
             // Inicializamos
+            $pa_la_vista = array();
+            // Inicializamos los fallos
+            $fallo = 0;
+            $num_error=0;
+            $pa_la_vista['error'][$num_error] = "";
             $pa_la_vista['actualizado'] = 0;
             // Obtiene todos los barrios
             $pa_la_vista['barrios'] = $this -> modelo_barrios -> devuelve_barrios();
@@ -42,24 +44,73 @@ class Actividades extends CI_Controller {
                 $idbarrio = $this -> input -> POST("idbarrio");
                 $idseccion = $this -> input -> POST("idseccion");
                 $fecha = $this -> input -> POST("fecha");
-								// Cambiar eso a 0 o a 1 segun la ACL
-								// A recordar:
-								// Sumo Pontifice = 1
-								// Redactor = 2
-								// Editor = 3
-								// Disabled = 0
-								if ($acl != 1 && $acl != 2) {
-                	$publicada = 0;
-								} else {
-									$publicada = 1;
-								}
-
-                $idseccion = $this -> input -> POST("idseccion");    
-                $fecha = $this -> input -> POST("fecha")." ".$this -> input -> POST("hora");
-                $publicada = 0;
-                // Si se ha enviado llamamos al modelo y añadimos la actividad
-                $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario,$publicada);
-                $pa_la_vista['actualizado'] = 1;
+                $hora = $this -> input -> POST("hora");
+		// A recordar:
+		// Sumo Pontifice = 1
+		// Redactor = 2
+		// Editor = 3
+		// Disabled = 0
+		if ($acl != 1 && $acl != 2) {
+                    $publicada = 0;
+		} else {
+                    $publicada = 1;
+		} 
+                // Comprobar los campos                
+                if (!$this -> esta_vacio($actividad)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'][$num_error] = "La actividad no puede estar vacía";    
+                    $num_error ++;
+                }
+                if (!$this -> esta_vacio($lugar)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'][$num_error] = "El lugar no puede estar vacío";    
+                    $num_error ++;
+                }
+                if (!$this -> esta_vacio($idbarrio)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'][$num_error] = "El barrio no puede estar vacío";    
+                    $num_error ++;
+                }
+                if (!$this -> esta_vacio($idseccion)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'][$num_error] = "La sección no puede estar vacía";    
+                    $num_error ++;
+                }
+                if (!$this -> esta_vacio($fecha)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'][$num_error] = "La fecha no puede estar vacía";    
+                    $num_error ++;
+                }
+                if ($fallo == 0) {
+                    // Si se ha enviado llamamos al modelo y añadimos la actividad
+                    $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario,$publicada);
+                    $pa_la_vista['actualizado'] = 1;
+                }
+            } 
+            if ($fallo == 1) {
+                $pa_la_vista['actividades'] = array (
+                    'campanya' => $campanya,
+                    'actividad' => $actividad,
+                    'descripcion' => $descripcion, 
+                    'organiza' => $organiza,
+                    'lugar' => $lugar,
+                    'idbarrio' => $idbarrio,
+                    'idseccion' => $idseccion,
+                    'fecha' => $fecha,
+                    'hora' => $hora,                     
+                );
+            }  else {
+                $pa_la_vista['actividades'] = array (
+                        'campanya' => "",
+                        'actividad' => "",
+                        'descripcion' => "", 
+                        'organiza' => "",
+                        'lugar' => "",
+                        'idbarrio' => "",
+                        'idseccion' => "",
+                        'fecha' => "",
+                        'hora' => "",                     
+                );                
             }
 
             $this -> load -> view ("admin/header");
@@ -117,7 +168,8 @@ class Actividades extends CI_Controller {
                 $lugar = $this -> input -> POST("lugar");
                 $idbarrio = $this -> input -> POST("idbarrio");
                 $idseccion = $this -> input -> POST("idseccion");
-                $fecha = $this -> input -> POST("fecha")." ".$this -> input -> POST("hora");
+                $fecha = $this -> input -> POST("fecha");
+                $hora = $this -> input -> POST("hora");
                 $publicada = $this -> input -> POST("publicada");
                 // update
                 $this -> modelo_actividades -> update_actividad($idactividades,$campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario,$publicada);
@@ -277,10 +329,10 @@ class Actividades extends CI_Controller {
         }
     }
 
-		private function fecha_completa($diamesano, $hora) {
-			// Funcion que devuelve la fecha completa
+    private function fecha_completa($diamesano, $hora) {
+	// Funcion que devuelve la fecha completa
 
-			return $diamesano." ".$hora;
-		}
+	return $diamesano." ".$hora;
+    }
 
  }
