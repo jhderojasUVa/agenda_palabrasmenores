@@ -19,14 +19,14 @@ function comprueba_input($form, $input) {
   if ($form) {
     // Si hay un form
     if ($input!="textarea") {
-      $contenido = $("#".$form." input[type='".$input"]'").value();
+      $contenido = $("#".$form." input[type='".$input."']").value();
     } else {
       $contenido = $("#".$form." textarea").value();
     }
   } else {
     // Sino cogemos el form que haya
     if ($input!="textarea") {
-      $contenido = $("form input[type='".$input"]'").value();
+      $contenido = $("form input[type='".$input."']").value();
     } else {
       $contenido = $("form textarea").value();
     }
