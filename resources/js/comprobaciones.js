@@ -1,38 +1,46 @@
 // Javascript para comprobaciones en el cliente
 
-function esta_vacio($cadena) {
+function esta_vacio(cadena) {
   // Funcion que comprueba si esta vacio algo o no
   // Devuelve true si NO lo esta
-  if ($cadena) {
+  if (cadena) {
     return true;
   } else {
     return false;
   }
 }
 
-function comprueba_input($form, $input) {
+function comprueba_input(form, elinput) {
   // Funcion que comprueba un input de un formulario
 
   // Buscamos por el DOM el elemento
   // Con # va un id
   // Con . va un class
-  if ($form) {
+  if (form) {
     // Si hay un form
-    if ($input!="textarea") {
-      $contenido = $("#".$form." input[type='".$input."']").value();
+    if (elinput!="textarea") {
+      contenido = $("#".form." input[type='".elinput."']").value();
+      console.log("Buscamos en = #".form." input[type='".elinput."']");
+      console.log("Encontramos = ".contenido);
     } else {
-      $contenido = $("#".$form." textarea").value();
+      $contenido = $("#".form." textarea").value();
+      console.log("Buscamos en = #".form." textarea");
+      console.log("Encontramos = ".contenido);
     }
   } else {
     // Sino cogemos el form que haya
-    if ($input!="textarea") {
-      $contenido = $("form input[type='".$input."']").value();
+    if (elinput!="textarea") {
+      contenido = $("form input[type='".elinput."']").value();
+      console.log("Buscamos en = form input[type='".elinput."']");
+      console.log("Encontramos = ".contenido);
     } else {
       $contenido = $("form textarea").value();
+      console.log("Buscamos en = form textarea");
+      console.log("Encontramos = ".contenido);
     }
   }
   // Revisamos si hay algo metido
-  if (esta_vacio($contenido) == true) {
+  if (esta_vacio(contenido) == true) {
     return true;
   } else {
     return false;
