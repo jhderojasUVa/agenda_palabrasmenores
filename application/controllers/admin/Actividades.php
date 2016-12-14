@@ -81,9 +81,11 @@ class Actividades extends CI_Controller {
                     $pa_la_vista['error'][$num_error] = "La fecha no puede estar vacía";    
                     $num_error ++;
                 }
-                if ($fallo == 0) {
+                if ($fallo == 0) {  
+                    // Obtenemos la fecha para grabar
+                    $fechahora = $this ->fecha_grabar($fecha, $hora);
                     // Si se ha enviado llamamos al modelo y añadimos la actividad
-                    $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario,$publicada);
+                    $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fechahora,$idusuario,$publicada);
                     $pa_la_vista['actualizado'] = 1;
                 }
             } 
@@ -130,12 +132,18 @@ class Actividades extends CI_Controller {
 
         // Comprueba que tenga iniciada sesion.
         if ($this -> libreria_sesiones -> comprobar_session() == true){
+            // Retornar la ACL del usuario
+            $acl = $this -> session -> acl;
             $fallo = 0;
             $pa_la_vista = array();
             // Inicializamos
             $pa_la_vista['actualizado'] = 0;
             $pa_la_vista['usuario'] = array();
             $pa_la_vista['actividades'] = array();
+            // errores
+            $num_error=0;
+            $pa_la_vista['error'] = array ();
+            $pa_la_vista['error'][$num_error] = "";
             // Obtiene todos los barrios
             $pa_la_vista['barrios'] = $this -> modelo_barrios -> devuelve_barrios();
             // Obtiene todos las secciones
@@ -148,7 +156,7 @@ class Actividades extends CI_Controller {
                 $idusuario = $datos_usuario['idsesion'];
                 $pa_la_vista['usuario'] = $datos_usuario;
             } else {
-                $fallo = 1;
+                $fallo = 2;
                 $pa_la_vista['error'] = "No hay actividad";
             }
 
@@ -157,11 +165,7 @@ class Actividades extends CI_Controller {
             // Si modificar = 1 hacemos el update
             if ($this -> input -> POST("modificar")==1 && $fallo==0){
                 // Datos de la actividad del POST
-                $campanya = $this -> input -> POST("campanya");
-
-                if (!$this -> esta_vacio($campanya)) {
-                    $error = 1;
-		}		
+                $campanya = $this -> input -> POST("campanya");		
                 $actividad = $this -> input -> POST("actividad");
                 $descripcion = $this -> input -> POST("descripcion");
                 $organiza = $this -> input -> POST("organiza");
@@ -170,21 +174,90 @@ class Actividades extends CI_Controller {
                 $idseccion = $this -> input -> POST("idseccion");
                 $fecha = $this -> input -> POST("fecha");
                 $hora = $this -> input -> POST("hora");
-                $publicada = $this -> input -> POST("publicada");
-                // update
-                $this -> modelo_actividades -> update_actividad($idactividades,$campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fecha,$idusuario,$publicada);
-                $pa_la_vista['actualizado'] = 1; // OJO de momento lo dejo lo tenía par los errores
-                // Conseguimos los datos por el modelo para enviarlos a la vista principal
-                // Actividades de usuario por fecha descencente
-                $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
-                $pa_la_vista['actividades'] = $actividades;
-                $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
-                $this -> load -> view ("admin/actividades/principal",$pa_la_vista);
-                $this -> load -> view ("admin/footer");
-            } else if ($fallo==0) {
+		// A recordar:
+		// Sumo Pontifice = 1
+		// Redactor = 2
+		// Editor = 3
+		// Disabled = 0
+		if ($acl != 1 && $acl != 2) {
+                    $publicada = 0;
+		} else {
+                    $publicada = 1;
+		} 
+                // Comprobar los campos                
+                if (!$this -> esta_vacio($actividad)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'][$num_error] = "La actividad no puede estar vacía";    
+                    $num_error ++;
+                }
+                if (!$this -> esta_vacio($lugar)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'][$num_error] = "El lugar no puede estar vacío";    
+                    $num_error ++;
+                }
+                if (!$this -> esta_vacio($idbarrio)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'][$num_error] = "El barrio no puede estar vacío";    
+                    $num_error ++;
+                }
+                if (!$this -> esta_vacio($idseccion)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'][$num_error] = "La sección no puede estar vacía";    
+                    $num_error ++;
+                }
+                if (!$this -> esta_vacio($fecha)) {
+                    $fallo = 1;
+                    $pa_la_vista['error'][$num_error] = "La fecha no puede estar vacía";    
+                    $num_error ++;
+                }
+                if ($fallo == 0) {
+                    // Obtenemos la fecha para grabar
+                    $fechahora = $this -> fecha_grabar($fecha, $hora);
+                    // update
+                    $this -> modelo_actividades -> update_actividad($idactividades,$campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fechahora,$idusuario,$publicada);
+                    $pa_la_vista['actualizado'] = 1; // OJO de momento lo dejo lo tenía par los errores
+                    // Conseguimos los datos por el modelo para enviarlos a la vista principal
+                    // Actividades de usuario por fecha descencente
+                    $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
+                    $pa_la_vista['actividades'] = $actividades;
+                    $this -> load -> view ("admin/header");
+                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/actividades/principal",$pa_la_vista);
+                    $this -> load -> view ("admin/footer");
+                }
+            }
+            if ($this -> input -> POST("modificar")!=1 || $fallo == 1){
                 // Conseguimos los datos por el modelo
-                $pa_la_vista['actividades'] = $this -> modelo_actividades -> actividad_id($idactividades);
+ //OJO ??       // Si es la primera vez los datos del modelo
+                if ($fallo == 0) {
+                    $actividades = $this -> modelo_actividades -> actividad_id($idactividades);
+                    foreach ($actividades as $fila) {
+                        // separa la fecha y la hora
+                        $fecha_hora = $fila['fecha'];
+                        $fecha = $this -> devuelve_fecha($fecha_hora);
+                        $hora = $this -> devuelve_hora($fecha_hora);
+
+                        $fila['fecha'] = $fecha;
+                        $fila['hora'] = $hora;
+                    }
+                    $pa_la_vista['actividades'] = $fila;
+                }else {
+                    // Si es por un fallo recupera los valores que ha metido antes 
+                    $fila = array(
+                        "idactividades" => $idactividades,
+                        "campanya" => $campanya,		
+                        "actividad" => $actividad,
+                        "descripcion" => $descripcion,
+                        "organiza" => $organiza,
+                        "lugar" => $lugar,
+                        "idbarrio" => $idbarrio,
+                        "idseccion" => $idseccion,
+                        "fecha" => $fecha,
+                        "hora" => $hora
+                    );
+                    $pa_la_vista['actividades'] = $fila;                  
+                }
+
                 // Se lo enviamos a las vistas correspondientes
 
                 // Recuerda que aqui puedes elegir el usar la vista de add_actividad modificandola o hacer una vista nueva
@@ -196,7 +269,7 @@ class Actividades extends CI_Controller {
                 $this -> load -> view ("admin/menu");
                 $this -> load -> view ("admin/actividades/modificar_actividad",$pa_la_vista);
                 $this -> load -> view ("admin/footer");
-            } else {
+            } else if ($fallo == 2){
                 // Si hay algún error
                 // ?? ver si tiene que ir a modificar_actividad o principal
                 $this -> load -> view ("admin/header");
@@ -334,5 +407,25 @@ class Actividades extends CI_Controller {
 
 	return $diamesano." ".$hora;
     }
+    
+    private function fecha_grabar($anomesdia, $hora) {
+	// Funcion que devuelve la fecha completa
 
+	return $anomesdia." ".$hora;
+    }
+
+    private function devuelve_fecha($fecha_hora) {
+	// Funcion que devuelve la fecha
+
+        $fecha = explode(" ", $fecha_hora);
+	return $fecha[0];
+    }
+  
+    private function devuelve_hora($fecha_hora) {
+	// Funcion que devuelve la hora
+
+        $fecha = explode(" ", $fecha_hora);
+	return $fecha[1];
+    }
+    
  }
