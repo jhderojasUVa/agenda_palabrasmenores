@@ -93,6 +93,23 @@ class Usuarios extends CI_Controller {
                 }
             }   
             if ($this -> input -> POST("add")!=1 || $fallo == 1) {
+                if ($fallo == 1) {
+                    $pa_la_vista['usuarios'] =array(
+                        'login' => $login,    
+                        'password' => $password, // ver si no paso
+                        'rpassword' => $rpassword, // ver si no paso
+                        'nombre' => $nombre,
+                        'idacl' => $idacl
+                    );                    
+                } else {
+                   $pa_la_vista['usuarios'] =array(
+                        'login' => "",    
+                        'password' => "",
+                        'rpassword' => "",
+                        'nombre' => "",
+                        'idacl' => ""
+                    );                     
+                }
                 // Mostramos los ultimos 5 usuarios por login
                 $pa_la_vista_usuarios['usuarios'] = $this -> modelo_usuarios -> ultimos_usuarios($num_usuarios); 
                 
@@ -193,16 +210,19 @@ class Usuarios extends CI_Controller {
                 // Conseguimos los datos por el modelo
  //OJO ??       // Si es la primera vez los datos del modelo
                 if ($fallo == 0) {
-                    $pa_la_vista['usuarios'] = $this -> modelo_usuarios -> usuario_id($login);
-                 } else {
+                    $usuarios = $this -> modelo_usuarios -> usuario_id($login);
+                    foreach ($usuarios as $fila) {
+                        $pa_la_vista['usuarios'] = $fila;  
+                    }
+                } else {
                 // Si es por un fallo recupera los valores que ha metido antes
-                    $pa_la_vista['usuarios'] = array(0 => array(
-                            'login' => $login,
-                    // No paso passsword y rpassword, que las vuelva a escribir    
-                    //      'password' => $password,
-                    //      'rpassword' => $rpassword,
-                            'nombre' => $nombre,
-                            'idacl' => $idacl)
+                    $pa_la_vista['usuarios'] = array(
+                        'login' => $login,
+                        // No paso passsword y rpassword, que las vuelva a escribir    
+                        'password' => "",
+                        'rpassword' => "",
+                        'nombre' => $nombre,
+                        'idacl' => $idacl
                     ); 
                 }
                 // Mostramos los ultimos 5 usuarios por login

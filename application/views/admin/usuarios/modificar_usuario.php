@@ -41,17 +41,16 @@
   </div>
   <div class="row">
     <!-- centramos -->
-    <div class="col-md-offset-4 col-md-4">
-      <? foreach ($usuarios as $fila) { // Solo es una?>        
+    <div class="col-md-offset-4 col-md-4">        
       <form action="<?=base_url()?>/admin/usuarios/modifica_usuario" method="POST" class="horizontal">
         <div class="row">
           <input type="hidden" value="1" name="modificar">
-          <input type="hidden" name="login" value="<?= $fila['login']?>">
+          <input type="hidden" name="login" value="<?= $usuarios['login']?>">
           <!-- cada par esta en un form-group -->
           <div class="form-group">
             <!-- el label que tiene lo que ocupa (2) -->
             <label class="col-sm-2 control-label">Login</label>
-            <label for="login" class="col-sm-10 control-label"><?= $fila['login']?></label>
+            <label for="login" class="col-sm-10 control-label"><?= $usuarios['login']?></label>
           </div>
           <!-- y a repetir el proceso -->
           <div class="form-group">
@@ -69,7 +68,7 @@
           <div class="form-group">
             <label for="nombre" class="col-sm-2 control-label">Nombre</label>
             <div class="col-sm-10">
-              <input type="text" name="nombre" class="form-control" placeholder="Nombre del usuario" id="nombre" value="<?= $fila['nombre']?>">
+              <input type="text" name="nombre" class="form-control" placeholder="Nombre del usuario" id="nombre" value="<?= $usuarios['nombre']?>">
             </div>
           </div>
           <div class="form-group">
@@ -77,7 +76,7 @@
             <div class="col-sm-10">
               <select name="idacl" id="idacl" class="form-control">
                   <? $tipo = array ("Deshabilitado", "Super Administrador", "Redactor", "Editor");?>
-                  <option value="<?= $fila['idacl']?>"><?=$tipo[$fila['idacl']]?></option>
+                  <option value="<?= $usuarios['idacl']?>"><?=$tipo[$usuarios['idacl']]?></option>
                   <? for ($i=sizeof($tipo)-1; $i>=0; $i--) { ?>
                     <option value="<?=$i?>"><?=$tipo[$i]?></option>
                   <? } ?> 
@@ -88,7 +87,6 @@
           <button type="submit" class="btn btn-default">Modificar usuario</button>
         </div>
       </form>
-      <? } ?>
     </div>
   </div>
 </div>

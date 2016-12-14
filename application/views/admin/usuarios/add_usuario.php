@@ -54,26 +54,26 @@
             <label for="login" class="col-sm-2 control-label">Login</label>
             <!-- el input que se mete en una celda -->
             <div class="col-sm-10">
-                <input type="text" name="login" class="form-control" placeholder="Login del usuario" id="login" value='<?= $this -> input -> POST("login")?>'>
+                <input type="text" name="login" class="form-control" placeholder="Login del usuario" id="login" value='<?= $usuarios['login']?>'>
             </div>
           </div>
           <!-- y a repetir el proceso -->
           <div class="form-group">
             <label for="password" class="col-sm-2 control-label">Contraseña</label>
             <div class="col-sm-10">
-              <input type="password" name="password" class="form-control" placeholder="Contraseña" id="password" value='<?= $this -> input -> POST("password")?>'>
+              <input type="password" name="password" class="form-control" placeholder="Contraseña" id="password" value='<?= $usuarios['password']?>'>
             </div>
           </div>          
           <div class="form-group">
             <label for="rpassword" class="col-sm-2 control-label">Repetir</label>
             <div class="col-sm-10">
-              <input type="password" name="rpassword" class="form-control" placeholder="Contraseña" id="rpassword" value='<?= $this -> input -> POST("rpassword")?>'>
+              <input type="password" name="rpassword" class="form-control" placeholder="Contraseña" id="rpassword" value='<?= $usuarios['rpassword']?>'>
             </div>
           </div>
           <div class="form-group">
             <label for="nombre" class="col-sm-2 control-label">Nombre</label>
             <div class="col-sm-10">
-              <input type="text" name="nombre" class="form-control" placeholder="Nombre del usuario" id="nombre" value='<?= $this -> input -> POST("nombre")?>'>
+              <input type="text" name="nombre" class="form-control" placeholder="Nombre del usuario" id="nombre" value='<?= $usuarios['nombre']?>'>
             </div>
           </div>
           <div class="form-group">
@@ -81,8 +81,8 @@
             <div class="col-sm-10">
               <select name="idacl" id="idacl" class="form-control">
                   <? $tipo = array ("Deshabilitado", "Super Administrador", "Redactor", "Editor");?>
-                  <? if ($this -> input -> POST("idacl") != "") {?>
-                  <option value="<?= $this -> input -> POST("idacl")?>"><?=$tipo[$this -> input -> POST("idacl")]?></option>
+                  <? if ($usuarios['idacl'] != "") {?>
+                  <option value="<?= $usuarios['idacl']?>"><?=$tipo[$usuarios['idacl']]?></option>
                   <? } ?>
                   <? for ($i=sizeof($tipo)-1; $i>=0; $i--) { ?>
                     <option value="<?=$i?>"><?=$tipo[$i]?></option>

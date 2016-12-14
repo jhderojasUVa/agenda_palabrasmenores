@@ -41,8 +41,7 @@
   </div>
   <div class="row">
     <!-- centramos -->
-    <div class="col-md-offset-4 col-md-4">
-      <?php  $fila = $actividades; // Solo es una?>        
+    <div class="col-md-offset-4 col-md-4">        
       <form action="<?=base_url()?>/admin/actividades/add_actividad" method="POST" class="horizontal">
         <div class="row">
           <input type="hidden" value="1" name="add">
@@ -50,7 +49,7 @@
           <div class="form-group">
             <label for="actividad" class="col-sm-2 control-label">Actividad</label>
             <div class="col-sm-10">
-              <input type="text" name="actividad" class="form-control" placeholder="Nombre de la actividad" id="actividad" value="<?= $fila['actividad']?>">
+              <input type="text" name="actividad" class="form-control" placeholder="Nombre de la actividad" id="actividad" value="<?= $actividades['actividad']?>">
             </div>
           </div>
           <!-- y a repetir el proceso -->
@@ -59,26 +58,26 @@
             <label for="campanya" class="col-sm-2 control-label">Campaña</label>
             <!-- el input que se mete en una celda -->
             <div class="col-sm-10">
-                <input type="text" name="campanya" class="form-control" placeholder="Campaña de la actividad" id="campanya" value="<?= $fila['campanya']?>">
+                <input type="text" name="campanya" class="form-control" placeholder="Campaña de la actividad" id="campanya" value="<?= $actividades['campanya']?>">
             </div>
           </div>
           <!-- para la descripcion usamos un text area -->
           <div class="form-group">
             <label for="descripcion" class="col-sm-2 control-label">Descripcion</label>
             <div class="col-sm-10">
-              <textarea class="form-control" name="descripcion" id="descripcion" rows="4" value="<?= $fila['descripcion']?>"><?= $fila['descripcion']?></textarea>
+              <textarea class="form-control" name="descripcion" id="descripcion" rows="4" value="<?= $actividades['descripcion']?>"><?= $actividades['descripcion']?></textarea>
             </div>
           </div>
           <div class="form-group">
             <label for="organiza" class="col-sm-2 control-label">Organizador</label>
             <div class="col-sm-10">
-              <input type="text" name="organiza" class="form-control" placeholder="Organizador del evento" id="organiza" value="<?= $fila['organiza']?>">
+              <input type="text" name="organiza" class="form-control" placeholder="Organizador del evento" id="organiza" value="<?= $actividades['organiza']?>">
             </div>
           </div>
           <div class="form-group">
             <label for="lugar" class="col-sm-2 control-label">Lugar</label>
             <div class="col-sm-10">
-              <input type="text" name="lugar" class="form-control" placeholder="Lugar donde se organiza" id="lugar" value="<?= $fila['lugar']?>">
+              <input type="text" name="lugar" class="form-control" placeholder="Lugar donde se organiza" id="lugar" value="<?= $actividades['lugar']?>">
             </div>
           </div>
           <!-- el de los barrios es un poco especial porque es un select -->
@@ -88,7 +87,7 @@
             <div class="col-sm-10">
               <select name="idbarrio" id="barrio" class="form-control">
                 <? foreach ($barrios as $row) { ?>
-                    <? if ($fila['idbarrio'] == $row['idbarrios']) { ?>
+                    <? if ($actividades['idbarrio'] == $row['idbarrios']) { ?>
                         <option value="<?= $row['idbarrios']?>" selected="selected"><?= $row['nombre']?></option>
                     <? } else {?>
                         <option value="<?= $row['idbarrios']?>"><?= $row['nombre']?></option>
@@ -103,7 +102,7 @@
             <div class="col-sm-10">
               <select name="idseccion" id="seccion" class="form-control">
                 <? foreach ($secciones as $row) { ?>
-                    <? if ($fila['idseccion'] == $row['idsecciones']) { ?>
+                    <? if ($actividades['idseccion'] == $row['idsecciones']) { ?>
                         <option value="<?= $row['idsecciones']?>" selected="selected"><?= $row['nombre']?></option>
                     <? } else {?>
                         <option value="<?= $row['idsecciones']?>"><?= $row['nombre']?></option>
@@ -116,14 +115,14 @@
           <div class="form-group">
             <label for="fecha" class="col-sm-2 control-label">Fecha</label>
             <div class="col-sm-10">
-              <input type="date" id="fecha" class="form-control" name="fecha" placeholder="2016-10-09" value="<?= $fila['fecha']?>">
+              <input type="date" id="fecha" class="form-control" name="fecha" placeholder="2016-10-09" value="<?= $actividades['fecha']?>">
             </div>
           </div>
           <!-- formateamos las horas -->
           <div class="form-group">
             <label for="hora" class="col-sm-2 control-label">Hora</label>
             <div class="col-sm-10">
-              <input type="time" id="hora" class="form-control" name="hora" placeholder="22:30:00" value="<?= $fila['hora']?>">
+              <input type="time" id="hora" class="form-control" name="hora" placeholder="22:30:00" value="<?= $actividades['hora']?>">
             </div>
           </div>
           <!-- el enviar o modificar-->
