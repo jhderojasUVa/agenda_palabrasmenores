@@ -1,26 +1,15 @@
 <!-- Inicio Contenido de la página de nuevo barrio-->
+<!-- modelo -->
+<script src="<?=base_url()?>/resources/js/comprobaciones.js"></script>
+<!-- vista -->
+<script src="<?=base_url()?>/resources/js/barrios.js"></script>
+<!-- vista-modelo -->
 <script>
 $(document).ready(function(){
-    $("form").submit(function(event) {
-         event.preventDefault();
-        if (error == 0) {
-            this.submit();
-        }
+    $(function(){
+        revisa_form('add_barrio');   
     });
   });
-  // Funcion para comprobar un elemento de un formulario
-  function revisa_form() {
-    // Cogemos el texto del form
-    $metido_en_la_caja = $("#formulario input[name=nombre]").val();
-
-    if ($metido_en_la_caja == "") {
-        alert("El nombre del barrio no puede estar vacío");
-        error = 1; 
-    } else {
-        error = 0;
-    }
- 
-  }
 </script>    
 <div class="container">
   <? // Si hay algun mensaje se lo ponemos al usuario aqui arriba
@@ -63,8 +52,9 @@ $(document).ready(function(){
   <div class="row">
     <!-- centramos -->
     <div class="col-md-offset-4 col-md-4">
-      <form action="<?=base_url()?>/admin/barrios/add_barrio" method="POST" class="horizontal" id="formulario" onsubmit="javascript:revisa_form();">
-        <div class="row">
+<!--??<form action="<?=base_url()?>/admin/barrios/add_barrio" method="POST" class="horizontal" id="add_barrio" onsubmit="javascript:revisa_form('add_barrio');">-->
+      <form action="<?=base_url()?>/admin/barrios/add_barrio" method="POST" class="horizontal" id="add_barrio">
+          <div class="row">
           <input type="hidden" value="1" name="add">
           <!-- cada par esta en un form-group -->
           <div class="form-group">
@@ -77,7 +67,6 @@ $(document).ready(function(){
           <button type="submit" class="btn btn-default">Añadir barrio</button>
         </div>
       </form>
-          <div class="resultado"></div>
     </div>
   </div>
 </div>

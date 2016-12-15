@@ -26,7 +26,7 @@ class Principal extends CI_Controller {
 		}
 
 		// Sacamos las actividades de 30 dias en adelante
-		$datos["actividades_30_dias"] = $this -> modelo_actividades -> mostrar_desde_hasta(date("YYYY-m-dd"), mktime(0, 0, 0, date("m"), date("d")+30, date("Y")))
+		$datos["actividades_30_dias"] = $this -> modelo_actividades -> mostrar_desde_hasta(date("YYYY-m-dd"), mktime(0, 0, 0, date("m"), date("d")+30, date("Y")));
 
 		/* Llamamos a una vista llamada principal */
 		$this -> load -> view('principal', $datos);

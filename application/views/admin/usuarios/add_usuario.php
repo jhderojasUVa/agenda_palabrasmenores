@@ -1,3 +1,16 @@
+<!-- Inicio Contenido de la página de nuevo barrio-->
+<!-- modelo -->
+<script src="<?=base_url()?>/resources/js/comprobaciones.js"></script>
+<!-- vista -->
+<script src="<?=base_url()?>/resources/js/usuarios.js"></script>
+<!-- vista-modelo -->
+<script>
+$(document).ready(function(){
+    $(function(){
+        revisa_form('add_usuario');   
+    });
+  });
+</script>
 <!-- Inicio Contenido de la página de nuevo usuario-->
 <div class="container">
   <? // Si hay algun mensaje se lo ponemos al usuario aqui arriba
@@ -45,7 +58,7 @@
   <div class="row">
     <!-- centramos -->
     <div class="col-md-offset-4 col-md-4">
-      <form action="<?=base_url()?>/admin/usuarios/add_usuario" method="POST" class="horizontal">
+      <form action="<?=base_url()?>/admin/usuarios/add_usuario" method="POST" class="horizontal" id="add_usuario">
         <div class="row">
           <input type="hidden" value="1" name="add">
           <!-- cada par esta en un form-group -->

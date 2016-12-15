@@ -19,22 +19,22 @@ function comprueba_input(form, elinput) {
   if (form) {
     // Si hay un form
     if (elinput!="textarea") {
-      contenido = $("#".form." input[type='".elinput."']").value();
-      console.log("Buscamos en = #".form." input[type='".elinput."']");
-      console.log("Encontramos = ".contenido);
+      contenido = $("#"+form+" input[type='"+elinput+"']").val();
+      console.log("Buscamos en = #"+form+" input[type='"+elinput+"']");
+      console.log("Encontramos = "+contenido);
     } else {
-      $contenido = $("#".form." textarea").value();
-      console.log("Buscamos en = #".form." textarea");
-      console.log("Encontramos = ".contenido);
+      contenido = $("#"+form+" textarea")+value();
+      console.log("Buscamos en = #"+form+" textarea");
+      console.log("Encontramos = "+contenido);
     }
   } else {
     // Sino cogemos el form que haya
     if (elinput!="textarea") {
-      contenido = $("form input[type='".elinput."']").value();
-      console.log("Buscamos en = form input[type='".elinput."']");
+      contenido = $("form input[type='"+elinput+"']").val();
+      console.log("Buscamos en = form input[type='"+elinput+"']");
       console.log("Encontramos = ".contenido);
     } else {
-      $contenido = $("form textarea").value();
+      contenido = $("form textarea").val();
       console.log("Buscamos en = form textarea");
       console.log("Encontramos = ".contenido);
     }
