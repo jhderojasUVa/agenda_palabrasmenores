@@ -45,7 +45,7 @@ class Barrios extends CI_Controller {
                     $pa_la_vista_barrios['cabecera'] = true;
                     $pa_la_vista_barrios['usuario'] = $datos_usuario;               
                     $this -> load -> view ("admin/header");
-                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/menu",$datos_usuario);
                     $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista_barrios);
                     $this -> load -> view ("admin/footer"); 
                 }
@@ -57,7 +57,7 @@ class Barrios extends CI_Controller {
                 // Enviamos a la vista para meter los datos del barrio
                 // Y enviamos a la vista para mostrar los ultimos barrios
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/barrios/add_barrio",$pa_la_vista);
                 $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista_barrios);
                 $this -> load -> view ("admin/footer");
@@ -86,14 +86,13 @@ class Barrios extends CI_Controller {
             // Numero de los ultimos barrios que va a mostrar
             $num_barrios = 5;
             $pa_la_vista_barrios['cabecera'] = false;
+            // Datos del usuario de la sesion de usuario
+            $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
+            $idusuario = $datos_usuario['idsesion'];
+            $pa_la_vista['usuario'] = $datos_usuario;
             // Revisamos si tenemos el id de barrio (por get o por post o por hidden, da igual)
             $idbarrios = $this -> input -> post_get('idbarrios');
-            if ($idbarrios){
-                // Datos del usuario de la sesion de usuario
-                $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
-                $idusuario = $datos_usuario['idsesion'];
-                $pa_la_vista['usuario'] = $datos_usuario;
-            } else {
+            if (!$idbarrios){
                 $fallo = 1;
                 $pa_la_vista['error'] = "No hay barrio";
             }
@@ -118,7 +117,7 @@ class Barrios extends CI_Controller {
                     $pa_la_vista ['cabecera'] = true;
                     // Enviamos a la vista    
                     $this -> load -> view ("admin/header");
-                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/menu", $datos_usuario);
                     $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista);
                     $this -> load -> view ("admin/footer");   
                 }
@@ -136,7 +135,7 @@ class Barrios extends CI_Controller {
                 // por ejemplo
                 // <input type="hidden" value="1" name="modificar">
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/barrios/modificar_barrio",$pa_la_vista);
                 $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista_barrios);                
                 $this -> load -> view ("admin/footer");
@@ -173,13 +172,13 @@ class Barrios extends CI_Controller {
                 $pa_la_vista['cabecera'] = true;
                 // Llamamos a las vistas con el resultado
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu", $datos_usuario);
                 $this -> load -> view ("admin/barrios/buscar_barrio", $pa_la_vista);
                 $this -> load -> view ("admin/footer");
             } else {
                 // Llamamos al formulario para meter los datos de busqueda
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu", $datos_usuario);
                 $this -> load -> view ("admin/barrios/formbuscar_barrio",$pa_la_vista);
                 $this -> load -> view ("admin/footer");
             }

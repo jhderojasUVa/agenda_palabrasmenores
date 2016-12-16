@@ -18,8 +18,6 @@ class Actividades extends CI_Controller {
 
         // Comprueba que tenga iniciada sesion.
         if ($this -> libreria_sesiones -> comprobar_session() == true){
-            // Retornar la ACL del usuario
-            $acl = $this -> session -> acl;
             // Inicializamos
             $pa_la_vista = array();
             // Inicializamos los fallos
@@ -116,7 +114,7 @@ class Actividades extends CI_Controller {
             }
 
             $this -> load -> view ("admin/header");
-            $this -> load -> view ("admin/menu", $acl);
+            $this -> load -> view ("admin/menu", $datos_usuario);
             $this -> load -> view ("admin/actividades/add_actividad",$pa_la_vista);
             $this -> load -> view ("admin/footer");
         } else {
@@ -148,14 +146,13 @@ class Actividades extends CI_Controller {
             $pa_la_vista['barrios'] = $this -> modelo_barrios -> devuelve_barrios();
             // Obtiene todos las secciones
             $pa_la_vista['secciones'] = $this -> modelo_secciones -> devuelve_secciones();
+            // Datos del usuario de la sesion de usuario
+            $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
+            $idusuario = $datos_usuario['idsesion'];
+            $pa_la_vista['usuario'] = $datos_usuario;
             // Revisamos si tenemos el id de actividad (por get o por post o por hidden, da igual)
             $idactividades = $this -> input -> post_get("idactividades");            
-            if ($idactividades){
-                // Datos del usuario de la sesion de usuario
-                $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
-                $idusuario = $datos_usuario['idsesion'];
-                $pa_la_vista['usuario'] = $datos_usuario;
-            } else {
+            if (!$idactividades){
                 $fallo = 2;
                 $pa_la_vista['error'] = "No hay actividad";
             }
@@ -221,7 +218,7 @@ class Actividades extends CI_Controller {
                     $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
                     $pa_la_vista['actividades'] = $actividades;
                     $this -> load -> view ("admin/header");
-                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/menu",$datos_usuario);
                     $this -> load -> view ("admin/actividades/principal",$pa_la_vista);
                     $this -> load -> view ("admin/footer");
                 }
@@ -266,14 +263,14 @@ class Actividades extends CI_Controller {
                 // por ejemplo
                 // <input type="hidden" value="1" name="modificar">
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/actividades/modificar_actividad",$pa_la_vista);
                 $this -> load -> view ("admin/footer");
             } else if ($fallo == 2){
                 // Si hay algún error
                 // ?? ver si tiene que ir a modificar_actividad o principal
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/actividades/modificar_actividad",$pa_la_vista);
                 $this -> load -> view ("admin/footer");
             }
@@ -308,7 +305,7 @@ class Actividades extends CI_Controller {
 
                 // Llamamos a las vistas con el resultado
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/actividades/buscar_actividad", $pa_la_vista);
                 $this -> load -> view ("admin/footer");
             // Tipo de busqueda formulario
@@ -323,13 +320,13 @@ class Actividades extends CI_Controller {
                 $pa_la_vista['actividades'] = $this -> modelo_actividades -> buscar_actividad($datos_busqueda);
                 // Llamamos a las vistas con el resultado
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/actividades/buscar_actividad", $pa_la_vista);
                 $this -> load -> view ("admin/footer");
             } else {
                 // Llamamos al formulario para meter los datos de busqueda
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/actividades/formbuscar_actividad",$pa_la_vista);
                 $this -> load -> view ("admin/footer");
             }
@@ -379,7 +376,7 @@ class Actividades extends CI_Controller {
             $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
             $pa_la_vista['actividades'] = $actividades;
             $this -> load -> view ("admin/header");
-            $this -> load -> view ("admin/menu");
+            $this -> load -> view ("admin/menu",$datos_usuario);
             $this -> load -> view ("admin/actividades/principal",$pa_la_vista);
             $this -> load -> view ("admin/footer");
         } else {

@@ -87,7 +87,7 @@ class Usuarios extends CI_Controller {
                     $pa_la_vista['actualizado'] = 1;
                     $pa_la_vista['usuario'] = $datos_usuario;                
                     $this -> load -> view ("admin/header");
-                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/menu",$datos_usuario);
                     $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista);
                     $this -> load -> view ("admin/footer");
                 }
@@ -116,7 +116,7 @@ class Usuarios extends CI_Controller {
                 // Enviamos a la vista para meter los datos del usuario
                 // Y enviamos a la vista para mostrar los 5 ultimos usuarios
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/usuarios/add_usuario",$pa_la_vista);
                 $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista_usuarios);
                 $this -> load -> view ("admin/footer");
@@ -149,15 +149,13 @@ class Usuarios extends CI_Controller {
             $num_error=0;
             $pa_la_vista['error'] = array ();
             $pa_la_vista['error'][$num_error] = "";
-           
+            // Datos del usuario de la sesion de usuario
+            $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
+            $idusuario = $datos_usuario['idsesion'];
+            $pa_la_vista['usuario'] = $datos_usuario;           
             // Revisamos si tenemos el id de usuario (por get o por post o por hidden, da igual)
             $login = $this -> input -> post_get('login');            
-            if ($login){
-                // Datos del usuario de la sesion de usuario
-                $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
-                $idusuario = $datos_usuario['idsesion'];
-                $pa_la_vista['usuario'] = $datos_usuario;
-            } else {
+            if (!$login){
                 $fallo = 2;
                 $pa_la_vista['error'][$num_error] = "No hay usuario";
             }
@@ -201,7 +199,7 @@ class Usuarios extends CI_Controller {
                     $pa_la_vista['usuarios'] = $this -> modelo_usuarios -> buscar_usuario($datos_busqueda);
                     $pa_la_vista ['cabecera'] = true;
                     $this -> load -> view ("admin/header");
-                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/menu",$datos_usuario);
                     $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista);
                     $this -> load -> view ("admin/footer");
                 }
@@ -235,7 +233,7 @@ class Usuarios extends CI_Controller {
                 // por ejemplo
                 // <input type="hidden" value="1" name="modificar">
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/usuarios/modificar_usuario",$pa_la_vista);
                 $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista_usuarios);
                 $this -> load -> view ("admin/footer");            
@@ -245,7 +243,7 @@ class Usuarios extends CI_Controller {
                 $pa_la_vista_usuarios['usuarios'] = $this -> modelo_usuarios -> ultimos_usuarios($num_usuarios); 
                 // Se lo enviamos a las vistas
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista_usuarios);
                 $this -> load -> view ("admin/footer"); 
             }
@@ -291,13 +289,13 @@ class Usuarios extends CI_Controller {
                 $pa_la_vista ['cabecera'] = true;
                 // Llamamos a las vistas con el resultado
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/usuarios/buscar_usuario", $pa_la_vista);
                 $this -> load -> view ("admin/footer");
             } else {
                 // Llamamos al formulario para meter los datos de busqueda
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/usuarios/formbuscar_usuario",$pa_la_vista);
                 $this -> load -> view ("admin/footer");
             }

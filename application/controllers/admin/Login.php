@@ -69,7 +69,7 @@ class Login extends CI_Controller {
             $pa_la_vista['actividades'] = $actividades;
 
             $this -> load -> view ("admin/header");
-            $this -> load -> view ("admin/menu");     
+            $this -> load -> view ("admin/menu",$datos_usuario);     
             $this -> load -> view ("admin/actividades/principal", $pa_la_vista);
             $this -> load -> view ("admin/footer");
 	} else {

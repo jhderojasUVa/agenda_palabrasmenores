@@ -44,7 +44,7 @@ class Secciones extends CI_Controller {
                     $pa_la_vista_secciones['cabecera'] = true; 
                     $pa_la_vista_secciones['usuario'] = $datos_usuario;                     
                     $this -> load -> view ("admin/header");
-                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/menu",$datos_usuario);
                     $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista_secciones);
                     $this -> load -> view ("admin/footer"); 
                 } 
@@ -56,7 +56,7 @@ class Secciones extends CI_Controller {
                 // Enviamos a la vista para meter los datos de la seccion
                 // Y enviamos a la vista para mostrar las 5 ultimas secciones
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/secciones/add_seccion",$pa_la_vista);
                 $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista_secciones);
                 $this -> load -> view ("admin/footer");
@@ -86,14 +86,13 @@ class Secciones extends CI_Controller {
             $pa_la_vista_secciones['cabecera'] = false;
             // Numero de los ultimas secciones que va a mostrar
             $num_secciones = 5;  
+            // Datos del usuario de la sesion de usuario
+            $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
+            $idusuario = $datos_usuario['idsesion'];
+            $pa_la_vista['usuario'] = $datos_usuario;
             // Revisamos si tenemos el id de la seccion (por get o por post o por hidden, da igual)
             $idsecciones = $this -> input -> post_get('idsecciones');
-            if ($idsecciones){
-                // Datos del usuario de la sesion de usuario
-                $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
-                $idusuario = $datos_usuario['idsesion'];
-                $pa_la_vista['usuario'] = $datos_usuario;
-            } else {
+            if (!$idsecciones){
                 $fallo = 1;
                 $pa_la_vista['error'] = "No hay seccion";
             }
@@ -119,7 +118,7 @@ class Secciones extends CI_Controller {
                     $pa_la_vista ['cabecera'] = true;
                     // Enviamos a la vista
                     $this -> load -> view ("admin/header");
-                    $this -> load -> view ("admin/menu");
+                    $this -> load -> view ("admin/menu",$datos_usuario);
                     $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista);
                     $this -> load -> view ("admin/footer");
                 }
@@ -137,7 +136,7 @@ class Secciones extends CI_Controller {
                 // por ejemplo
                 // <input type="hidden" value="1" name="modificar">
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/secciones/modificar_seccion",$pa_la_vista);
                 $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista_secciones);
                 $this -> load -> view ("admin/footer");
@@ -174,13 +173,13 @@ class Secciones extends CI_Controller {
                 $pa_la_vista ['cabecera'] = true;
                 // Llamamos a las vistas con el resultado
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/secciones/buscar_seccion", $pa_la_vista);
                 $this -> load -> view ("admin/footer");
             } else {
                 // Llamamos al formulario para meter los datos de busqueda
                 $this -> load -> view ("admin/header");
-                $this -> load -> view ("admin/menu");
+                $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/secciones/formbuscar_seccion",$pa_la_vista);
                 $this -> load -> view ("admin/footer");
             }

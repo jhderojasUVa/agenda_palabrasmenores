@@ -14,14 +14,7 @@
         <li><a href="<?=base_url()?>/admin/actividades/add_actividad">Nueva Actividad</a></li>
         <!-- Ahora que ya sabemos usar los menus podemos dejarlo mas bonito -->
         <li><a href="<?=base_url()?>/admin/actividades/buscar_actividad">Buscar Actividades</a></li>
-      <!--
-
-      MANDA EL ENLACE DIRECTO
-
-      <form class="navbar-form navbar-left" role="search" action="<?=base_url()?>/admin/actividades/buscar_actividad" method="post">
-        <button type="submit" class="btn btn-default">Buscar Actividades</button>
-      </form>
-      -->
+        <? if ($acl == 1) { ?>
         <!-- creamos un desplegable para el menu de usuarios -->
         <li class="dropdown" >
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios <span class="caret"></span></a>
@@ -31,12 +24,9 @@
             <li><a href="<?=base_url()?>/admin/usuarios/buscar_usuario">Buscar usuario</a></li>
           </ul>
         </li>
-        <?
-          // Si la ACL del usuario es valida con un if se muestra
-          // Si $acl=1,2
-// OJO de momento para que no de error inicializo $acl=1
-          $acl=1;  
-          if ($acl == 1) {
+        <? } // fin del if ?>
+        <?  
+          if ($acl == 1 || $acl == 2) {
         ?>
         <!-- barrios -->
         <li class="dropdown" >
@@ -48,8 +38,8 @@
           </ul>
         </li>
         <? } // fin del if ?>
-        <?
-          // Si la ACLS del usuario es valida con un if se muestra
+        <?  
+          if ($acl == 1 || $acl == 2) {
         ?>
         <!-- secciones -->
         <li class="dropdown" >
@@ -60,7 +50,7 @@
             <li><a href="<?=base_url()?>/admin/secciones/buscar_seccion">Buscar seccion</a></li>
           </ul>
         </li>
-        <? // fin del if ?>
+        <? } // fin del if ?>
         <!-- la opcion de salir -->
         <li><a href="<?=base_url()?>/admin/Login/salir">Salir</a></li>
       </ul>
