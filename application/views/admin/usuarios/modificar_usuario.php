@@ -1,4 +1,16 @@
 <!-- Inicio Contenido de la página para modificar un usuario-->
+<!-- modelo -->
+<script src="<?=base_url()?>/resources/js/comprobaciones.js"></script>
+<!-- vista -->
+<script src="<?=base_url()?>/resources/js/usuarios.js"></script>
+<!-- vista-modelo -->
+<script>
+$(document).ready(function(){
+    $(function(){
+        revisa_form('modificar_usuario');   
+    });
+  });
+</script>
 <div class="container">
   <? // Si hay algun mensaje se lo ponemos al usuario aqui arriba
     // Segun el problema mostraremos y rellenaremos lo que haga falta
@@ -42,7 +54,7 @@
   <div class="row">
     <!-- centramos -->
     <div class="col-md-offset-4 col-md-4">        
-      <form action="<?=base_url()?>/admin/usuarios/modifica_usuario" method="POST" class="horizontal">
+      <form action="<?=base_url()?>/admin/usuarios/modifica_usuario" method="POST" class="horizontal" id="modificar_usuario">
         <div class="row">
           <input type="hidden" value="1" name="modificar">
           <input type="hidden" name="login" value="<?= $usuarios['login']?>">

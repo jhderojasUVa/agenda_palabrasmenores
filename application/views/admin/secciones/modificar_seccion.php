@@ -1,4 +1,16 @@
 <!-- Inicio Contenido de la página para modificar una seccion-->
+<!-- modelo -->
+<script src="<?=base_url()?>/resources/js/comprobaciones.js"></script>
+<!-- vista -->
+<script src="<?=base_url()?>/resources/js/secciones.js"></script>
+<!-- vista-modelo -->
+<script>
+$(document).ready(function(){
+    $(function(){
+        revisa_form('modificar_seccion');   
+    });
+  });
+</script>
 <div class="container">
   <? // Si hay algun mensaje se lo ponemos al usuario aqui arriba
     // Segun el problema mostraremos y rellenaremos lo que haga falta
@@ -41,7 +53,7 @@
     <!-- centramos -->
     <div class="col-md-offset-4 col-md-4">
       <? foreach ($secciones as $fila) { // Solo es una?>        
-      <form action="<?=base_url()?>/admin/secciones/modifica_seccion" method="POST" class="horizontal">
+      <form action="<?=base_url()?>/admin/secciones/modifica_seccion" method="POST" class="horizontal" id="modificar_seccion">
         <div class="row">
           <input type="hidden" value="1" name="modificar">
           <input type="hidden" name="idsecciones" value="<?= $fila['idsecciones']?>">
