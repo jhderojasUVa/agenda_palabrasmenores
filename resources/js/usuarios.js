@@ -23,19 +23,19 @@ function revisa_form(form) {
             error = 1;           
         }
         // solo comprueba que este vacio el rpassword si es añadir
-        if (!esta_vacio($("#"+form+" input[name=rpassword").val()) && form == "add_usuario"){
+        if (!esta_vacio($("#"+form+" input[name=rpassword]").val()) && form == "add_usuario"){
             alert("La repetición de contraseña del usuario no puede estar vacío"); 
             error = 1;         
         }
-        if ($("#"+form+" input[name=password]").val() != $("#"+form+" input[name=rpassword").val()){
+        if ($("#"+form+" input[name=password]").val() != $("#"+form+" input[name=rpassword]").val()){
             alert("La contraseña y repetir la contraseña no coinciden");
             error = 1;
         }
-        if (!esta_vacio($("#"+form+" input[name=nombre").val())){
+        if (!esta_vacio($("#"+form+" input[name=nombre]").val())){
             alert("El nombre del usuario no puede estar vacío");   
             error = 1;
         }
-        if (!esta_vacio($("#"+form+" select[name=idacl").val())){
+        if (!esta_vacio($("#"+form+" select[name=idacl]").val())){
             alert("El tipo de usuario no puede estar vacío");   
             error = 1;
         }
