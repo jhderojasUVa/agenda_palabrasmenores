@@ -31,6 +31,7 @@ class Actividades extends CI_Controller {
             $pa_la_vista['secciones'] = $this -> modelo_secciones -> devuelve_secciones();
             // Datos del usuario de la sesion de usuario
             $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
+            $acl = $datos_usuario['acl'];
             $idusuario = $datos_usuario['idsesion'];
             // Vemos si ha mandado datos por POST o no
             if ($this -> input -> POST("add")==1) {
@@ -149,6 +150,7 @@ class Actividades extends CI_Controller {
             // Datos del usuario de la sesion de usuario
             $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
             $idusuario = $datos_usuario['idsesion'];
+            $acl = $datos_usuario['acl'];
             $pa_la_vista['usuario'] = $datos_usuario;
             // Revisamos si tenemos el id de actividad (por get o por post o por hidden, da igual)
             $idactividades = $this -> input -> post_get("idactividades");            
