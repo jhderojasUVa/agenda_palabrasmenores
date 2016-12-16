@@ -106,8 +106,8 @@ class Modelo_usuarios extends CI_Model {
                 $idacl = $row -> idacl;
                 $pass = $row -> password;
 
-                if ($idacl==2){
-                   // Si idacl=2 El usuario está deshabilitado
+                if ($idacl==0){
+                   // Si idacl=0 El usuario está deshabilitado
                    $chek=2;
                 }
       	}
