@@ -8,6 +8,8 @@
     </div>
   </div>
   <? } ?>
+  <!-- array con las acl -->
+  <? $tipo = array ("Deshabilitado", "Super Administrador", "Redactor", "Editor");?>
   <!-- reordenamos todo y lo juntamos -->
   <div class="row">
     <div class="col-md-12">
@@ -15,6 +17,7 @@
         <tr>
           <th>Login</th>
           <th>Nombre</th>
+          <th>Tipo de Usuario</th>
           <th>Acciones</th>
         </tr>
         <? foreach ($usuarios as $fila) { ?>
@@ -24,6 +27,9 @@
           </td>
           <td>
             <?=$fila["nombre"]?>
+          </td>
+          <td>
+            <?=$tipo[$fila['idacl']]?>
           </td>
           <td>
             <span class="text-center">
