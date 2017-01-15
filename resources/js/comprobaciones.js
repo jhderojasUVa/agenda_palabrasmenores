@@ -19,7 +19,9 @@ function comprueba_input(form, elinput) {
   if (form) {
     // Si hay un form
     if (elinput!="textarea") {
-      contenido = $("#"+form+" input[type='"+elinput+"']").val();
+      contenido = $("#"+form+" input[type='"+elinput+"']").each(function(){
+          contenido = $this.val();
+      });
       console.log("Buscamos en = #"+form+" input[type='"+elinput+"']");
       console.log("Encontramos = "+contenido);
     } else {
