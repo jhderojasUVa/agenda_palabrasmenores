@@ -14,6 +14,7 @@
         <li><a href="<?=base_url()?>/admin/actividades/add_actividad">Nueva Actividad</a></li>
         <!-- Ahora que ya sabemos usar los menus podemos dejarlo mas bonito -->
         <li><a href="<?=base_url()?>/admin/actividades/buscar_actividad">Buscar Actividades</a></li>
+        <!-- a usuarios, barrios y secciones, solo accede el Super Administrador -->
         <? if ($acl == 1) { ?>
         <!-- creamos un desplegable para el menu de usuarios -->
         <li class="dropdown" >
@@ -24,10 +25,6 @@
             <li><a href="<?=base_url()?>/admin/usuarios/buscar_usuario">Buscar usuario</a></li>
           </ul>
         </li>
-        <? } // fin del if ?>
-        <?  
-          if ($acl == 1 || $acl == 2) {
-        ?>
         <!-- barrios -->
         <li class="dropdown" >
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Barrios <span class="caret"></span></a>
@@ -36,11 +33,7 @@
             <li><a href="<?=base_url()?>/admin/barrios/add_barrio">A&ntilde;adir barrio</a></li>
             <li><a href="<?=base_url()?>/admin/barrios/buscar_barrio">Buscar barrio</a></li>
           </ul>
-        </li>
-        <? } // fin del if ?>
-        <?  
-          if ($acl == 1 || $acl == 2) {
-        ?>
+        </li>        
         <!-- secciones -->
         <li class="dropdown" >
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Secciones <span class="caret"></span></a>
