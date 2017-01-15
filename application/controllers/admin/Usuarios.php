@@ -144,7 +144,7 @@ class Usuarios extends CI_Controller {
             $pa_la_vista['usuarios'] = array();
             // Numero de usuarios que va a mostrar
             $num_usuarios = 5;
-            $pa_la_vista_usuarios['cabecera'] = false;
+            $pa_la_vista_usuarios['cabecera'] = true;
             // errores
             $num_error=0;
             $pa_la_vista['error'] = array ();
@@ -196,11 +196,13 @@ class Usuarios extends CI_Controller {
                         $this -> input -> POST("login"),
                         $this -> input -> POST("nombre")
                     );
-                    $pa_la_vista['usuarios'] = $this -> modelo_usuarios -> buscar_usuario($datos_busqueda);
-                    $pa_la_vista ['cabecera'] = true;
+                    //$pa_la_vista['usuarios'] = $this -> modelo_usuarios -> buscar_usuario($datos_busqueda);
+                    // Mostramos los ultimos     5 usuarios por login
+                    $pa_la_vista_usuarios['usuarios'] = $this -> modelo_usuarios -> ultimos_usuarios($num_usuarios);                    
+                    $pa_la_vista_usuarios['usuario'] = $datos_usuario;
                     $this -> load -> view ("admin/header");
                     $this -> load -> view ("admin/menu",$datos_usuario);
-                    $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista);
+                    $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista_usuarios);
                     $this -> load -> view ("admin/footer");
                 }
             } 
@@ -235,7 +237,7 @@ class Usuarios extends CI_Controller {
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/usuarios/modificar_usuario",$pa_la_vista);
-                $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista_usuarios);
+                //$this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista_usuarios);
                 $this -> load -> view ("admin/footer");            
             } else if ($fallo == 2 ){
                 // Es porque no existe el usuario
