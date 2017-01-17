@@ -191,15 +191,10 @@ class Usuarios extends CI_Controller {
                     $this -> modelo_usuarios -> update_usuario($login, $password, $nombre, $idacl);
                     $pa_la_vista['actualizado'] = 1; // OJO de momento lo dejo lo tenía par los errores
                     // Conseguimos los datos por el modelo para enviarlos a la vista principal
-                    // Buscamos al usuario
-                    $datos_busqueda =  array(
-                        $this -> input -> POST("login"),
-                        $this -> input -> POST("nombre")
-                    );
-                    //$pa_la_vista['usuarios'] = $this -> modelo_usuarios -> buscar_usuario($datos_busqueda);
-                    // Mostramos los ultimos     5 usuarios por login
+                    // Mostramos los ultimos usuarios por login
                     $pa_la_vista_usuarios['usuarios'] = $this -> modelo_usuarios -> ultimos_usuarios($num_usuarios);                    
                     $pa_la_vista_usuarios['usuario'] = $datos_usuario;
+                    // Enviamos a la vista 
                     $this -> load -> view ("admin/header");
                     $this -> load -> view ("admin/menu",$datos_usuario);
                     $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista_usuarios);
@@ -224,9 +219,7 @@ class Usuarios extends CI_Controller {
                         'nombre' => $nombre,
                         'idacl' => $idacl
                     ); 
-                }
-                // Mostramos los ultimos 5 usuarios por login
-                $pa_la_vista_usuarios['usuarios'] = $this -> modelo_usuarios -> ultimos_usuarios($num_usuarios); 
+                } 
                 // Se lo enviamos a las vistas correspondientes
 
                 // Recuerda que aqui puedes elegir el usar la vista de add_usuario modificandola o hacer una vista nueva
@@ -237,16 +230,13 @@ class Usuarios extends CI_Controller {
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/usuarios/modificar_usuario",$pa_la_vista);
-                //$this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista_usuarios);
                 $this -> load -> view ("admin/footer");            
             } else if ($fallo == 2 ){
                 // Es porque no existe el usuario
-                // Mostramos los ultimos 5 usuarios por login
-                $pa_la_vista_usuarios['usuarios'] = $this -> modelo_usuarios -> ultimos_usuarios($num_usuarios); 
                 // Se lo enviamos a las vistas
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu",$datos_usuario);
-                $this -> load -> view ("admin/usuarios/buscar_usuario",$pa_la_vista_usuarios);
+                $this -> load -> view ("admin/usuarios/modificar_usuario",$pa_la_vista);
                 $this -> load -> view ("admin/footer"); 
             }
         } else {

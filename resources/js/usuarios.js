@@ -7,7 +7,7 @@ $(document).ready(function(){
     });
     
 });
-// Funcion para comprobar un elemento de un formulario
+// Funcion para comprobar el formulario
 function revisa_form(form) {
     error = 1;
     $("#"+form).submit(function(){
