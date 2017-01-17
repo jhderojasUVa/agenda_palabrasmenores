@@ -5,10 +5,8 @@
 <script src="<?=base_url()?>/resources/js/secciones.js"></script>
 <!-- vista-modelo -->
 <script>
-$(document).ready(function(){
-    $(function(){
-        revisa_form('add_seccion');   
-    });
+  $(document).ready(function(){
+    revisa_form('add_seccion'); 
   });
 </script>
 <div class="container">

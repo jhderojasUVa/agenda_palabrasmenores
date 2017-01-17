@@ -5,10 +5,8 @@
 <script src="<?=base_url()?>/resources/js/usuarios.js"></script>
 <!-- vista-modelo -->
 <script>
-$(document).ready(function(){
-    $(function(){
-        revisa_form('add_usuario');   
-    });
+  $(document).ready(function(){
+    revisa_form('add_usuario'); 
   });
 </script>
 <!-- Inicio Contenido de la página de nuevo usuario-->
