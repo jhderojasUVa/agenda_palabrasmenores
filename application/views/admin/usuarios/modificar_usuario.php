@@ -5,10 +5,8 @@
 <script src="<?=base_url()?>/resources/js/usuarios.js"></script>
 <!-- vista-modelo -->
 <script>
-$(document).ready(function(){
-    $(function(){
-        revisa_form('modificar_usuario');   
-    });
+  $(document).ready(function(){
+    revisa_form('modificar_usuario'); 
   });
 </script>
 <div class="container">

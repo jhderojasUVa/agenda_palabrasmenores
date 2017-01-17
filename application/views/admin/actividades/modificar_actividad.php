@@ -5,10 +5,8 @@
 <script src="<?=base_url()?>/resources/js/actividades.js"></script>
 <!-- vista-modelo -->
 <script>
-$(document).ready(function(){
-    $(function(){
-        revisa_form('modificar_actividad');   
-    });
+  $(document).ready(function(){
+    revisa_form('modificar_actividad');
   });
 </script>
 <div class="container">

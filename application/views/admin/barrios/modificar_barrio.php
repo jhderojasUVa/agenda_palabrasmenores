@@ -5,10 +5,8 @@
 <script src="<?=base_url()?>/resources/js/barrios.js"></script>
 <!-- vista-modelo -->
 <script>
-$(document).ready(function(){
-    $(function(){
-        revisa_form('modificar_barrio');   
-    });
+  $(document).ready(function(){
+    revisa_form('modificar_barrio');
   });
 </script>
 <div class="container">
