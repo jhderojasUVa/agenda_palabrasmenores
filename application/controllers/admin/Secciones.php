@@ -83,7 +83,7 @@ class Secciones extends CI_Controller {
             $pa_la_vista['usuario'] = array();
             // Datos de la seccion que se va a modificar
             $pa_la_vista['secciones'] = array();
-            $pa_la_vista_secciones['cabecera'] = false;
+            $pa_la_vista_secciones['cabecera'] = true;
             // Numero de los ultimas secciones que va a mostrar
             $num_secciones = 5;  
             // Datos del usuario de la sesion de usuario
@@ -113,23 +113,19 @@ class Secciones extends CI_Controller {
                     $this -> modelo_secciones -> update_seccion($idsecciones, $nombre);
                     $pa_la_vista['actualizado'] = 1; // OJO de momento lo dejo lo tenía par los errores
                     // Conseguimos los datos por el modelo para enviarlos a la vista de buscar
-                    // Buscamos la seccion    
-                    $pa_la_vista['secciones'] = $this -> modelo_secciones -> buscar_cajetin($nombre);
-                    $pa_la_vista ['cabecera'] = true;
+                    // Mostramos las últimas secciones
+                    $pa_la_vista_secciones['secciones'] = $this -> modelo_secciones -> ultimas_secciones($num_secciones); 
+                    $pa_la_vista_secciones['usuario'] = $datos_usuario;
                     // Enviamos a la vista
                     $this -> load -> view ("admin/header");
                     $this -> load -> view ("admin/menu",$datos_usuario);
-                    $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista);
+                    $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista_secciones);
                     $this -> load -> view ("admin/footer");
                 }
             }   
             if ($this -> input -> POST("modificar")!=1 || $fallo == 1){
                 // Conseguimos los datos por el modelo
                 $pa_la_vista['secciones'] = $this -> modelo_secciones -> seccion_id($idsecciones);
-                // Obenemos las ultimas secciones
-                $pa_la_vista_secciones['secciones'] = $this -> modelo_secciones -> ultimas_secciones($num_secciones); 
-                // Se lo enviamos a las vistas correspondientes
-
                 // Recuerda que aqui puedes elegir el usar la vista de add_seccion modificandola o hacer una vista nueva
                 // Te lo dejo a tu eleccion
                 // Lo unico es que la vista, cuando modifica ha de llamar a este controlador enviando por hidden un parametro
@@ -138,7 +134,6 @@ class Secciones extends CI_Controller {
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu",$datos_usuario);
                 $this -> load -> view ("admin/secciones/modificar_seccion",$pa_la_vista);
-                $this -> load -> view ("admin/secciones/buscar_seccion",$pa_la_vista_secciones);
                 $this -> load -> view ("admin/footer");
             }
         } else {
