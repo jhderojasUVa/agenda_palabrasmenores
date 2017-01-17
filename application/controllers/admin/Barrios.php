@@ -85,7 +85,7 @@ class Barrios extends CI_Controller {
             $pa_la_vista['barrios'] = array();
             // Numero de los ultimos barrios que va a mostrar
             $num_barrios = 5;
-            $pa_la_vista_barrios['cabecera'] = false;
+            $pa_la_vista_barrios['cabecera'] = true;
             // Datos del usuario de la sesion de usuario
             $datos_usuario = $this -> libreria_sesiones -> devuelve_datos_session();
             $idusuario = $datos_usuario['idsesion'];
@@ -112,23 +112,19 @@ class Barrios extends CI_Controller {
                     $this -> modelo_barrios -> update_barrio($idbarrios, $nombre);
                     $pa_la_vista['actualizado'] = 1; // OJO de momento lo dejo lo tenía par los errores
                     // Conseguimos los datos por el modelo para enviarlos a la vista de buscar
-                    // Buscamos al barrio
-                    $pa_la_vista['barrios'] = $this -> modelo_barrios -> buscar_cajetin($nombre);
-                    $pa_la_vista ['cabecera'] = true;
+                    // Mostramos los últimos barrios
+                    $pa_la_vista_barrios['barrios'] = $this -> modelo_barrios -> ultimos_barrios($num_barrios); 
+                    $pa_la_vista_barrios['usuario'] = $datos_usuario;
                     // Enviamos a la vista    
                     $this -> load -> view ("admin/header");
                     $this -> load -> view ("admin/menu", $datos_usuario);
-                    $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista);
+                    $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista_barrios);
                     $this -> load -> view ("admin/footer");   
                 }
             }
             if ($this -> input -> POST("modificar")!=1 || $fallo == 1){
                 // Conseguimos los datos por el modelo
                 $pa_la_vista['barrios'] = $this -> modelo_barrios -> barrio_id($idbarrios);
-                // Obtenemos los ultimos barrios
-                $pa_la_vista_barrios['barrios'] = $this -> modelo_barrios -> ultimos_barrios($num_barrios); 
-                // Se lo enviamos a las vistas correspondientes
-
                 // Recuerda que aqui puedes elegir el usar la vista de add_barrio modificandola o hacer una vista nueva
                 // Te lo dejo a tu eleccion
                 // Lo unico es que la vista, cuando modifica ha de llamar a este controlador enviando por hidden un parametro
@@ -136,8 +132,7 @@ class Barrios extends CI_Controller {
                 // <input type="hidden" value="1" name="modificar">
                 $this -> load -> view ("admin/header");
                 $this -> load -> view ("admin/menu",$datos_usuario);
-                $this -> load -> view ("admin/barrios/modificar_barrio",$pa_la_vista);
-                $this -> load -> view ("admin/barrios/buscar_barrio",$pa_la_vista_barrios);                
+                $this -> load -> view ("admin/barrios/modificar_barrio",$pa_la_vista);                
                 $this -> load -> view ("admin/footer");
             }
         } else {

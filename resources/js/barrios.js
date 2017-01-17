@@ -7,18 +7,17 @@ $(document).ready(function(){
     });
     
 });
-// Funcion para comprobar un elemento de un formulario
+// Funcion para comprobar el formulario
 function revisa_form(form) {
     error = 1;
     $("#"+form).submit(function(){
-    // Comprobamos con el modelo
-        if (!comprueba_input(form, "text")) {
+        error = 0;       
+        // Comprobamos con el modelo
+        if (!esta_vacio($("#"+form+" input[name=nombre]").val())){
             alert("El nombre del barrio no puede estar vacío"); 
-            error = 1; 
-        } else {
-            error = 0;
-//?? si el error o aqui el this.submit();            
-// Si quito la siguiente línea tengo que pulsar dos veces el botón
+            error = 1;           
+        }
+        if (error == 0){
             this.submit();
         }
     });
