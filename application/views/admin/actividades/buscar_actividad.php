@@ -35,12 +35,15 @@
             <span class="text-center">
               <a href="<?=base_url()?>/admin/Actividades/modifica_actividad/?idactividades=<?=$fila["idactividades"]?>">Modificar</a>
               <a href="#">Borrar</a>
-              <? if ($fila["publicada"]==1) {?> 
-                <a href="<?=base_url()?>/admin/Actividades/publicar/?idactividades=<?=$fila["idactividades"]?>">Despublicar</a>
-              <? } else {?> 
-                <a href="<?=base_url()?>/admin/Actividades/publicar/?idactividades=<?=$fila["idactividades"]?>">Publicar</a>
+              <!-- solo dejar publicar o desplublicar si es superadministador o redactor -->
+              <? if ($acl==1 || $acl==2) {?>
+                <? if ($fila["publicada"]==1) {?> 
+                  <a href="<?=base_url()?>/admin/Actividades/publicar/?idactividades=<?=$fila["idactividades"]?>">Despublicar</a>
+                <? } else {?> 
+                  <a href="<?=base_url()?>/admin/Actividades/publicar/?idactividades=<?=$fila["idactividades"]?>">Publicar</a>
+                <? } ?>
               <? } ?>
-            <span>
+              <span>
           </td>
         </tr>
         <? } ?>
