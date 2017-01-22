@@ -105,7 +105,7 @@ class Modelo_actividades extends CI_Model {
         // Funcion que devuelve las actividades, resultado de la busqueda de un texto en cualquier campos de actividades sobre el que se va a buscar
         // $texto --> texto que se va a buscar
         // Campos sobre los que se va a buscar : campanya, actividad, descripcion, organiza, lugar
-        $array_campos = array ('campanya', 'actividad', 'descripcion', 'organiza', 'lugar');
+        $array_campos = array ('campanya', 'actividad', 'descripcion', 'organiza', 'lugar', 'usuario');
         $sql = "SELECT * FROM actividades WHERE ";
         for ($i = 0; $i < sizeof($array_campos); $i++){
             $sql.= "$array_campos[$i] LIKE '%$texto%'";
