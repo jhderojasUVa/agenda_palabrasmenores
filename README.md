@@ -498,6 +498,7 @@ Librería_sesiones. Métodos:
 3.2.5 Resources
 ===============
 /js/<br/>
+
         comprobaciones:
             Función que comprueba si está vacio algo o no
             function esta_vacio(cadena)
