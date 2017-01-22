@@ -18,34 +18,41 @@
           <th>Acciones</th>
         </tr>
         <? foreach ($actividades as $fila) { ?>
-        <tr>
-          <td>
-            <a href="<?=base_url()?>/admin/Actividades/modifica_actividad/?idactividades=<?=$fila["idactividades"]?>"><?=$fila["actividad"]?></a>
-          </td>
-          <td>
-            <?=$fila["campanya"]?>
-          </td>
-          <td>
-            <?=$fila["fecha"]?>
-          </td>
-          <td>
-            <? if ($fila["publicada"]==1) { echo "Si"; } else { echo "No";} ?>
-          </td>
-          <td>
-            <span class="text-center">
-              <a href="<?=base_url()?>/admin/Actividades/modifica_actividad/?idactividades=<?=$fila["idactividades"]?>">Modificar</a>
-              <a href="#">Borrar</a>
-              <!-- solo dejar publicar o desplublicar si es superadministador o redactor -->
-              <? if ($acl==1 || $acl==2) {?>
-                <? if ($fila["publicada"]==1) {?> 
-                  <a href="<?=base_url()?>/admin/Actividades/publicar/?idactividades=<?=$fila["idactividades"]?>">Despublicar</a>
-                <? } else {?> 
-                  <a href="<?=base_url()?>/admin/Actividades/publicar/?idactividades=<?=$fila["idactividades"]?>">Publicar</a>
+            <?  $mostrar=1;
+                // Si no es superadministrador o redactor no muestra las actividades que no sean suyas
+                if ($acl!=1 && $acl!=2) {
+                    if ($fila['usuario']!=$login) {$mostrar=0;}
+                }
+                if ($mostrar) {?>        
+                    <tr>
+                      <td>
+                        <a href="<?=base_url()?>/admin/Actividades/modifica_actividad/?idactividades=<?=$fila["idactividades"]?>"><?=$fila["actividad"]?></a>
+                      </td>
+                      <td>
+                        <?=$fila["campanya"]?>
+                      </td>
+                      <td>
+                        <?=$fila["fecha"]?>
+                      </td>
+                      <td>
+                        <? if ($fila["publicada"]==1) { echo "Si"; } else { echo "No";} ?>
+                      </td>
+                      <td>
+                        <span class="text-center">
+                          <a href="<?=base_url()?>/admin/Actividades/modifica_actividad/?idactividades=<?=$fila["idactividades"]?>">Modificar</a>
+                          <a href="#">Borrar</a>
+                          <!-- solo dejar publicar o desplublicar si es superadministador o redactor -->
+                          <? if ($acl==1 || $acl==2) {?>
+                            <? if ($fila["publicada"]==1) {?> 
+                              <a href="<?=base_url()?>/admin/Actividades/publicar/?idactividades=<?=$fila["idactividades"]?>">Despublicar</a>
+                            <? } else {?> 
+                              <a href="<?=base_url()?>/admin/Actividades/publicar/?idactividades=<?=$fila["idactividades"]?>">Publicar</a>
+                            <? } ?>
+                          <? } ?>
+                          <span>
+                      </td>
+                    </tr>
                 <? } ?>
-              <? } ?>
-              <span>
-          </td>
-        </tr>
         <? } ?>
         <tr>
         </tr>
