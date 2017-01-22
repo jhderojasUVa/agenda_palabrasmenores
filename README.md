@@ -164,7 +164,7 @@ Modelo_actividades. Métodos:
         public function buscar_cajetin($texto)
             Parámetros entrada:
             $texto --> texto que se va a buscar
-            Campos sobre los que se va a buscar: campanya, actividad, descripcion, organiza, lugar 
+            Campos sobre los que se va a buscar: campanya, actividad, descripcion, organiza, lugar, usuario 
             Salida:
             Array con los datos de las actividades ordenadas por fecha descendente.
 
@@ -344,7 +344,7 @@ Modelo_secciones. Métodos:
             Array con los datos de todas las secciones
 
         Devuelve las ultimas secciones    
-        public function ultimas_seccioness($numero)       
+        public function ultimas_secciones($numero)       
             Parámetros entrada:
             $numero --> Numero de secciones a devolver
             Salida:
@@ -410,6 +410,13 @@ Modelo_usuarios. Métodos:
             Campos sobre los que se va a buscar: login, nombre 
             Salida:
             Array con los datos de los usuarios ordenados por nombres.
+
+        Devuelve los ultimos usuarios    
+        public function ultimos_usuarios($numero)       
+            Parámetros entrada:
+            $numero --> Numero de usuarios a devolver
+            Salida:
+            Array con los datos de los ultimos usuarios
 
 3.2.3. Vistas
 =============
@@ -487,6 +494,42 @@ Librería_sesiones. Métodos:
             $acl = el identificador de acl 
             Salida:
             TRUE
+
+3.2.5 Resources
+===============
+/js/<br/>
+        comprobaciones:
+            Función que comprueba si está vacio algo o no
+            function esta_vacio(cadena)
+            Parámetros de entrada:
+            cadena --> el valor que se va a comprobar
+            Salida:
+            true --> si NO lo esta
+            false --> si SI está vacia
+
+        actividades:
+            Funcion para revisar los campos del formulario
+            function revisa_form(form)
+            Parámetros de entrada:
+            form --> Nombre del formulario que se va a revisar
+
+        barrios:
+            Funcion para revisar los campos del formulario
+            function revisa_form(form)
+            Parámetros de entrada:
+            form --> Nombre del formulario que se va a revisar
+
+        secciones:
+            Funcion para revisar los campos del formulario
+            function revisa_form(form)
+            Parámetros de entrada:
+            form --> Nombre del formulario que se va a revisar
+
+        usuarios:
+            Funcion para revisar los campos del formulario
+            function revisa_form(form)
+            Parámetros de entrada:
+            form --> Nombre del formulario que se va a revisar
 
 3.3. Base de Datos
 ==================
