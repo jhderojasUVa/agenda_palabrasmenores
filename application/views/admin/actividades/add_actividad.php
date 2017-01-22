@@ -141,6 +141,13 @@
               <input type="time" id="hora" class="form-control" name="hora" placeholder="22:30:00" value="<?= $actividades['hora']?>">
             </div>
           </div>
+          <!-- si es todo el día -->
+          <div class="form-group">
+            <label for="todoeldia" class="col-sm-4 control-label">Todo el día</label>
+            <div class="col-sm-8">
+                <input type="checkbox" id="todoeldia" class="form-control" name="todoeldia" value="td">
+            </div>
+          </div>          
           <!-- el enviar o modificar-->
           <button type="submit" class="btn btn-default">Añadir actividad</button>
         </div>
