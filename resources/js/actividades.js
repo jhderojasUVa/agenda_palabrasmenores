@@ -1,12 +1,3 @@
-$(document).ready(function(){
-    $("form").submit(function(event) {
-        event.preventDefault();
-        if (error == 0) {
-            this.submit();
-        }
-    });
-    
-});
 // Funcion para comprobar un elemento de un formulario
 function revisa_form(form) {
     error = 1;
@@ -33,10 +24,13 @@ function revisa_form(form) {
             error = 1;         
         }
         
-//?? si el this.submit() no está aquí hay que pulsar dos veces el boton
+        // si el this.submit() no está aquí hay que pulsar dos veces el boton
+        // si el evento por defecto del boton lo quitamos en este archivo
+        // si lo pasamos a la vista no hace falta
+        /*
         if (error == 0){
             this.submit();
         }
-
+        */
     });
 }

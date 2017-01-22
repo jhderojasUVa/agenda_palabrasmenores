@@ -9,7 +9,7 @@ function esta_vacio(cadena) {
     return false;
   }
 }
-
+// De momento no lo estamos utilizando
 function comprueba_input(form, elinput) {
   // Funcion que comprueba un input de un formulario
 

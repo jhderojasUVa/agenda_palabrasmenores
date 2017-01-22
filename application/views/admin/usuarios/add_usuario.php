@@ -6,6 +6,12 @@
 <!-- vista-modelo -->
 <script>
   $(document).ready(function(){
+    $("form").submit(function(event) {
+        event.preventDefault();
+        if (error == 0) {
+            this.submit();
+        }
+    });      
     revisa_form('add_usuario'); 
   });
 </script>

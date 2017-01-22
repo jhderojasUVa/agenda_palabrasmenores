@@ -6,7 +6,13 @@
 <!-- vista-modelo -->
 <script>
   $(document).ready(function(){
-    revisa_form('add_seccion'); 
+    $("form").submit(function(event) {
+        event.preventDefault();
+        if (error == 0) {
+            this.submit();
+        }
+    });
+    revisa_form('add_seccion');
   });
 </script>
 <div class="container">
