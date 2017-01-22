@@ -22,7 +22,7 @@ class Modelo_usuarios extends CI_Model {
         // $nombre   --> Nombre del usuario
         // $idacl    --> Identificador de la ACL. 1-Administrador, 2-Usuario, 3-Desactivado
 
-        $sql = "INSERT INTO usuarios (login, password, nombre, idacl) VALUES ('" . $login . "', '" . $password . "', '" . $nombre . "', '" . $idacl . "')";
+        $sql = "INSERT INTO usuarios (login, password, nombre, idacl) VALUES ('" . $login . "', '" . md5($password) . "', '" . $nombre . "', '" . $idacl . "')";
         $resultado = $this -> db -> query($sql);
         // Recuperamos el ID del usuario
         $sql="SELECT login FROM usuarios WHERE password='".$password."' AND nombre='".$nombre."'  AND idacl='".$idacl."'";
@@ -42,7 +42,7 @@ class Modelo_usuarios extends CI_Model {
         
         // Si ha modificado la contraseña
         if (!empty($password)) {
-            $sql = "UPDATE usuarios SET password='" . $password . "', nombre='" . $nombre . "', idacl='". $idacl."' WHERE login='" . $login."'";
+            $sql = "UPDATE usuarios SET password='" . md5($password) . "', nombre='" . $nombre . "', idacl='". $idacl."' WHERE login='" . $login."'";
         } else {
             $sql = "UPDATE usuarios SET nombre='" . $nombre . "', idacl='". $idacl."' WHERE login='" . $login."'";    
         }
@@ -96,7 +96,7 @@ class Modelo_usuarios extends CI_Model {
         // 2 - existe y deshabilitado
 
         $chek=0;
-        $sql = "SELECT login, password, nombre, idacl FROM usuarios WHERE login='" . $login."' AND password='".$password."'";
+        $sql = "SELECT login, password, nombre, idacl FROM usuarios WHERE login='" . $login."' AND password='".md5($password)."'";
         $resultado = $this -> db -> query($sql);
 
         foreach ($resultado->result() as $row) {
