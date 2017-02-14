@@ -57,8 +57,8 @@
   </div>
   <div class="row">
     <!-- centramos -->
-    <div class="col-md-offset-4 col-md-4">        
-      <form action="<?=base_url()?>/admin/actividades/add_actividad" method="POST" class="horizontal" id="add_actividad">
+    <div class="col-md-offset-4 col-md-4">
+      <form action="<?=base_url()?>/admin/actividades/add_actividad" method="POST" class="horizontal" id="add_actividad" enctype="multipart/form-data">
         <div class="row">
           <input type="hidden" value="1" name="add">
           <!-- cada par esta en un form-group -->
@@ -138,7 +138,7 @@
           <div class="form-group">
             <label for="hora" class="col-sm-2 control-label">Hora</label>
             <div class="col-sm-10">
-              <input type="time" id="hora" class="form-control" name="hora" placeholder="22:30:00" value="<?= $actividades['hora']?>">
+              <input type="time" data-olor="fresa" id="hora" class="form-control" name="hora" placeholder="22:30:00" value="<?= $actividades['hora']?>">
             </div>
           </div>
           <!-- si es todo el día -->
@@ -147,7 +147,21 @@
             <div class="col-sm-8">
                 <input type="checkbox" id="todoeldia" class="form-control" name="todoeldia" value="td">
             </div>
-          </div>          
+          </div>
+          <!-- documento -->
+          <div class="form-group">
+            <label for="documento" class="col-sm-4 control-label">Documento</label>
+            <div class="col-sm-8">
+                <input type="file" id="documento" class="form-control" name="documento" value="">
+            </div>
+          </div>
+          <!-- imagen -->
+          <div class="form-group">
+            <label for="imagen" class="col-sm-4 control-label">Imagen</label>
+            <div class="col-sm-8">
+                <input type="file" id="imagen" class="form-control" name="imagen" value="">
+            </div>
+          </div>
           <!-- el enviar o modificar-->
           <button type="submit" class="btn btn-default">Añadir actividad</button>
         </div>

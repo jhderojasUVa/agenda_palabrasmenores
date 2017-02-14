@@ -10,6 +10,14 @@ class Actividades extends CI_Controller {
 	 */
 	 public function __contruct() {
 		 /* Funcion de construccion del objeto */
+
+		 // Configuraciones del upload
+		 // Documentos
+		 $config_documento["allowed_types"] = "pdf|txt";
+		 $config_documento["upload_path"] = "./upload/";
+		 // Imagenes
+		 $config_imagen["allowed_types"] = "gif|jpg|png";
+		 $config_imagen["upload_path"] = "./upload/";
 		 parent::__construct();
 	 }
 
@@ -49,69 +57,112 @@ class Actividades extends CI_Controller {
 		// Redactor = 2
 		// Editor = 3
 		// Disabled = 0
+
+		// Subida de ficheros
+		// Se hace al final
+		// Componemos la ruta
+		$config_documento["upload_path"] += $ano."/".$mes."/";
+
+		// Comprobamos la ruta
+		$ruta = existe_ruta($config_documento["upload_path"]);
+		if ($ruta == true){
+			// Se ha creado la ruta
+		} else {
+			// Error o la ruta existe
+		}
+		// Cargar la configuracion de, en este caso documento
+		$this -> upload -> initialize ($config_documento);
+		// Hacemos el upload llamando a como se llama el control
+		if ($this -> upload -> do_upload("documento")){
+				// Si sube el fichero o hay algo que subir
+
+				// Cuando acabe el upload devolvemos todos los datos que ha guardado
+				$fichero_real = $this -> upload -> data(); // [client_name] <-- es el nombre como lo guarda
+		} else {
+			// Si no hay que subir fichero
+		}
+
+		// Poner la fecha "derecha"
+		$fecha = make_date($fecha, "Y-m-d");
+		$fecha_trozos = split($fecha,"-");
+		$ano = $feha_trozos[0];
+		$mes = $feha_trozos[1];
+
 		if ($acl != 1 && $acl != 2) {
                     $publicada = 0;
 		} else {
                     $publicada = 1;
-		} 
-                // Comprobar los campos                
+		}
+                // Comprobar los campos
                 if (!$this -> esta_vacio($actividad)) {
                     $fallo = 1;
-                    $pa_la_vista['error'][$num_error] = "La actividad no puede estar vacía";    
+                    $pa_la_vista['error'][$num_error] = "La actividad no puede estar vacía";
                     $num_error ++;
                 }
                 if (!$this -> esta_vacio($lugar)) {
                     $fallo = 1;
-                    $pa_la_vista['error'][$num_error] = "El lugar no puede estar vacío";    
+                    $pa_la_vista['error'][$num_error] = "El lugar no puede estar vacío";
                     $num_error ++;
                 }
                 if (!$this -> esta_vacio($idbarrio)) {
                     $fallo = 1;
-                    $pa_la_vista['error'][$num_error] = "El barrio no puede estar vacío";    
+                    $pa_la_vista['error'][$num_error] = "El barrio no puede estar vacío";
                     $num_error ++;
                 }
                 if (!$this -> esta_vacio($idseccion)) {
                     $fallo = 1;
-                    $pa_la_vista['error'][$num_error] = "La sección no puede estar vacía";    
+                    $pa_la_vista['error'][$num_error] = "La sección no puede estar vacía";
                     $num_error ++;
                 }
                 if (!$this -> esta_vacio($fecha)) {
                     $fallo = 1;
-                    $pa_la_vista['error'][$num_error] = "La fecha no puede estar vacía";    
+                    $pa_la_vista['error'][$num_error] = "La fecha no puede estar vacía";
                     $num_error ++;
                 }
-                if ($fallo == 0) {  
+                if ($fallo == 0) {
+
+										// HACER EL UPLOAD AQUI
+
+										// Primero comprobar los directorios, los dos documento e imagen
+										// Si no hay direcotrio lo hace con la funcion private function noseque
+
+										// Cargamos la configuracion del documento
+										// Hacemos el upload del documento
+
+										// Cargamos la configuracion de la imagen
+										// Hacemos el uploiad de la imagen
+
                     // Obtenemos la fecha para grabar
                     $fechahora = $this ->fecha_grabar($fecha, $hora);
                     // Si se ha enviado llamamos al modelo y añadimos la actividad
                     $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fechahora,$idusuario,$publicada);
                     $pa_la_vista['actualizado'] = 1;
                 }
-            } 
+            }
             if ($fallo == 1) {
                 $pa_la_vista['actividades'] = array (
                     'campanya' => $campanya,
                     'actividad' => $actividad,
-                    'descripcion' => $descripcion, 
+                    'descripcion' => $descripcion,
                     'organiza' => $organiza,
                     'lugar' => $lugar,
                     'idbarrio' => $idbarrio,
                     'idseccion' => $idseccion,
                     'fecha' => $fecha,
-                    'hora' => $hora,                     
+                    'hora' => $hora,
                 );
             }  else {
                 $pa_la_vista['actividades'] = array (
                         'campanya' => "",
                         'actividad' => "",
-                        'descripcion' => "", 
+                        'descripcion' => "",
                         'organiza' => "",
                         'lugar' => "",
                         'idbarrio' => "",
                         'idseccion' => "",
                         'fecha' => "",
-                        'hora' => "",                     
-                );                
+                        'hora' => "",
+                );
             }
 
             $this -> load -> view ("admin/header");
@@ -153,7 +204,7 @@ class Actividades extends CI_Controller {
             $acl = $datos_usuario['acl'];
             $pa_la_vista['usuario'] = $datos_usuario;
             // Revisamos si tenemos el id de actividad (por get o por post o por hidden, da igual)
-            $idactividades = $this -> input -> post_get("idactividades");            
+            $idactividades = $this -> input -> post_get("idactividades");
             if (!$idactividades){
                 $fallo = 2;
                 $pa_la_vista['error'] = "No hay actividad";
@@ -164,7 +215,7 @@ class Actividades extends CI_Controller {
             // Si modificar = 1 hacemos el update
             if ($this -> input -> POST("modificar")==1 && $fallo==0){
                 // Datos de la actividad del POST
-                $campanya = $this -> input -> POST("campanya");		
+                $campanya = $this -> input -> POST("campanya");
                 $actividad = $this -> input -> POST("actividad");
                 $descripcion = $this -> input -> POST("descripcion");
                 $organiza = $this -> input -> POST("organiza");
@@ -173,6 +224,9 @@ class Actividades extends CI_Controller {
                 $idseccion = $this -> input -> POST("idseccion");
                 $fecha = $this -> input -> POST("fecha");
                 $hora = $this -> input -> POST("hora");
+
+								$documento;
+								$fichero;
 		// A recordar:
 		// Sumo Pontifice = 1
 		// Redactor = 2
@@ -182,31 +236,31 @@ class Actividades extends CI_Controller {
                     $publicada = 0;
 		} else {
                     $publicada = 1;
-		} 
-                // Comprobar los campos                
+		}
+                // Comprobar los campos
                 if (!$this -> esta_vacio($actividad)) {
                     $fallo = 1;
-                    $pa_la_vista['error'][$num_error] = "La actividad no puede estar vacía";    
+                    $pa_la_vista['error'][$num_error] = "La actividad no puede estar vacía";
                     $num_error ++;
                 }
                 if (!$this -> esta_vacio($lugar)) {
                     $fallo = 1;
-                    $pa_la_vista['error'][$num_error] = "El lugar no puede estar vacío";    
+                    $pa_la_vista['error'][$num_error] = "El lugar no puede estar vacío";
                     $num_error ++;
                 }
                 if (!$this -> esta_vacio($idbarrio)) {
                     $fallo = 1;
-                    $pa_la_vista['error'][$num_error] = "El barrio no puede estar vacío";    
+                    $pa_la_vista['error'][$num_error] = "El barrio no puede estar vacío";
                     $num_error ++;
                 }
                 if (!$this -> esta_vacio($idseccion)) {
                     $fallo = 1;
-                    $pa_la_vista['error'][$num_error] = "La sección no puede estar vacía";    
+                    $pa_la_vista['error'][$num_error] = "La sección no puede estar vacía";
                     $num_error ++;
                 }
                 if (!$this -> esta_vacio($fecha)) {
                     $fallo = 1;
-                    $pa_la_vista['error'][$num_error] = "La fecha no puede estar vacía";    
+                    $pa_la_vista['error'][$num_error] = "La fecha no puede estar vacía";
                     $num_error ++;
                 }
                 if ($fallo == 0) {
@@ -241,10 +295,10 @@ class Actividades extends CI_Controller {
                     }
                     $pa_la_vista['actividades'] = $fila;
                 }else {
-                    // Si es por un fallo recupera los valores que ha metido antes 
+                    // Si es por un fallo recupera los valores que ha metido antes
                     $fila = array(
                         "idactividades" => $idactividades,
-                        "campanya" => $campanya,		
+                        "campanya" => $campanya,
                         "actividad" => $actividad,
                         "descripcion" => $descripcion,
                         "organiza" => $organiza,
@@ -254,7 +308,7 @@ class Actividades extends CI_Controller {
                         "fecha" => $fecha,
                         "hora" => $hora
                     );
-                    $pa_la_vista['actividades'] = $fila;                  
+                    $pa_la_vista['actividades'] = $fila;
                 }
 
                 // Se lo enviamos a las vistas correspondientes
@@ -374,7 +428,7 @@ class Actividades extends CI_Controller {
             // Conseguimos los datos por el modelo para enviarlos a la vista principal
             // Actividades de usuario por fecha descencente
 // ?? En principio lo paso a la vista principal de actividades
-// ?? Pero puede venir de buscar_actividad            
+// ?? Pero puede venir de buscar_actividad
             $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
             $pa_la_vista['actividades'] = $actividades;
             $this -> load -> view ("admin/header");
@@ -387,13 +441,13 @@ class Actividades extends CI_Controller {
             $this -> load -> view ("admin/index");
             $this -> load -> view ("admin/footer");
         }
-        
+
     }
 
     private function esta_vacio($cadena) {
         // Funcion que comprueba si esta vacio
         // $cadena --> Campo que va a comprobar
-        
+
         if ($cadena!="") {
             return true; // NO esta vacio
         } else {
@@ -406,7 +460,7 @@ class Actividades extends CI_Controller {
 
 	return $diamesano." ".$hora;
     }
-    
+
     private function fecha_grabar($anomesdia, $hora) {
 	// Funcion que devuelve la fecha completa
 
@@ -419,12 +473,23 @@ class Actividades extends CI_Controller {
         $fecha = explode(" ", $fecha_hora);
 	return $fecha[0];
     }
-  
+
     private function devuelve_hora($fecha_hora) {
 	// Funcion que devuelve la hora
 
         $fecha = explode(" ", $fecha_hora);
 	return $fecha[1];
     }
-    
+
+		private function existe_ruta($ruta, $mes, $ano, $quees) {
+			// Funcion que revisa si existe el Directorio
+			// $ruta = ruta completa
+			if (!is_dir($ruta)) {
+				//mkdir ($BASE_DIR."/upload/".$quees."/".$ano."/".$mes);
+				mkdir ($ruta, 0755, true);
+				return true;
+			}
+			return false;
+		}
+
  }
