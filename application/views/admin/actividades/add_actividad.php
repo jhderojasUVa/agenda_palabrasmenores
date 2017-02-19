@@ -131,7 +131,7 @@
           <div class="form-group">
             <label for="fecha" class="col-sm-2 control-label">Fecha</label>
             <div class="col-sm-10">
-              <input type="date" id="fecha" class="form-control" name="fecha" placeholder="2016-10-09" value="<?= $actividades['fecha']?>">
+              <input type="date" id="fecha" class="form-control" name="fecha" placeholder="dd/mm/aaaa" value="<?= $actividades['fecha']?>">
             </div>
           </div>
           <!-- formateamos las horas -->

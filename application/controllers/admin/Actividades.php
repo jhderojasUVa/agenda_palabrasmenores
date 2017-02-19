@@ -10,7 +10,7 @@ class Actividades extends CI_Controller {
 	 */
 	 public function __contruct() {
 		 /* Funcion de construccion del objeto */
-
+// OJO ?? AQUI NO FUNCIONA
 		 // Configuraciones del upload
 		 // Documentos
 		 $config_documento["allowed_types"] = "pdf|txt";
@@ -61,6 +61,8 @@ class Actividades extends CI_Controller {
 		// Subida de ficheros
 		// Se hace al final
 		// Componemos la ruta
+                
+/* OJO                
 		$config_documento["upload_path"] += $ano."/".$mes."/";
 
 		// Comprobamos la ruta
@@ -87,7 +89,7 @@ class Actividades extends CI_Controller {
 		$fecha_trozos = split($fecha,"-");
 		$ano = $feha_trozos[0];
 		$mes = $feha_trozos[1];
-
+*/
 		if ($acl != 1 && $acl != 2) {
                     $publicada = 0;
 		} else {
@@ -120,23 +122,103 @@ class Actividades extends CI_Controller {
                     $num_error ++;
                 }
                 if ($fallo == 0) {
+// ?? ESTO		
+                    $fecha_grabar = $this -> fecha_formateada ($fecha);
+ 
+/*OJO ??
+                    VER SI SE PONE EN autoload
+                    $this->load->helper('date'); 
+                    $fecha_grabar = nice_date($fecha, "y-m-d");
+OTRA
+                    $fecha = make_date($fecha, "Y-m-d");
+*/
+                    // Hacemos el upload del documento
+                    $ano = $this -> devuelve_anio ($fecha_grabar);
+                    $mes = $this -> devuelve_mes ($fecha_grabar);
+// ? poner en otro sitio
+// ? si podemos comprobar si tiene algo antes de comprobar lo siguiente                    
+                    $config_documento["allowed_types"] = "pdf|txt";
+                    $config_documento["upload_path"] = "./uploads/documentos/";
+                    $config_documento["upload_path"] .= $ano."/".$mes;
 
-										// HACER EL UPLOAD AQUI
+                    // Comprobamos la ruta
+                    $ruta = $this -> existe_ruta ($config_documento["upload_path"]);
+                    if ($ruta == true){
+			// Se ha creado la ruta
+// ? si hay que poner algo
+                    } else {
+			// Error o la ruta existe
+//? si hay que poner algo
+                    }
+                    // Cargar la configuracion de, en este caso documento
+                    $this -> upload -> initialize ($config_documento);
+                    // Hacemos el upload llamando a como se llama el control
+                    if ($this -> upload -> do_upload("documento")){
+			// Si sube el fichero o hay algo que subir
+			// Cuando acabe el upload devolvemos todos los datos que ha guardado
+			$fichero_real = $this -> upload -> data(); // [client_name] <-- es el nombre como lo guarda
+// preguntar client_name o file_name (client:name devuelve  calendrio_escolar.pdf y file_name devuelve ej. calendario_esacolar8.pdf		
+                        $nombre_fichero_client=$fichero_real["client_name"];
+                        print $nombre_fichero_client;
+                        $nombre_documento=$fichero_real["file_name"];
+                        print $nombre_documento;                                
+                    } else {
+                        $nombre_documento="";
+// ? si hay que poner algo
+			// Si no hay que subir fichero
+                    }
+                    // Hacemos el upload de la imagen                  
+                    $config_imagen["allowed_types"] = "gif|jpg|png";
+                    $config_imagen["upload_path"] = "./uploads/imagenes/";
+                    $config_imagen["upload_path"] .= $ano."/".$mes;
 
-										// Primero comprobar los directorios, los dos documento e imagen
-										// Si no hay direcotrio lo hace con la funcion private function noseque
+                    // Comprobamos la ruta
+                    $ruta = $this -> existe_ruta ($config_imagen["upload_path"]);
+                    if ($ruta == true){
+			// Se ha creado la ruta
+// ? si hay que poner algo
+                    } else {
+			// Error o la ruta existe
+//? si hay que poner algo
+                    }
+                    // Cargar la configuracion de, en este caso imagen
+                    $this -> upload -> initialize ($config_imagen);
+                    // Hacemos el upload llamando a como se llama el control
+                    if ($this -> upload -> do_upload("imagen")){
+			// Si sube el fichero o hay algo que subir
+			// Cuando acabe el upload devolvemos todos los datos que ha guardado
+			$fichero_real = $this -> upload -> data(); // [client_name] <-- es el nombre como lo guarda
+// preguntar client_name o file_name (client:name devuelve  calendrio_escolar.pdf y file_name devuelve ej. calendario_esacolar8.pdf		
+                        $nombre_fichero_client=$fichero_real["client_name"];
+                        print $nombre_fichero_client;
+                        $nombre_imagen=$fichero_real["file_name"];
+                        print $nombre_imagen;                                
+                    } else {
+                        $nombre_imagen="";
+// ? si hay que poner algo
+			// Si no hay que subir fichero
+                    }                
 
-										// Cargamos la configuracion del documento
-										// Hacemos el upload del documento
-
-										// Cargamos la configuracion de la imagen
-										// Hacemos el uploiad de la imagen
+		// Poner la fecha "derecha"
 
                     // Obtenemos la fecha para grabar
-                    $fechahora = $this ->fecha_grabar($fecha, $hora);
+                    $fechahora = $this ->fecha_grabar($fecha_grabar, $hora);
                     // Si se ha enviado llamamos al modelo y añadimos la actividad
                     $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fechahora,$idusuario,$publicada);
                     $pa_la_vista['actualizado'] = 1;
+                    // Añade el documento
+                    if ($nombre_documento) {
+// ? descripción
+                        $descripcion="";   
+                        $this -> modelo_documentos -> add_documento ($idactividades, $nombre_documento, $descripcion);
+                    }
+                    // Añade la imagen
+                    if ($nombre_imagen) {
+// ? descripción
+                        $descripcion="";   
+                        $this -> modelo_imagenes -> add_imagen ($idactividades, $nombre_imagen, $descripcion);                        
+                        
+                    }
                 }
             }
             if ($fallo == 1) {
@@ -454,13 +536,14 @@ class Actividades extends CI_Controller {
             return false; // SI esta vacio
         }
     }
-
+    
+/*/* es como fecha_grabar
     private function fecha_completa($diamesano, $hora) {
 	// Funcion que devuelve la fecha completa
 
 	return $diamesano." ".$hora;
     }
-
+*/
     private function fecha_grabar($anomesdia, $hora) {
 	// Funcion que devuelve la fecha completa
 
@@ -480,16 +563,38 @@ class Actividades extends CI_Controller {
         $fecha = explode(" ", $fecha_hora);
 	return $fecha[1];
     }
+    
+    private function fecha_formateada($fecha) {
+        $fecha_datos = explode ("/",$fecha);           
+        return $fecha_datos[2]."-".$fecha_datos[1]."-".$fecha_datos[0];
+    }
+    
+    private function devuelve_anio($fecha) {
+        $fecha_datos = explode ("-",$fecha);           
+        return $fecha_datos[0];
+    }
+    
+    private function devuelve_mes($fecha) {
+        $fecha_datos = explode ("-",$fecha);           
+        return $fecha_datos[1];
+    }
+    
+    private function devuelve_dia($fecha) {
+        $fecha_datos = explode ("-",$fecha);           
+        return $fecha_datos[2];
+    }
+    
 
-		private function existe_ruta($ruta, $mes, $ano, $quees) {
-			// Funcion que revisa si existe el Directorio
-			// $ruta = ruta completa
-			if (!is_dir($ruta)) {
-				//mkdir ($BASE_DIR."/upload/".$quees."/".$ano."/".$mes);
-				mkdir ($ruta, 0755, true);
-				return true;
-			}
-			return false;
-		}
+//    private function existe_ruta($ruta, $mes, $ano, $quees) {
+     private function existe_ruta($ruta) {
+	// Funcion que revisa si existe el Directorio
+	// $ruta = ruta completa
+	if (!is_dir($ruta)) {
+            //mkdir ($BASE_DIR."/upload/".$quees."/".$ano."/".$mes);           
+            mkdir ($ruta, 0755, true);
+            return true;
+	}
+	return false;
+    }
 
  }
