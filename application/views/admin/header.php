@@ -47,8 +47,9 @@
 
     var olor = $("input[name='fecha']").attr("data-olor");
     var atributos = $("input[name='fecha']").attr();
+      */
   });
-  */
+
   </script>
 </head>
 <body>
