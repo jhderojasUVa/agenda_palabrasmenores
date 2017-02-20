@@ -56,6 +56,15 @@
 	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
 
 /*
+
+	ESTO ES UN EXTRA PARA LAS FECHAS
+	DE SERIE ESTA DEFINIDO EN EL PHP.INI
+
+
+*/
+date_default_timezone_set('Europe/Madrid');
+
+/*
  *---------------------------------------------------------------
  * ERROR REPORTING
  *---------------------------------------------------------------
