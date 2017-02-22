@@ -14,10 +14,10 @@ class Actividades extends CI_Controller {
 		 // Configuraciones del upload
 		 // Documentos
 		 $config_documento["allowed_types"] = "pdf|txt";
-		 $config_documento["upload_path"] = "./upload/";
+		 $config_documento["upload_path"] = "./uploads/";
 		 // Imagenes
 		 $config_imagen["allowed_types"] = "gif|jpg|png";
-		 $config_imagen["upload_path"] = "./upload/";
+		 $config_imagen["upload_path"] = "./uploads/";
 		 parent::__construct();
 	 }
 
@@ -52,6 +52,8 @@ class Actividades extends CI_Controller {
                 $idseccion = $this -> input -> POST("idseccion");
                 $fecha = $this -> input -> POST("fecha");
                 $hora = $this -> input -> POST("hora");
+                $descripcion_documento = $this -> input -> POST("descripcion_documento");
+                $descripcion_imagen = $this -> input -> POST("descripcion_imagen");
 		// A recordar:
 		// Sumo Pontifice = 1
 		// Redactor = 2
@@ -123,13 +125,21 @@ class Actividades extends CI_Controller {
                 }
                 if ($fallo == 0) {
 // ?? ESTO		
-                    $fecha_grabar = $this -> fecha_formateada ($fecha);
+                   $fecha_grabar = $this -> fecha_formateada ($fecha);
  
 /*OJO ??
-                    VER SI SE PONE EN autoload
-                    $this->load->helper('date'); 
+//                  $this->load->helper('date'); / está en autoload.php
                     $fecha_grabar = nice_date($fecha, "y-m-d");
-OTRA
+                    print $fecha_grabar;
+/* resultados de nice_date:
+ 21/02/2017     Invalid Date lo graba con 0000-00-00
+ 2017/02/21     17-02-21 lo graba en la base de datos como 2017-02-21
+ 21-02-2017     70-01-01 lo graba en la base de datos como 1970-01-01
+ 2017-02-21     17-02-21 lo graba en la base de datos como 2017-02-21
+ en uploaps lo graba como año 17
+ ??? para que si antes lo tendría que cambiar
+ */
+/*OTRA
                     $fecha = make_date($fecha, "Y-m-d");
 */
                     // Hacemos el upload del documento
@@ -156,12 +166,8 @@ OTRA
                     if ($this -> upload -> do_upload("documento")){
 			// Si sube el fichero o hay algo que subir
 			// Cuando acabe el upload devolvemos todos los datos que ha guardado
-			$fichero_real = $this -> upload -> data(); // [client_name] <-- es el nombre como lo guarda
-// preguntar client_name o file_name (client:name devuelve  calendrio_escolar.pdf y file_name devuelve ej. calendario_esacolar8.pdf		
-                        $nombre_fichero_client=$fichero_real["client_name"];
-                        print $nombre_fichero_client;
-                        $nombre_documento=$fichero_real["file_name"];
-                        print $nombre_documento;                                
+			$fichero_real = $this -> upload -> data();
+                        $nombre_documento=$fichero_real["file_name"];                               
                     } else {
                         $nombre_documento="";
 // ? si hay que poner algo
@@ -187,12 +193,8 @@ OTRA
                     if ($this -> upload -> do_upload("imagen")){
 			// Si sube el fichero o hay algo que subir
 			// Cuando acabe el upload devolvemos todos los datos que ha guardado
-			$fichero_real = $this -> upload -> data(); // [client_name] <-- es el nombre como lo guarda
-// preguntar client_name o file_name (client:name devuelve  calendrio_escolar.pdf y file_name devuelve ej. calendario_esacolar8.pdf		
-                        $nombre_fichero_client=$fichero_real["client_name"];
-                        print $nombre_fichero_client;
-                        $nombre_imagen=$fichero_real["file_name"];
-                        print $nombre_imagen;                                
+			$fichero_real = $this -> upload -> data();
+                        $nombre_imagen=$fichero_real["file_name"];                               
                     } else {
                         $nombre_imagen="";
 // ? si hay que poner algo
@@ -208,16 +210,11 @@ OTRA
                     $pa_la_vista['actualizado'] = 1;
                     // Añade el documento
                     if ($nombre_documento) {
-// ? descripción
-                        $descripcion="";   
-                        $this -> modelo_documentos -> add_documento ($idactividades, $nombre_documento, $descripcion);
+                        $this -> modelo_documentos -> add_documento ($idactividades, $nombre_documento, $descripcion_documento);
                     }
                     // Añade la imagen
                     if ($nombre_imagen) {
-// ? descripción
-                        $descripcion="";   
-                        $this -> modelo_imagenes -> add_imagen ($idactividades, $nombre_imagen, $descripcion);                        
-                        
+                        $this -> modelo_imagenes -> add_imagen ($idactividades, $nombre_imagen, $descripcion_imagen);                      
                     }
                 }
             }
@@ -232,6 +229,8 @@ OTRA
                     'idseccion' => $idseccion,
                     'fecha' => $fecha,
                     'hora' => $hora,
+                    'descripcion_documento' => $descripcion_documento,
+                    'descripcion_imagen' => $descripcion_imagen,
                 );
             }  else {
                 $pa_la_vista['actividades'] = array (
@@ -244,6 +243,8 @@ OTRA
                         'idseccion' => "",
                         'fecha' => "",
                         'hora' => "",
+                        'descripcion_documento' => "",
+                        'descripcion_imagen' => "",                    
                 );
             }
 

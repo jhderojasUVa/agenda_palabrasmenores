@@ -155,11 +155,25 @@
                 <input type="file" id="documento" class="form-control" name="documento" value="">
             </div>
           </div>
+          <!-- descripcion documento-->
+          <div class="form-group">
+            <label for="descripcion_documento" class="col-sm-2 control-label">Descripcion documento</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" name="descripcion_documento" id="descripcion_documento" rows="4" value="<?= $actividades['descripcion_documento']?>"><?= $actividades['descripcion_documento']?></textarea>
+            </div>
+          </div>
           <!-- imagen -->
           <div class="form-group">
             <label for="imagen" class="col-sm-4 control-label">Imagen</label>
             <div class="col-sm-8">
                 <input type="file" id="imagen" class="form-control" name="imagen" value="">
+            </div>
+          </div>
+          <!-- descripcion imagen-->
+          <div class="form-group">
+            <label for="descripcion_imagen" class="col-sm-2 control-label">Descripcion imagen</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" name="descripcion_imagen" id="descripcion_imagen" rows="4" value="<?= $actividades['descripcion_imagen']?>"><?= $actividades['descripcion_imagen']?></textarea>
             </div>
           </div>
           <!-- el enviar o modificar-->
