@@ -63,8 +63,8 @@ class Actividades extends CI_Controller {
 		// Subida de ficheros
 		// Se hace al final
 		// Componemos la ruta
-                
-/* OJO                
+
+/* OJO
 		$config_documento["upload_path"] += $ano."/".$mes."/";
 
 		// Comprobamos la ruta
@@ -124,9 +124,9 @@ class Actividades extends CI_Controller {
                     $num_error ++;
                 }
                 if ($fallo == 0) {
-// ?? ESTO		
+// ?? ESTO
                    $fecha_grabar = $this -> fecha_formateada ($fecha);
- 
+
 /*OJO ??
 //                  $this->load->helper('date'); / está en autoload.php
                     $fecha_grabar = nice_date($fecha, "y-m-d");
@@ -146,7 +146,7 @@ class Actividades extends CI_Controller {
                     $ano = $this -> devuelve_anio ($fecha_grabar);
                     $mes = $this -> devuelve_mes ($fecha_grabar);
 // ? poner en otro sitio
-// ? si podemos comprobar si tiene algo antes de comprobar lo siguiente                    
+// ? si podemos comprobar si tiene algo antes de comprobar lo siguiente
                     $config_documento["allowed_types"] = "pdf|txt";
                     $config_documento["upload_path"] = "./uploads/documentos/";
                     $config_documento["upload_path"] .= $ano."/".$mes;
@@ -167,13 +167,13 @@ class Actividades extends CI_Controller {
 			// Si sube el fichero o hay algo que subir
 			// Cuando acabe el upload devolvemos todos los datos que ha guardado
 			$fichero_real = $this -> upload -> data();
-                        $nombre_documento=$fichero_real["file_name"];                               
+                        $nombre_documento=$fichero_real["file_name"];
                     } else {
                         $nombre_documento="";
 // ? si hay que poner algo
 			// Si no hay que subir fichero
                     }
-                    // Hacemos el upload de la imagen                  
+                    // Hacemos el upload de la imagen
                     $config_imagen["allowed_types"] = "gif|jpg|png";
                     $config_imagen["upload_path"] = "./uploads/imagenes/";
                     $config_imagen["upload_path"] .= $ano."/".$mes;
@@ -181,11 +181,15 @@ class Actividades extends CI_Controller {
                     // Comprobamos la ruta
                     $ruta = $this -> existe_ruta ($config_imagen["upload_path"]);
                     if ($ruta == true){
-			// Se ha creado la ruta
-// ? si hay que poner algo
+														// Se ha creado la ruta
+											// ? si hay que poner algo
+
+											// Es por si acaso, que nunca se sabe
                     } else {
-			// Error o la ruta existe
-//? si hay que poner algo
+															// Error o la ruta existe
+												//? si hay que poner algo
+
+												// Es por si acaso, que nunca se sabe
                     }
                     // Cargar la configuracion de, en este caso imagen
                     $this -> upload -> initialize ($config_imagen);
@@ -194,12 +198,12 @@ class Actividades extends CI_Controller {
 			// Si sube el fichero o hay algo que subir
 			// Cuando acabe el upload devolvemos todos los datos que ha guardado
 			$fichero_real = $this -> upload -> data();
-                        $nombre_imagen=$fichero_real["file_name"];                               
+                        $nombre_imagen=$fichero_real["file_name"];
                     } else {
                         $nombre_imagen="";
-// ? si hay que poner algo
-			// Si no hay que subir fichero
-                    }                
+														// ? si hay que poner algo
+																	// Si no hay que subir fichero
+                    }
 
 		// Poner la fecha "derecha"
 
@@ -214,7 +218,7 @@ class Actividades extends CI_Controller {
                     }
                     // Añade la imagen
                     if ($nombre_imagen) {
-                        $this -> modelo_imagenes -> add_imagen ($idactividades, $nombre_imagen, $descripcion_imagen);                      
+                        $this -> modelo_imagenes -> add_imagen ($idactividades, $nombre_imagen, $descripcion_imagen);
                     }
                 }
             }
@@ -244,7 +248,7 @@ class Actividades extends CI_Controller {
                         'fecha' => "",
                         'hora' => "",
                         'descripcion_documento' => "",
-                        'descripcion_imagen' => "",                    
+                        'descripcion_imagen' => "",
                 );
             }
 
@@ -537,7 +541,7 @@ class Actividades extends CI_Controller {
             return false; // SI esta vacio
         }
     }
-    
+
 /*/* es como fecha_grabar
     private function fecha_completa($diamesano, $hora) {
 	// Funcion que devuelve la fecha completa
@@ -564,34 +568,34 @@ class Actividades extends CI_Controller {
         $fecha = explode(" ", $fecha_hora);
 	return $fecha[1];
     }
-    
+
     private function fecha_formateada($fecha) {
-        $fecha_datos = explode ("/",$fecha);           
+        $fecha_datos = explode ("/",$fecha);
         return $fecha_datos[2]."-".$fecha_datos[1]."-".$fecha_datos[0];
     }
-    
+
     private function devuelve_anio($fecha) {
-        $fecha_datos = explode ("-",$fecha);           
+        $fecha_datos = explode ("-",$fecha);
         return $fecha_datos[0];
     }
-    
+
     private function devuelve_mes($fecha) {
-        $fecha_datos = explode ("-",$fecha);           
+        $fecha_datos = explode ("-",$fecha);
         return $fecha_datos[1];
     }
-    
+
     private function devuelve_dia($fecha) {
-        $fecha_datos = explode ("-",$fecha);           
+        $fecha_datos = explode ("-",$fecha);
         return $fecha_datos[2];
     }
-    
+
 
 //    private function existe_ruta($ruta, $mes, $ano, $quees) {
      private function existe_ruta($ruta) {
 	// Funcion que revisa si existe el Directorio
 	// $ruta = ruta completa
 	if (!is_dir($ruta)) {
-            //mkdir ($BASE_DIR."/upload/".$quees."/".$ano."/".$mes);           
+            //mkdir ($BASE_DIR."/upload/".$quees."/".$ano."/".$mes);
             mkdir ($ruta, 0755, true);
             return true;
 	}
