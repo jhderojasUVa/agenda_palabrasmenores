@@ -54,7 +54,7 @@ class Actividades extends CI_Controller {
                 $hora = $this -> input -> POST("hora");
                 $descripcion_documento = $this -> input -> POST("descripcion_documento");
                 $descripcion_imagen = $this -> input -> POST("descripcion_imagen");
-		// A recordar:
+                // A recordar:
 		// Sumo Pontifice = 1
 		// Redactor = 2
 		// Editor = 3
@@ -142,83 +142,88 @@ class Actividades extends CI_Controller {
 /*OTRA
                     $fecha = make_date($fecha, "Y-m-d");
 */
-                    // Hacemos el upload del documento
-                    $ano = $this -> devuelve_anio ($fecha_grabar);
-                    $mes = $this -> devuelve_mes ($fecha_grabar);
-// ? poner en otro sitio
-// ? si podemos comprobar si tiene algo antes de comprobar lo siguiente
-                    $config_documento["allowed_types"] = "pdf|txt";
-                    $config_documento["upload_path"] = "./uploads/documentos/";
-                    $config_documento["upload_path"] .= $ano."/".$mes;
-
-                    // Comprobamos la ruta
-                    $ruta = $this -> existe_ruta ($config_documento["upload_path"]);
-                    if ($ruta == true){
-			// Se ha creado la ruta
-// ? si hay que poner algo
-                    } else {
-			// Error o la ruta existe
-//? si hay que poner algo
-                    }
-                    // Cargar la configuracion de, en este caso documento
-                    $this -> upload -> initialize ($config_documento);
-                    // Hacemos el upload llamando a como se llama el control
-                    if ($this -> upload -> do_upload("documento")){
-			// Si sube el fichero o hay algo que subir
-			// Cuando acabe el upload devolvemos todos los datos que ha guardado
-			$fichero_real = $this -> upload -> data();
-                        $nombre_documento=$fichero_real["file_name"];
-                    } else {
-                        $nombre_documento="";
-// ? si hay que poner algo
-			// Si no hay que subir fichero
-                    }
-                    // Hacemos el upload de la imagen
-                    $config_imagen["allowed_types"] = "gif|jpg|png";
-                    $config_imagen["upload_path"] = "./uploads/imagenes/";
-                    $config_imagen["upload_path"] .= $ano."/".$mes;
-
-                    // Comprobamos la ruta
-                    $ruta = $this -> existe_ruta ($config_imagen["upload_path"]);
-                    if ($ruta == true){
-														// Se ha creado la ruta
-											// ? si hay que poner algo
-
-											// Es por si acaso, que nunca se sabe
-                    } else {
-															// Error o la ruta existe
-												//? si hay que poner algo
-
-												// Es por si acaso, que nunca se sabe
-                    }
-                    // Cargar la configuracion de, en este caso imagen
-                    $this -> upload -> initialize ($config_imagen);
-                    // Hacemos el upload llamando a como se llama el control
-                    if ($this -> upload -> do_upload("imagen")){
-			// Si sube el fichero o hay algo que subir
-			// Cuando acabe el upload devolvemos todos los datos que ha guardado
-			$fichero_real = $this -> upload -> data();
-                        $nombre_imagen=$fichero_real["file_name"];
-                    } else {
-                        $nombre_imagen="";
-														// ? si hay que poner algo
-																	// Si no hay que subir fichero
-                    }
-
-		// Poner la fecha "derecha"
-
                     // Obtenemos la fecha para grabar
                     $fechahora = $this ->fecha_grabar($fecha_grabar, $hora);
                     // Si se ha enviado llamamos al modelo y añadimos la actividad
                     $idactividades = $this -> modelo_actividades -> add_actividad($campanya,$actividad,$descripcion,$organiza,$lugar,$idbarrio,$idseccion,$fechahora,$idusuario,$publicada);
                     $pa_la_vista['actualizado'] = 1;
-                    // Añade el documento
-                    if ($nombre_documento) {
-                        $this -> modelo_documentos -> add_documento ($idactividades, $nombre_documento, $descripcion_documento);
+                    // Año y mes
+                    $ano = $this -> devuelve_anio ($fecha_grabar);
+                    $mes = $this -> devuelve_mes ($fecha_grabar);
+                    // Hacemos el upload de los documentos
+                    $num_ficheros = count($_FILES['documentos']['name']);
+                    if ($num_ficheros > 0) {
+// ? poner en otro sitio
+                        $config_documento["allowed_types"] = "pdf|txt";
+                        $config_documento["upload_path"] = "./uploads/documentos/";
+                        $config_documento["upload_path"] .= $ano."/".$mes;
+                        // Comprobamos la ruta
+                        $ruta = $this -> existe_ruta ($config_documento["upload_path"]);
+                        if ($ruta == true){
+                            // Se ha creado la ruta
+                        } else {
+                            // Error o la ruta existe
+                        }
+                        // Ciclo para cada documento
+                        for ($i=0; $i<$num_ficheros; $i++){
+                            $_FILES['documento']['name'] = $_FILES['documentos']['name'][$i];
+                            $_FILES['documento']['type'] = $_FILES['documentos']['type'][$i];
+                            $_FILES['documento']['tmp_name'] = $_FILES['documentos']['tmp_name'][$i];
+                            $_FILES['documento']['error'] = $_FILES['documentos']['error'][$i];
+                            $_FILES['documento']['size'] = $_FILES['documentos']['size'][$i];
+                            // Cargar la configuracion de, en este caso documento 
+                            $this -> upload -> initialize ($config_documento);
+                            // Hacemos el upload llamando a como se llama el control
+                            if ($this -> upload -> do_upload ('documento')){
+                                // Si sube el fichero o hay algo que subir
+                                // Cuando acabe el upload devolvemos todos los datos que ha guardado
+                                $fichero_real = $this -> upload -> data();
+                                $nombre_documento = $fichero_real["file_name"];
+                                // Añade el documento
+                                $this -> modelo_documentos -> add_documento ($idactividades, $nombre_documento, $descripcion_documento[$i]);
+                            } else {
+                                $nombre_documento="";
+                                // Si no hay que subir fichero
+                            }
+                        }
                     }
-                    // Añade la imagen
-                    if ($nombre_imagen) {
-                        $this -> modelo_imagenes -> add_imagen ($idactividades, $nombre_imagen, $descripcion_imagen);
+                    // Hacemos el upload de las imagenes
+                    $num_ficheros = count($_FILES['imagenes']['name']);
+                    if ($num_ficheros > 0) {
+                        $config_imagen["allowed_types"] = "gif|jpg|png";
+                        $config_imagen["upload_path"] = "./uploads/imagenes/";
+                        $config_imagen["upload_path"] .= $ano."/".$mes;
+                        // Comprobamos la ruta
+                        $ruta = $this -> existe_ruta ($config_imagen["upload_path"]);
+                        if ($ruta == true){
+                            // Se ha creado la ruta
+                            // Es por si acaso, que nunca se sabe
+                        } else {
+                            // Error o la ruta existe
+                            // Es por si acaso, que nunca se sabe
+                        }
+                        // Ciclo para cada imagen
+                        for ($i=0; $i<$num_ficheros; $i++){  
+                            $_FILES['imagen']['name'] = $_FILES['imagenes']['name'][$i];
+                            $_FILES['imagen']['type'] = $_FILES['imagenes']['type'][$i];
+                            $_FILES['imagen']['tmp_name'] = $_FILES['imagenes']['tmp_name'][$i];
+                            $_FILES['imagen']['error'] = $_FILES['imagenes']['error'][$i];
+                            $_FILES['imagen']['size'] = $_FILES['imagenes']['size'][$i];
+                            // Cargar la configuracion de, en este caso imagen
+                            $this -> upload -> initialize ($config_imagen);
+                            // Hacemos el upload llamando a como se llama el control
+                            if ($this -> upload -> do_upload ("imagen")){
+                                // Si sube el fichero o hay algo que subir
+                                // Cuando acabe el upload devolvemos todos los datos que ha guardado
+                                $fichero_real = $this -> upload -> data();
+                                $nombre_imagen=$fichero_real["file_name"];
+                                // Añade la imagen
+                                $this -> modelo_imagenes -> add_imagen ($idactividades, $nombre_imagen, $descripcion_imagen[$i]);
+                            } else {
+                                $nombre_imagen="";
+                                // Si no hay que subir fichero
+                            }
+                        }
                     }
                 }
             }
@@ -312,8 +317,8 @@ class Actividades extends CI_Controller {
                 $fecha = $this -> input -> POST("fecha");
                 $hora = $this -> input -> POST("hora");
 
-								$documento;
-								$fichero;
+        	$documento;
+		$fichero;
 		// A recordar:
 		// Sumo Pontifice = 1
 		// Redactor = 2

@@ -148,32 +148,49 @@
                 <input type="checkbox" id="todoeldia" class="form-control" name="todoeldia" value="td">
             </div>
           </div>
-          <!-- documento -->
-          <div class="form-group">
-            <label for="documento" class="col-sm-4 control-label">Documento</label>
-            <div class="col-sm-8">
-                <input type="file" id="documento" class="form-control" name="documento" value=""><a href="javascript:add_dubida('documento');">A&ntilde;adir otro</a>
+          <!-- documentos -->
+          <div class="form-group" id="caja_documentos">
+            <!-- documento -->
+            <div class="form-group">
+              <label for="documento" class="col-sm-4 control-label">Documento</label>
+              <div class="col-sm-8">
+                  <input type="file" id="documento" class="form-control" name="documentos[]" value="">
+              </div>
+            </div>
+            <!-- descripcion documento-->
+            <div class="form-group">
+              <label for="descripcion_documento" class="col-sm-2 control-label">Descripcion documento</label>
+              <div class="col-sm-10">
+                  <textarea class="form-control" name="descripcion_documento[]" id="descripcion_documento" rows="4"><?= $actividades['descripcion_documento']?></textarea>
+              </div>
             </div>
           </div>
-          <!-- descripcion documento-->
           <div class="form-group">
-            <label for="descripcion_documento" class="col-sm-2 control-label">Descripcion documento</label>
-            <div class="col-sm-10">
-              <textarea class="form-control" name="descripcion_documento" id="descripcion_documento" rows="4"><?= $actividades['descripcion_documento']?></textarea>
+            <div class="col-sm-12">               
+               <a href="javascript:add_subida('caja_documentos','documento');">A&ntilde;adir otro</a>
             </div>
           </div>
-          <!-- imagen -->
-          <div class="form-group">
-            <label for="imagen" class="col-sm-4 control-label">Imagen</label>
-            <div class="col-sm-8">
-                <input type="file" id="imagen" class="form-control" name="imagen" value=""><a href="javascript:add_dubida('documento');">A&ntilde;adir otro</a>
+          <!-- imagenes -->
+          <div class="form-group" id="caja_imagenes">
+            <!-- imagen -->          
+            <div class="form-group">
+              <label for="imagen" class="col-sm-4 control-label">Imagen</label>
+              <div class="col-sm-8">
+              <!-- <input type="file" id="imagen" class="form-control" name="imagen" value=""><a href="javascript:add_subida('','imagen');">A&ntilde;adir otro</a> -->
+                <input type="file" id="imagen" class="form-control" name="imagenes[]" value="">
+              </div>
+            </div>
+            <!-- descripcion imagen-->
+            <div class="form-group">
+              <label for="descripcion_imagen" class="col-sm-2 control-label">Descripcion imagen</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" name="descripcion_imagen[]" id="descripcion_imagen" rows="4"><?= $actividades['descripcion_imagen']?></textarea>
+              </div>
             </div>
           </div>
-          <!-- descripcion imagen-->
           <div class="form-group">
-            <label for="descripcion_imagen" class="col-sm-2 control-label">Descripcion imagen</label>
-            <div class="col-sm-10">
-              <textarea class="form-control" name="descripcion_imagen" id="descripcion_imagen" rows="4"><?= $actividades['descripcion_imagen']?></textarea>
+            <div class="col-sm-12">               
+               <a href="javascript:add_subida('caja_imagenes','imagen');">A&ntilde;adir otro</a>
             </div>
           </div>
           <!-- el enviar o modificar-->

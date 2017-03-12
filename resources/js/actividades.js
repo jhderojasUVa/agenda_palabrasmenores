@@ -41,13 +41,22 @@ function add_subida(donde, tipo) {
   // tipo = si es imagen o documento
   if (tipo == "imagen") {
     // Esto añade otro elemento de subida
-    $("#"+donde+" #imagen").append("<input type=\"file\" id=\"imagen\" class=\"form-control\" name=\"documento\" value=\"\">");
+    // $("#"+donde+" #imagen").append("<input type=\"file\" id=\"imagen\" class=\"form-control\" name=\"documento\" value=\"\">");
+    $("#"+donde).append("<!-- imagen -->");
+    $("#"+donde).append("<div class=\"form-group\"><label for=\"imagen\" class=\"col-sm-4 control-label\">Imagen</label><div class=\"col-sm-8\"><input type=\"file\" id=\"imagen\" class=\"form-control\" name=\"imagenes[]\" value=\"\"></div></div>");
     // Esto añade otra descripcion
-    $("#"+donde+" #descripcion_imagen").append("<textarea class=\"form-control\" name=\"descripcion_imagen\" id=\"descripcion_documento\" rows=\"4\" ></textarea>");
-  } elseif (tipo == "documento") {
+    // $("#"+donde+" #descripcion_imagen").append("<textarea class=\"form-control\" name=\"descripcion_imagen\" id=\"descripcion_documento\" rows=\"4\" ></textarea>");
+    $("#"+donde).append("<!-- descripcion documento -->");
+    $("#"+donde).append("<div class=\"form-group\"><label for=\"descripcion_imagen\" class=\"col-sm-2 control-label\">Descripcion imagen</label><div class=\"col-sm-10\"><textarea class=\"form-control\" name=\"descripcion_imagen[]\" id=\"descripcion_imagen\" rows=\"4\" ></textarea></div></div>");
+  } else if (tipo == "documento") {
     // Esto añade otro elemento de subida
-    $("#"+donde+" #documento").append("<input type=\"file\" id=\"documento\" class=\"form-control\" name=\"documento\" value=\"\">");
+    // $("#"+donde+" #documento").append("<input type=\"file\" id=\"documento\" class=\"form-control\" name=\"documento\" value=\"\">");
+    $("#"+donde).append("<!-- documento -->");
+    $("#"+donde).append("<div class=\"form-group\"><label for=\"documento\" class=\"col-sm-4 control-label\">Documento</label><div class=\"col-sm-8\"><input type=\"file\" id=\"documento\" class=\"form-control\" name=\"documentos[]\" value=\"\"></div></div>");
     // Esto añade otra descripcion
-    $("#"+donde+" #descripcion_documento").append("<textarea class=\"form-control\" name=\"descripcion_documento\" id=\"descripcion_documento\" rows=\"4\" ></textarea>");
+    // $("#"+donde+" #descripcion_documento").append("<textarea class=\"form-control\" name=\"descripcion_documento\" id=\"descripcion_documento\" rows=\"4\" ></textarea>");
+    // Esto añade otro elemento de subida
+    $("#"+donde).append("<!-- descripcion documento -->");
+    $("#"+donde).append("<div class=\"form-group\"><label for=\"descripcion_documento\" class=\"col-sm-2 control-label\">Descripcion documento</label><div class=\"col-sm-10\"><textarea class=\"form-control\" name=\"descripcion_documento[]\" id=\"descripcion_documento\" rows=\"4\" ></textarea></div></div>");
   }
 }
