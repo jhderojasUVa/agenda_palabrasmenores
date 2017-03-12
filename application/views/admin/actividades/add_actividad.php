@@ -165,6 +165,7 @@
               </div>
             </div>
           </div>
+<!--ojo ?? mismo id -->
           <div class="form-group">
             <div class="col-sm-12">               
                <a href="javascript:add_subida('caja_documentos','documento');">A&ntilde;adir otro</a>
@@ -188,6 +189,7 @@
               </div>
             </div>
           </div>
+<!--ojo ?? mismo id -->
           <div class="form-group">
             <div class="col-sm-12">               
                <a href="javascript:add_subida('caja_imagenes','imagen');">A&ntilde;adir otro</a>
