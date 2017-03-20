@@ -620,14 +620,20 @@ usuarios
     idacl int(11) NOT NULL COMMENT 'Identificador de la ACL: 0-Disabled, 1-Super Administrador, 2-Redactor, 3-Editor',
     PRIMARY KEY (`login`)
 
-4. Test/Pruebas
-===============
+4. Test/Pruebas/Instalacion
+===========================
 
 4.1. Estrategias de las pruebas
 ===============================
 
 4.2. Resultados
 ===============
+
+4.3. Instalacion
+================
+Clonar el git en un directorio (se incluye el codeigniter) y volcar en la base de datos el fichero .sql que se encuentra en la carpeta SQL.
+
+Hay que crear, ademas la capeta uploads para los ficheros y darla permisos de escritura para el servicio web,
 
 5. Funcionacionamiento - Manual de Uso
 ======================================
