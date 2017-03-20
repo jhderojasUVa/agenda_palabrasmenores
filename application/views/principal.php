@@ -32,7 +32,7 @@
         <div class="actividades">
           <?php if ($actividad_mes) {
             foreach ($actividad_mes as $row) {?>
-            <?php echo $row -> fecha?> - <a href="<?php base_url()?>/principal/actividad?id=<?php echo $row -> idactividades?>" role="link"><?php echo $row -> actividad?></a>
+            <em><?php echo str_replace('-', '/', $row -> fecha )?></em> - <a href="<?php base_url()?>/principal/actividad?id=<?php echo $row -> idactividades?>" role="link"><?php echo $row -> actividad?></a> (<?php echo $row -> lugar?>)
           <?php }
         } else {?>
           <div class="alert alert-danger">

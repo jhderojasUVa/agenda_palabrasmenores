@@ -158,7 +158,7 @@ class Modelo_actividades extends CI_Model {
 
     public function mostrar_desde_hasta($fecha_inicio, $fecha_fin) {
       // Devuelve las actividades desde la fecha de inicio hasta la fecha de fin
-      $sql = "SELECT idactividades, actividad, fecha FROM actividades WHERE fecha>=".$fecha_inicio." AND fecha<".$fecha_fin." ORDER BY FECHA";
+      $sql = "SELECT idactividades, actividad, lugar, fecha FROM actividades WHERE fecha>='".$fecha_inicio."' AND fecha<'".$fecha_fin."' ORDER BY FECHA";
       $resultado = $this -> db -> query($sql);
       return $resultado -> result();
     }
