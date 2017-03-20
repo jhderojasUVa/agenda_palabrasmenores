@@ -14,19 +14,21 @@ class Principal extends CI_Controller {
 	public function index() {
 		// Controlador principal de entrada a la web
 
-		// Cargamos los datos de la base de datos
-		// ?Cuantos dias tiene este mes?
-		$dias_del_mes = $this -> libreria_fechas -> dias_del_mes(date("m"));
-		// Metemos en actividades las actividades del mes
-		// Esto nos vale para pintar el calendario de este mes entero en bonito
-		// Hay que preguntar si estamos a dia 15, en el calendario van a aparecer los dias pasados o no
-		// Depende de como, esto hay que tocarlo
-		foreach ($dia as $dias_del_mes) {
-			$datos["actividades"] = array_push($this -> modelo_actividades -> mostrar_actividad_dia($dias));
+		// Sacamos los eventos del mes en marcha
+		$mes_actual = date('m');
+		$ano_actual = date('Y');
+		$ano_siguiente = date('Y')+1;
+		$mes_siguiente = date('m')+1;
+
+		if ($mes_actual == 12) {
+			$ano_siguiente = $ano_actual+1;
+			$mes_siguiente = 1;
+		} else {
+			$ano_siguiente = $ano_actual;
+			$mes_siguiente = $mes_siguiente;
 		}
 
-		// Sacamos las actividades de 30 dias en adelante
-		$datos["actividades_30_dias"] = $this -> modelo_actividades -> mostrar_desde_hasta(date("YYYY-m-dd"), mktime(0, 0, 0, date("m"), date("d")+30, date("Y")));
+		$datos['actividad_mes'] = $this -> modelo_actividades -> mostrar_desde_hasta($ano_actual.'-'.$mes_actual.'-01', $ano_siguiente.'-'.$mes_siguiente.-'01');
 
 		/* Llamamos a una vista llamada principal */
 		$this -> load -> view('principal', $datos);

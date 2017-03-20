@@ -140,16 +140,16 @@ class Modelo_actividades extends CI_Model {
             return $resultado -> result_array(); // Obtener el array
         } else return array();
     }
-    
+
     public function publicar_actividad($idactividades, $publicada) {
         // Funcion que publica o despublica la actividad
         // $idactividades --> ID de la actividad que se quiere cambiar el valor de publicada
         // $publicada     --> 0 - Si despublica, 1 - si publica
         $sql = "UPDATE actividades SET publicada='".$publicada."'WHERE idactividades='".$idactividades."'";
-    	$resultado = $this -> db -> query($sql);
+    	  $resultado = $this -> db -> query($sql);
         return true;
     }
-    
+
     public function mostrar_actividad_dia($fecha, $que_mostramos) {
       // Devuelve la actividad y los datos de la actividad
       // Si $que_mostramos = 0 (lo basico)
@@ -158,6 +158,9 @@ class Modelo_actividades extends CI_Model {
 
     public function mostrar_desde_hasta($fecha_inicio, $fecha_fin) {
       // Devuelve las actividades desde la fecha de inicio hasta la fecha de fin
+      $sql = "SELECT idactividades, actividad, fecha FROM actividades WHERE fecha>=".$fecha_inicio." AND fecha<".$fecha_fin." ORDER BY FECHA";
+      $resultado = $this -> db -> query($sql);
+      return $resultado -> result();
     }
 
   }

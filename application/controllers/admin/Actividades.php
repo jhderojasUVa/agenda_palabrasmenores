@@ -55,43 +55,15 @@ class Actividades extends CI_Controller {
                 $descripcion_documento = $this -> input -> POST("descripcion_documento");
                 $descripcion_imagen = $this -> input -> POST("descripcion_imagen");
                 // A recordar:
-		// Sumo Pontifice = 1
-		// Redactor = 2
-		// Editor = 3
-		// Disabled = 0
+								// Sumo Pontifice = 1
+								// Redactor = 2
+								// Editor = 3
+								// Disabled = 0
 
-		// Subida de ficheros
-		// Se hace al final
-		// Componemos la ruta
+								// Subida de ficheros
+								// Se hace al final
+								// Componemos la ruta
 
-/* OJO
-		$config_documento["upload_path"] += $ano."/".$mes."/";
-
-		// Comprobamos la ruta
-		$ruta = existe_ruta($config_documento["upload_path"]);
-		if ($ruta == true){
-			// Se ha creado la ruta
-		} else {
-			// Error o la ruta existe
-		}
-		// Cargar la configuracion de, en este caso documento
-		$this -> upload -> initialize ($config_documento);
-		// Hacemos el upload llamando a como se llama el control
-		if ($this -> upload -> do_upload("documento")){
-				// Si sube el fichero o hay algo que subir
-
-				// Cuando acabe el upload devolvemos todos los datos que ha guardado
-				$fichero_real = $this -> upload -> data(); // [client_name] <-- es el nombre como lo guarda
-		} else {
-			// Si no hay que subir fichero
-		}
-
-		// Poner la fecha "derecha"
-		$fecha = make_date($fecha, "Y-m-d");
-		$fecha_trozos = split($fecha,"-");
-		$ano = $feha_trozos[0];
-		$mes = $feha_trozos[1];
-*/
 		if ($acl != 1 && $acl != 2) {
                     $publicada = 0;
 		} else {
@@ -124,24 +96,8 @@ class Actividades extends CI_Controller {
                     $num_error ++;
                 }
                 if ($fallo == 0) {
-// ?? ESTO
+										// ?? ESTO
                    $fecha_grabar = $this -> fecha_formateada ($fecha);
-
-/*OJO ??
-//                  $this->load->helper('date'); / está en autoload.php
-                    $fecha_grabar = nice_date($fecha, "y-m-d");
-                    print $fecha_grabar;
-/* resultados de nice_date:
- 21/02/2017     Invalid Date lo graba con 0000-00-00
- 2017/02/21     17-02-21 lo graba en la base de datos como 2017-02-21
- 21-02-2017     70-01-01 lo graba en la base de datos como 1970-01-01
- 2017-02-21     17-02-21 lo graba en la base de datos como 2017-02-21
- en uploaps lo graba como año 17
- ??? para que si antes lo tendría que cambiar
- */
-/*OTRA
-                    $fecha = make_date($fecha, "Y-m-d");
-*/
                     // Obtenemos la fecha para grabar
                     $fechahora = $this ->fecha_grabar($fecha_grabar, $hora);
                     // Si se ha enviado llamamos al modelo y añadimos la actividad
@@ -153,7 +109,7 @@ class Actividades extends CI_Controller {
                     // Hacemos el upload de los documentos
                     $num_ficheros = count($_FILES['documentos']['name']);
                     if ($num_ficheros > 0) {
-// ? poner en otro sitio
+												// ? poner en otro sitio
                         $config_documento["allowed_types"] = "pdf|txt";
                         $config_documento["upload_path"] = "./uploads/documentos/";
                         $config_documento["upload_path"] .= $ano."/".$mes;
@@ -171,7 +127,7 @@ class Actividades extends CI_Controller {
                             $_FILES['documento']['tmp_name'] = $_FILES['documentos']['tmp_name'][$i];
                             $_FILES['documento']['error'] = $_FILES['documentos']['error'][$i];
                             $_FILES['documento']['size'] = $_FILES['documentos']['size'][$i];
-                            // Cargar la configuracion de, en este caso documento 
+                            // Cargar la configuracion de, en este caso documento
                             $this -> upload -> initialize ($config_documento);
                             // Hacemos el upload llamando a como se llama el control
                             if ($this -> upload -> do_upload ('documento')){
@@ -203,7 +159,7 @@ class Actividades extends CI_Controller {
                             // Es por si acaso, que nunca se sabe
                         }
                         // Ciclo para cada imagen
-                        for ($i=0; $i<$num_ficheros; $i++){  
+                        for ($i=0; $i<$num_ficheros; $i++){
                             $_FILES['imagen']['name'] = $_FILES['imagenes']['name'][$i];
                             $_FILES['imagen']['type'] = $_FILES['imagenes']['type'][$i];
                             $_FILES['imagen']['tmp_name'] = $_FILES['imagenes']['tmp_name'][$i];
@@ -519,8 +475,8 @@ class Actividades extends CI_Controller {
             }
             // Conseguimos los datos por el modelo para enviarlos a la vista principal
             // Actividades de usuario por fecha descencente
-// ?? En principio lo paso a la vista principal de actividades
-// ?? Pero puede venir de buscar_actividad
+						// ?? En principio lo paso a la vista principal de actividades
+						// ?? Pero puede venir de buscar_actividad
             $actividades = $this -> modelo_actividades -> actividad_usuario_fecha($idusuario);
             $pa_la_vista['actividades'] = $actividades;
             $this -> load -> view ("admin/header");
@@ -547,32 +503,24 @@ class Actividades extends CI_Controller {
         }
     }
 
-/*/* es como fecha_grabar
-    private function fecha_completa($diamesano, $hora) {
-	// Funcion que devuelve la fecha completa
-
-	return $diamesano." ".$hora;
-    }
-*/
     private function fecha_grabar($anomesdia, $hora) {
-	// Funcion que devuelve la fecha completa
-
-	return $anomesdia." ".$hora;
+			// Funcion que devuelve la fecha completa
+			return $anomesdia." ".$hora;
     }
 
     private function devuelve_fecha($fecha_hora) {
-	// Funcion que devuelve la fecha
+			// Funcion que devuelve la fecha
 
-        $fecha = explode(" ", $fecha_hora);
-	return $fecha[0];
+			$fecha = explode(" ", $fecha_hora);
+			return $fecha[0];
     }
 
-    private function devuelve_hora($fecha_hora) {
-	// Funcion que devuelve la hora
+		private function devuelve_hora($fecha_hora) {
+		// Funcion que devuelve la hora
 
-        $fecha = explode(" ", $fecha_hora);
-	return $fecha[1];
-    }
+		    $fecha = explode(" ", $fecha_hora);
+				return $fecha[1];
+		}
 
     private function fecha_formateada($fecha) {
         $fecha_datos = explode ("/",$fecha);
@@ -595,8 +543,8 @@ class Actividades extends CI_Controller {
     }
 
 
-//    private function existe_ruta($ruta, $mes, $ano, $quees) {
-     private function existe_ruta($ruta) {
+
+  private function existe_ruta($ruta) {
 	// Funcion que revisa si existe el Directorio
 	// $ruta = ruta completa
 	if (!is_dir($ruta)) {

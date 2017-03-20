@@ -1,1 +1,47 @@
 /* Fichero de estilos CSS */
+
+body {
+  margin-top: 5px;
+  background-color: #ccc;
+}
+
+.container {
+  background-color: white;
+  border: 2px solid #eee;
+  box-shadow: 1px 1px 10px #222;
+}
+
+h1.titulo {
+  border-bottom: 1px dotted #005d8c;
+  color: #4780ad;
+}
+
+h2.titulo {
+  background-color: #e5134b;
+  color: white;
+}
+
+.calendario table {
+  width: 100%;
+  font-size: 16px;
+}
+
+.calendario table th {
+  font-size: 25px;
+}
+
+.calendario table td {
+  border: 1px solid #eee;
+  padding: 10px 5px;
+}
+
+.calendario table td strong {
+  color: red;
+}
+
+.footer {
+  margin: 10px;
+  padding: 5px;
+  font-size: 11px;
+  border: 1px solid #eee;
+}
