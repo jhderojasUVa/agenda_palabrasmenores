@@ -35,8 +35,9 @@
             <?php echo $row -> fecha?> - <a href="<?php base_url()?>/principal/actividad?id=<?php echo $row -> idactividades?>" role="link"><?php echo $row -> actividad?></a>
           <?php }
         } else {?>
-          <h2 class="titulo">Lo sentimos</h2>
-          <p>No tenemos actividades para este mes</p>
+          <div class="alert alert-danger">
+            <p><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> <strong>Lo sentimos</strong>: No tenemos actividades para este mes</p>
+          </div>
         <?php } ?>
         </div>
       </div>
