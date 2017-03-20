@@ -2,12 +2,12 @@
 
 body {
   margin-top: 5px;
-  background-color: #ccc;
+  background-color: #f0f0f0;
 }
 
 .container {
   background-color: white;
-  border: 2px solid #eee;
+  border: 2px solid #E4E4E4;
   box-shadow: 1px 1px 10px #222;
 }
 
@@ -19,6 +19,10 @@ h1.titulo {
 h2.titulo {
   background-color: #e5134b;
   color: white;
+}
+
+h3.text-center.titulo {
+  color: #005d8c;
 }
 
 .calendario table {

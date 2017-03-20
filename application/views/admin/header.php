@@ -56,12 +56,12 @@
     <!-- cabecera -->
     <header>
       <!-- contenedor -->
-      <div class="container-fluid">
+      <div class="container-fluid" style="margin-bottom: 20px;">
         <!-- fila -->
         <div class="row">
           <!-- celda -->
           <div class="col-md-12">
-            <h1 class="text-center">Cabecera</h1>
+            <center><img src="<?php echo base_url()?>resources/img/hero.jpg" alt="Palabras menores" /></center>
           </div>
         </div>
       </div>
