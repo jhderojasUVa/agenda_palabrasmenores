@@ -10,22 +10,22 @@ class Modelo_imagenes extends CI_Model {
 		$this -> load -> database();
     }
 
-    public function add_imagen ($idactividad, $rutaimagen, $descripcion) {
+    public function add_imagen ($idactividad, $nombreimagen, $descripcion) {
         // Funcion para añadir una imagen a la actividad
         // Aqui hay que poner las variables que se le pasan y que es cada una
         // Recuerda, en el modelo, comprobar que los datos que te meten
         // en los parametros estan correctos, por seguridad
         // $idactividad --> ID de la actividad a la que pertenece la imagen
-        // $rutaimagen  --> Ruta donde esta la imagen
+        // $nombreimagen  --> Nombre de la imagen
         // $descripcion --> Descripcion de la imagen
 
       	// la imagen no se añade aqui, sino que lo hace el controlador
       	// Para mas informacion https://www.codeigniter.com/userguide3/libraries/file_uploading.html
 
-        $sql = "INSERT INTO imagenes (idactividad, rutaimagen, descripcion) VALUES ('" . $idactividad . "', '" . $rutaimagen . "', '" . $descripcion . "')";
+        $sql = "INSERT INTO imagenes (idactividad, nombreimagen, descripcion) VALUES ('" . $idactividad . "', '" . $nombreimagen . "', '" . $descripcion . "')";
         $resultado = $this -> db -> query($sql);
         // Recuperamos el ID de la imagen
-        $sql="SELECT idimagenes FROM imagenes WHERE idactividad='".$idactividad."' AND rutaimagen='".$rutaimagen."'";
+        $sql="SELECT idimagenes FROM imagenes WHERE idactividad='".$idactividad."' AND nombreimagen='".$nombreimagen."'";
       	$resultado = $this -> db -> query($sql);
       	foreach ($resultado->result() as $row) {
                   $idimagenes = $row -> idimagenes;
@@ -33,17 +33,17 @@ class Modelo_imagenes extends CI_Model {
       	return $idimagenes;
     }
 
-    public function update_imagen ($idimagenes, $idactividad, $rutaimagen, $descripcion) {
+    public function update_imagen ($idimagenes, $idactividad, $nombreimagen, $descripcion) {
         // Funcion para modificar una imagen
         // $idimagenes  --> Identificador de la imagen que se va a actualizar
         // $idactividad --> ID de la actividad a la que pertenece la imagen
-        // $rutaimagen  --> Ruta donde esta la imagen
+        // $nombreimagen  --> Nombre de la imagen
         // $descripcion --> Descripcion de la imagen
 
     	// la imagen no se actualiza aqui, sino que lo hace el controlador
     	// Para mas informacion https://www.codeigniter.com/userguide3/libraries/file_uploading.html
 
-        $sql = "UPDATE imagenes SET idactividad='" . $idactividad . "', rutaimagen='". $rutaimagen."', descripcion='". $descripcion."' WHERE idimagenes='" . $idimagenes."'";
+        $sql = "UPDATE imagenes SET idactividad='" . $idactividad . "', nombreimagen='". $nombreimagen."', descripcion='". $descripcion."' WHERE idimagenes='" . $idimagenes."'";
         $resultado = $this -> db -> query($sql);
     }
 

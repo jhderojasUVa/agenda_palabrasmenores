@@ -108,7 +108,8 @@ class Actividades extends CI_Controller {
                     $mes = $this -> devuelve_mes ($fecha_grabar);
                     // Hacemos el upload de los documentos
                     $num_ficheros = count($_FILES['documentos']['name']);
-                    if ($num_ficheros > 0) {
+                    // Antes funcionaba poniendo solo $num_ficheros>0
+                    if ($num_ficheros > 0 AND $_FILES['documentos']['name'][0]){
 												// ? poner en otro sitio
                         $config_documento["allowed_types"] = "pdf|txt";
                         $config_documento["upload_path"] = "./uploads/documentos/";
@@ -145,7 +146,8 @@ class Actividades extends CI_Controller {
                     }
                     // Hacemos el upload de las imagenes
                     $num_ficheros = count($_FILES['imagenes']['name']);
-                    if ($num_ficheros > 0) {
+                    // Antes funcionaba poniendo solo $num_ficheros>0
+                    if ($num_ficheros > 0 AND $_FILES['imagenes']['name'][0]!="") {
                         $config_imagen["allowed_types"] = "gif|jpg|png";
                         $config_imagen["upload_path"] = "./uploads/imagenes/";
                         $config_imagen["upload_path"] .= $ano."/".$mes;
