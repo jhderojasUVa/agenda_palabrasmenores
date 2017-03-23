@@ -248,18 +248,18 @@ Modelo_barrios. Métodos:
 Modelo_documentos. Métodos:
 
         Añadir un documento a la actividad
-        public function add_documento ($idactividad, $rutadocumento, $descripcion)
+        public function add_documento ($idactividad, $nombredocumento, $descripcion)
             Parámetros entrada: 
             $idactividad   --> ID de la actividad a la que pertenece el documento
-            $rutadocumento --> Ruta donde esta el documento
+            $nombredocumento --> Nombre del documento
             $descripcion   --> Descripcion del documento
 
         Actualizar un documento de una actividad
-        public function update_documento ($iddocumentos, $idactividad, $rutadocumento, $descripcion)
+        public function update_documento ($iddocumentos, $idactividad, $nombredocumento, $descripcion)
             Parámetros entrada:
             $iddocumentos --> Identificador del documento que se va a actualizar
             $idactividad  --> ID de la actividad a la que pertenece el documento
-            $rutaimagen   --> Ruta donde esta el documento
+            $nombredocumento --> Nombre del documento
             $descripcion  --> Descripcion del documento
 
         Borrar un documento de una actividad
@@ -270,18 +270,18 @@ Modelo_documentos. Métodos:
 Modelo_imagenes. Métodos:
 
         Añadir una imagen a una actividad      
-        public function add_imagen ($idactividad, $rutaimagen, $descripcion)
+        public function add_imagen ($idactividad, $nombreimagen, $descripcion)
             Parámetros entrada:
             $idactividad --> ID de la actividad a la que pertenece la imagen
-            $rutaimagen  --> Ruta donde esta la imagen
+            $nombreimagen  --> Nombre de la imagen
             $descripcion --> Descripcion de la imagen
 
         Actualizar una imagen de una actividad
-        public function update_imagen ($idimagenes, $idactividad, $rutaimagen, $descripcion)
+        public function update_imagen ($idimagenes, $idactividad, $nombreimagen, $descripcion)
             Parámetros entrada:
             $idimagenes  --> Identificador de la imagen que se va a actualizar
             $idactividad --> ID de la actividad a la que pertenece la imagen
-            $rutaimagen  --> Ruta donde esta la imagen
+            $nombreimagen  --> Nombre de la imagen
             $descripcion --> Descripcion de la imagen
 
         Borrar una imagen de una actividad
@@ -582,7 +582,7 @@ documentos
     campos:
     iddocumentos: int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del documento, UNICO',
     idactividad; int(11) NOT NULL COMMENT 'ID de la actividad a la que pertenece el documento',
-    rutadocumento: varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Ruta donde esta el documento ',
+    nombredocumento: varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre del documento ',
     descripcion: varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Descripcion del documento',
     PRIMARY KEY (`iddocumentos`)
 
@@ -594,7 +594,7 @@ imagenes
     campos:    
     idimagenes: int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la imagen, UNICO',
     idactividad: int(11) NOT NULL COMMENT 'ID de la actividad a la que pertenece',
-    rutaimagen: varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Ruta donde esta la imagen',
+    nombreimagen: varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre de la imagen',
     descripcion: varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Descripcion de la imagen',
     PRIMARY KEY (`idimagenes`)
 
