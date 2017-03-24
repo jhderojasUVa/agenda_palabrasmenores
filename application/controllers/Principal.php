@@ -17,8 +17,10 @@ class Principal extends CI_Controller {
 		// Sacamos los eventos del mes en marcha
 		$mes_actual = date('m');
 		$ano_actual = date('Y');
+                $dia_actual = date('d');
 		$ano_siguiente = date('Y')+1;
 		$mes_siguiente = date('m')+1;
+                $dia_siguiente = date('d')-1;
 
 		if ($mes_actual == 12) {
 			$ano_siguiente = $ano_actual+1;
@@ -27,8 +29,18 @@ class Principal extends CI_Controller {
 			$ano_siguiente = $ano_actual;
 			$mes_siguiente = $mes_siguiente;
 		}
-
-		$datos['actividad_mes'] = $this -> modelo_actividades -> mostrar_desde_hasta($ano_actual.'-'.$mes_actual.'-01', $ano_siguiente.'-'.$mes_siguiente.-'01');
+                // Actividades del mes actual
+                $actividad_mes_actual = $this -> modelo_actividades -> mostrar_desde_hasta($ano_actual.'-'.$mes_actual.'-01', $ano_siguiente.'-'.$mes_siguiente.-'01');
+                $donde = 'principal';
+                // Array con los dias del mes actual que tiene eventos
+                $datos['dias_eventos']=array();
+                if ($actividad_mes_actual) {
+                    foreach ($actividad_mes_actual as $row) {
+                        $dia = $this ->devuelve_dia($row -> fecha);
+                        $datos['dias_eventos'][$dia] = $donde;
+                    }
+                }
+                $datos['actividad_mes'] = $this -> modelo_actividades -> mostrar_desde_hasta($ano_actual.'-'.$mes_actual.'-'.$dia_actual, $ano_siguiente.'-'.$mes_siguiente.'-'.$dia_siguiente);
 
 		/* Llamamos a una vista llamada principal */
 		$this -> load -> view('principal', $datos);
@@ -46,6 +58,14 @@ class Principal extends CI_Controller {
 		// Llaamos a la vista
 		$this -> load -> view("actividad", $datos);
 	}
+        
+        private function devuelve_dia($fecha_hora) {
+            $fec = explode (" ",$fecha_hora);
+            $fecha_datos = explode ("-",$fec[0]);
+            // lo paso a entero para que de 01 a 09 pase de 1 a 9
+            // si paso 01, no funciona el array que se pasa al calendario
+            return (int)$fecha_datos[2];
+        }
 }
 
 

@@ -25,14 +25,14 @@
         <!-- calendario -->
         <h1 class="titulo">Calendario</h1>
         <div class="calendario">
-          <?php echo $this -> calendar -> generate(date('Y'), date('m'));?>
+          <?php echo $this -> calendar -> generate(date('Y'), date('m'), $dias_eventos);?>
         </div>
         <!-- eventos -->
         <h1 class="titulo">Actividades de dentro de 30 días</h1>
         <div class="actividades">
           <?php if ($actividad_mes) {
             foreach ($actividad_mes as $row) {?>
-            <em><?php echo str_replace('-', '/', $row -> fecha)?></em> - <a href="<?php echo base_url()?>principal/actividad?id=<?php echo $row -> idactividades?>" role="link"><?php echo $row -> actividad?></a> (<?php echo $row -> lugar?>)
+            <p><em><?php echo str_replace('-', '/', $row -> fecha)?></em> - <a href="<?php echo base_url()?>principal/actividad?id=<?php echo $row -> idactividades?>" role="link"><?php echo $row -> actividad?></a> (<?php echo $row -> lugar?>)</p>
           <?php }
         } else {?>
           <div class="alert alert-danger">
