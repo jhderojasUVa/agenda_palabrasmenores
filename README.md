@@ -635,6 +635,12 @@ Clonar el git en un directorio (se incluye el codeigniter) y volcar en la base d
 
 Hay que crear, ademas la capeta uploads para los ficheros y darla permisos de escritura para el servicio web,
 
+Poner un usuario con las siguientes características:
+    login:      administrador   --> Por ejemplo
+    password:   81dc9bdb52d04dc20036dbd8313ed055 --> hash(md5) de la contraseña 1234
+    nombre:     Super Administrador --> Por ejemplo
+    idacl:      1   --> Corresponde al Super Administrador que tiene todos los derechos.
+
 5. Funcionacionamiento - Manual de Uso
 ======================================
 
