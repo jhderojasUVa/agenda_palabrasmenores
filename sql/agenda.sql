@@ -37,7 +37,7 @@ CREATE TABLE `actividades` (
   `usuario` varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'login del usuario',
   `publicada` tinyint(1) DEFAULT '0' COMMENT 'Si esta publicada o no la actividad (1- Publicada,  0 - No publicada)',
   PRIMARY KEY (`idactividades`)
-) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=385 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,7 +51,7 @@ CREATE TABLE `barrios` (
   `idbarrios` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del barrio, UNICO',
   `nombre` varchar(45) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre del barrio',
   PRIMARY KEY (`idbarrios`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=115 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,10 +64,10 @@ DROP TABLE IF EXISTS `documentos`;
 CREATE TABLE `documentos` (
   `iddocumentos` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador del documento, UNICO',
   `idactividad` int(11) NOT NULL COMMENT 'ID de la actividad a la que pertenece el documento',
-  `rutadocumento` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Ruta donde esta el documento ',
+  `nombredocumento` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre del documento ',
   `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Descripcion del documento',
   PRIMARY KEY (`iddocumentos`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,10 +80,10 @@ DROP TABLE IF EXISTS `imagenes`;
 CREATE TABLE `imagenes` (
   `idimagenes` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la imagen, UNICO',
   `idactividad` int(11) NOT NULL COMMENT 'ID de la actividad a la que pertenece',
-  `rutaimagen` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Ruta donde esta la imagen',
+  `nombreimagen` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre de la imagen',
   `descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'Descripcion de la imagen',
   PRIMARY KEY (`idimagenes`)
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,7 +97,7 @@ CREATE TABLE `secciones` (
   `idsecciones` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Identificador de la seccion, UNICO',
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL COMMENT 'Nombre de la seccion',
   PRIMARY KEY (`idsecciones`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -115,14 +115,6 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`login`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping events for database 'agenda'
---
-
---
--- Dumping routines for database 'agenda'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -133,4 +125,4 @@ CREATE TABLE `usuarios` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-24  7:23:09
+-- Dump completed on 2017-03-24  6:26:35
