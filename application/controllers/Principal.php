@@ -20,7 +20,6 @@ class Principal extends CI_Controller {
                 $dia_actual = date('d');
 		$ano_siguiente = date('Y')+1;
 		$mes_siguiente = date('m')+1;
-                $dia_siguiente = date('d')-1;
 
 		if ($mes_actual == 12) {
 			$ano_siguiente = $ano_actual+1;
@@ -31,8 +30,8 @@ class Principal extends CI_Controller {
 		}
                 // Actividades del mes actual
                 $actividad_mes_actual = $this -> modelo_actividades -> mostrar_desde_hasta($ano_actual.'-'.$mes_actual.'-01', $ano_siguiente.'-'.$mes_siguiente.-'01');
-                $donde = 'principal';
                 // Array con los dias del mes actual que tiene eventos
+                $donde = 'principal';
                 $datos['dias_eventos']=array();
                 if ($actividad_mes_actual) {
                     foreach ($actividad_mes_actual as $row) {
@@ -40,7 +39,14 @@ class Principal extends CI_Controller {
                         $datos['dias_eventos'][$dia] = $donde;
                     }
                 }
-                $datos['actividad_mes'] = $this -> modelo_actividades -> mostrar_desde_hasta($ano_actual.'-'.$mes_actual.'-'.$dia_actual, $ano_siguiente.'-'.$mes_siguiente.'-'.$dia_siguiente);
+                // Sacamos las actividades de dentro de 30 días
+                $fecha_hoy = date('Y-m-d');
+                $fecha_suma = strtotime('+30 day',  strtotime($fecha_hoy));
+                $ano_suma = date('Y',$fecha_suma);
+                $mes_suma = date('m',$fecha_suma);
+                $dia_suma = date('d',$fecha_suma);
+                // Actividades de dentro de 30 días               
+                $datos['actividad_mes'] = $this -> modelo_actividades -> mostrar_desde_hasta($ano_actual.'-'.$mes_actual.'-'.$dia_actual, $ano_suma.'-'.$mes_suma.'-'.$dia_suma);
 
 		/* Llamamos a una vista llamada principal */
 		$this -> load -> view('principal', $datos);
