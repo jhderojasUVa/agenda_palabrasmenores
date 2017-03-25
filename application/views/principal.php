@@ -28,7 +28,11 @@
           <?php echo $this -> calendar -> generate(date('Y'), date('m'), $dias_eventos);?>
         </div>
         <!-- eventos -->
-        <h1 class="titulo">Actividades de dentro de 30 días</h1>
+        <?php if ($fecha_titulo) { ?>
+          <h1 class="titulo">Actividades del día <?php echo $fecha_titulo ?> </h1>
+        <? } else { ?>
+          <h1 class="titulo">Actividades de dentro de 30 días</h1>
+        <?php } ?>
         <div class="actividades">
           <?php if ($actividad_mes) {
             foreach ($actividad_mes as $row) {?>

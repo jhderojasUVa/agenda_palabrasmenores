@@ -162,6 +162,12 @@ class Modelo_actividades extends CI_Model {
       $resultado = $this -> db -> query($sql);
       return $resultado -> result();
     }
-
+    
+    public function mostrar_actividades_fecha($fecha) {
+      // Devuelve las actividades de una fecha determinada
+      $sql = "SELECT idactividades, actividad, lugar, fecha FROM actividades WHERE fecha='".$fecha."' ORDER BY FECHA";
+      $resultado = $this -> db -> query($sql);
+      return $resultado -> result();
+    }
   }
 ?>
