@@ -23,19 +23,20 @@
     <div class="row" style="margin-bottom:20px;">
       <div class="col-md-10">
         <!-- titulo -->
-        <h1 class="titulo"><?php echo $actividad -> actividad ?></h1>
-        <p class="text-right"><em><?php echo str_replace('-', '/', $actividad -> fecha)?></em></p>
-        <p class="text-right"><em><?php echo $actividad -> organiza?></em></p>
-        <!-- actividad -->
-        <h1 class="titulo">Qué es</h1>
-        <p><?php echo $actividad -> descripcion ?></p>
-        <!-- extras -->
-        <!-- lugar -->
-        <h2 class="titulo">Lugar</h2>
-        <p><?php echo $actividad -> lugar ?> (<a href="http://maps.google.es/maps?f=q&source=s_q&hl=es&geocode=&q=<?php echo $actividad -> lugar ?>" target="_blank">Ver en Google Maps</a>)</p>
-        <!-- imagenes -->
-        <!-- documentos -->
-
+        <?php foreach ($actividad as $row) { ?>
+          <h1 class="titulo"><?php echo $row['idactividades']?></h1>
+          <p class="text-right"><em><?php echo str_replace('-', '/', $row['fecha'])?></em></p>
+          <p class="text-right"><em><?php echo $row['organiza' ]?></em></p>
+          <!-- actividad -->
+          <h1 class="titulo">Qué es</h1>
+          <p><?php echo $row['descripcion'] ?></p>
+          <!-- extras -->
+          <!-- lugar -->
+          <h2 class="titulo">Lugar</h2>
+          <p><?php echo $row['lugar'] ?> (<a href="http://maps.google.es/maps?f=q&source=s_q&hl=es&geocode=&q=<?php echo $row['lugar'] ?>" target="_blank">Ver en Google Maps</a>)</p>
+          <!-- imagenes -->
+          <!-- documentos -->
+        <?php } ?>
       </div>
       <div class="col-md-2">
         <h3>Agenda Palabras Menores</h3>
